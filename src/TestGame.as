@@ -1,11 +1,14 @@
 package
 {
-	import com.framework.GameContext;
+	import czc.framework.GameContext;
 	
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
 	import flash.events.Event;
+	import flash.profiler.showRedrawRegions;
+	import flash.system.Capabilities;
+
 	/**
 	 * 
 	 * @author ZhiChaoCao
@@ -26,6 +29,7 @@ package
 			stage.stageFocusRect = false;
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			stage.align = StageAlign.TOP_LEFT;
+			stage.frameRate = 60;
 			startGame();
 		}
 		
@@ -33,5 +37,6 @@ package
 		{
 			_context = new GameContext(this);
 		}
+		
 	}
 }
