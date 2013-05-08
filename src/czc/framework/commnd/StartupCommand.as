@@ -23,17 +23,16 @@ package czc.framework.commnd
 		}
 		override public function execute():void
 		{
-			instanceInjector(ViewStruct);
+			var struct : ViewStruct = instanceInjector(ViewStruct);
+			initViewStruct(struct);
 			instanceInjector(BulkLoader);
 			commandMap.mapEvent(StartupEvent.INIT_LOAD,InitLoadCommand,StartupEvent,true);
 			commandMap.mapEvent(StartupEvent.ENTER_GAME,EnterGameCommand,StartupEvent,true);
 			dispatch(new StartupEvent(StartupEvent.INIT_LOAD));
-			
-			/********************测试*****************/
-			/*
-			commandMap.mapEvent(BaseEvent.TEST_EVENT,TestCommand,BaseEvent,true);
-			dispatch(new BaseEvent(BaseEvent.TEST_EVENT));
-			*/
+		}
+		private function initViewStruct(struct:ViewStruct):void
+		{
+			struct.init(contextView)
 		}
 	}
 }

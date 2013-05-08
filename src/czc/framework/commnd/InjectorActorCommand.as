@@ -8,10 +8,11 @@ package czc.framework.commnd
 		{
 			super();
 		}
-		protected function instanceInjector(cla:Class):void
+		protected function instanceInjector(cla:Class):*
 		{
 			var obj:* = injector.instantiate(cla);
 			injector.mapValue(cla,obj);
+			return obj;
 		}
 	}
 }
