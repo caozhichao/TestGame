@@ -29,7 +29,7 @@ package game.startup
 		}
 		override public function execute():void
 		{
-			loaderManager.load(["assets/ui/mainUI.swf","assets/ui/component.swf","assets/ui/bitFaceSpace.swf","assets/ui/world_map.swf"],onAllComplete,ApplicationDomain.currentDomain);
+			loaderManager.load(["assets/ui/mainUI.swf","assets/ui/component.swf"],onAllComplete,ApplicationDomain.currentDomain);
 		}
 		
 		private function onAllComplete():void
