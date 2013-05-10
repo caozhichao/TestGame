@@ -34,7 +34,7 @@ package game.startup
 		
 		private function onAllComplete():void
 		{
-			dispatch(new StartupEvent(StartupEvent.ENTER_GAME));
+			dispatch(new StartupEvent(StartupEvent.INIT_VIEW_STRUCT));
 		}
 	}
 }

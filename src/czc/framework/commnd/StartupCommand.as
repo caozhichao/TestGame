@@ -5,11 +5,13 @@ package czc.framework.commnd
 	import czc.framework.display.ViewStruct;
 	import czc.framework.event.BaseEvent;
 	import czc.framework.manager.LoaderManager;
+	import czc.framework.manager.PopUpManager;
 	
 	import flash.display.Sprite;
 	
 	import game.startup.EnterGameCommand;
 	import game.startup.InitLoadCommand;
+	import game.startup.InitViewStructCommand;
 	import game.startup.event.StartupEvent;
 	
 	import org.robotlegs.mvcs.Command;
@@ -24,16 +26,17 @@ package czc.framework.commnd
 		}
 		override public function execute():void
 		{
-			var struct : ViewStruct = instanceInjector(ViewStruct);
-			initViewStruct(struct);
-			instanceInjector(LoaderManager);
+			initManager();
 			commandMap.mapEvent(StartupEvent.INIT_LOAD,InitLoadCommand,StartupEvent,true);
+			commandMap.mapEvent(StartupEvent.INIT_VIEW_STRUCT,InitViewStructCommand,StartupEvent,true);
 			commandMap.mapEvent(StartupEvent.ENTER_GAME,EnterGameCommand,StartupEvent,true);
 			dispatch(new StartupEvent(StartupEvent.INIT_LOAD));
 		}
-		private function initViewStruct(struct:ViewStruct):void
+		private function initManager():void
 		{
-			struct.init(contextView)
+			instanceInjector(ViewStruct);
+			instanceInjector(LoaderManager);
+			instanceInjector(PopUpManager);
 		}
 	}
 }
