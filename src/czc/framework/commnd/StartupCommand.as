@@ -4,6 +4,7 @@ package czc.framework.commnd
 	
 	import czc.framework.display.ViewStruct;
 	import czc.framework.event.BaseEvent;
+	import czc.framework.manager.LoaderManager;
 	
 	import flash.display.Sprite;
 	
@@ -25,7 +26,7 @@ package czc.framework.commnd
 		{
 			var struct : ViewStruct = instanceInjector(ViewStruct);
 			initViewStruct(struct);
-			instanceInjector(BulkLoader);
+			instanceInjector(LoaderManager);
 			commandMap.mapEvent(StartupEvent.INIT_LOAD,InitLoadCommand,StartupEvent,true);
 			commandMap.mapEvent(StartupEvent.ENTER_GAME,EnterGameCommand,StartupEvent,true);
 			dispatch(new StartupEvent(StartupEvent.INIT_LOAD));

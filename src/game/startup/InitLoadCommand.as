@@ -1,10 +1,18 @@
 package game.startup
 {
 	import br.com.stimuli.loading.BulkLoader;
+	import br.com.stimuli.loading.loadingtypes.ImageItem;
+	import br.com.stimuli.loading.loadingtypes.LoadingItem;
 	
+	import czc.framework.manager.LoaderManager;
+	
+	import flash.display.Loader;
 	import flash.events.Event;
+	import flash.events.StatusEvent;
+	import flash.net.URLRequest;
 	import flash.system.ApplicationDomain;
 	import flash.system.LoaderContext;
+	import flash.system.System;
 	import flash.utils.getDefinitionByName;
 	
 	import game.startup.event.StartupEvent;
@@ -14,22 +22,18 @@ package game.startup
 	public class InitLoadCommand extends Command
 	{
 		[Inject]
-		public var load:BulkLoader;
-		
+		public var loaderManager:LoaderManager;
 		public function InitLoadCommand()
 		{
 			super();
 		}
 		override public function execute():void
 		{
-			trace("InitLoadCommand.execute()",load);
-			load.add("assets/ui/mainUI.swf",{context:new LoaderContext(false,ApplicationDomain.currentDomain)});
-			load.addEventListener(BulkLoader.COMPLETE, onAllItemsLoaded);
-			load.start();
+			loaderManager.load(["assets/ui/mainUI.swf","assets/ui/component.swf","assets/ui/bitFaceSpace.swf","assets/ui/world_map.swf"],onAllComplete,ApplicationDomain.currentDomain);
 		}
-		private function onAllItemsLoaded(evt:Event):void
+		
+		private function onAllComplete():void
 		{
-			trace("InitLoadCommand.onAllItemsLoaded(evt)");
 			dispatch(new StartupEvent(StartupEvent.ENTER_GAME));
 		}
 	}
