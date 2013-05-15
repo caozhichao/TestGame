@@ -23,16 +23,18 @@ package test
 			}
 			signals.add(callback);
 			addEventListener(Event.ENTER_FRAME,onFrame);
+			/*
 			deluxeSignal = new DeluxeSignal(this,SignalEvent);
 			deluxeSignal.addOnce(callback);
 			var nativeSignal:NativeSignal = new NativeSignal(this.stage,MouseEvent.CLICK,MouseEvent);
 			nativeSignal.addOnce(callback);
+			*/
 		}
 		
 		protected function onFrame(event:Event):void
 		{
-//			signals.dispatch("a","b");
-			deluxeSignal.dispatch(new SignalEvent());
+			signals.dispatch("a","b");
+//			deluxeSignal.dispatch(new SignalEvent());
 		}
 	}
 }
