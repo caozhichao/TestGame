@@ -1,20 +1,20 @@
 package
 {
-	import czc.framework.GameContext;
-	
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
 	import flash.events.Event;
-	import flash.profiler.showRedrawRegions;
-	import flash.system.Capabilities;
+	
+	import czc.framework.GameContext;
+	
+	import test.TestTimer;
 
 	/**
 	 * 
 	 * @author ZhiChaoCao
 	 * 
 	 */	
-	public class TestGame extends Sprite
+	public class TestGame extends TestTimer
 	{
 		private var _context:GameContext;
 		

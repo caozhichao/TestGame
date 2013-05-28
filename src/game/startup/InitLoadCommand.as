@@ -1,19 +1,8 @@
 package game.startup
 {
-	import br.com.stimuli.loading.BulkLoader;
-	import br.com.stimuli.loading.loadingtypes.ImageItem;
-	import br.com.stimuli.loading.loadingtypes.LoadingItem;
+	import flash.system.ApplicationDomain;
 	
 	import czc.framework.manager.LoaderManager;
-	
-	import flash.display.Loader;
-	import flash.events.Event;
-	import flash.events.StatusEvent;
-	import flash.net.URLRequest;
-	import flash.system.ApplicationDomain;
-	import flash.system.LoaderContext;
-	import flash.system.System;
-	import flash.utils.getDefinitionByName;
 	
 	import game.startup.event.StartupEvent;
 	
