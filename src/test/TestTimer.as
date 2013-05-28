@@ -12,10 +12,18 @@ package test
 	 */
 	public class TestTimer extends Sprite
 	{
+		private var num:int;
 		public function TestTimer()
 		{
 			super();
 			TimerManager.instance.init(20);
+			TimerManager.instance.setTimeout(test,1000);
+		}
+		
+		private function test():void
+		{
+			num++;
+			trace("TestTimer.test()",num,new Date().toString());
 		}
 	}
 }
