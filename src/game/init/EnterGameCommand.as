@@ -1,4 +1,4 @@
-package game.startup
+package game.init
 {
 	import czc.framework.display.ViewStruct;
 	

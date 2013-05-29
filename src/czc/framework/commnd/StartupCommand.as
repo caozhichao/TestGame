@@ -4,11 +4,16 @@ package czc.framework.commnd
 	import czc.framework.manager.LoaderManager;
 	import czc.framework.manager.PopUpManager;
 	
-	import game.startup.EnterGameCommand;
-	import game.startup.InitLoadCommand;
-	import game.startup.InitModelCommnad;
-	import game.startup.InitViewStructCommand;
-	import game.startup.event.StartupEvent;
+	import game.init.EnterGameCommand;
+	import game.init.InitLoadCommand;
+	import game.init.InitModelCommnad;
+	import game.init.InitViewStructCommand;
+	import game.init.commond.ConnectAfterCommand;
+	import game.init.commond.ConnectBeforCommnad;
+	import game.init.commond.InitConfigCommand;
+	import game.init.commond.InitModelCommand;
+	import game.init.commond.InitServiceCommand;
+	import game.init.event.InitGameEvent;
 	
 	public class StartupCommand extends InjectorActorCommand
 	{
@@ -19,11 +24,13 @@ package czc.framework.commnd
 		override public function execute():void
 		{
 			initManager();
-			commandMap.mapEvent(StartupEvent.INIT_VIEW_STRUCT,InitViewStructCommand,StartupEvent,true);
-			commandMap.mapEvent(StartupEvent.INIT_MODEL_COMMAND,InitModelCommnad,StartupEvent,true);
-			commandMap.mapEvent(StartupEvent.INIT_LOAD,InitLoadCommand,StartupEvent,true);
-			commandMap.mapEvent(StartupEvent.ENTER_GAME,EnterGameCommand,StartupEvent,true);
-//			dispatch(new StartupEvent(StartupEvent.INIT_LOAD));
+			
+			commandMap.mapEvent(InitGameEvent.CONNECT_BEFOR,ConnectBeforCommnad,InitGameEvent,true);
+			commandMap.mapEvent(InitGameEvent.CONNECT_AFTER,ConnectAfterCommand,InitGameEvent,true);
+			commandMap.mapEvent(InitGameEvent.INIT_CONFIG,InitConfigCommand,InitGameEvent,true);
+			commandMap.mapEvent(InitGameEvent.INIT_MODEL,InitModelCommand,InitGameEvent,true);
+			commandMap.mapEvent(InitGameEvent.INIT_SERVICE,InitServiceCommand,InitGameEvent,true);
+			dispatch(new InitGameEvent(InitGameEvent.CONNECT_BEFOR));
 		}
 		private function initManager():void
 		{

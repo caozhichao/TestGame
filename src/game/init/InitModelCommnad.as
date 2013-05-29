@@ -1,7 +1,7 @@
-package game.startup
+package game.init
 {
 	import game.map.command.MapInitCommand;
-	import game.startup.event.StartupEvent;
+	import game.init.event.InitGameEvent;
 	
 	import org.robotlegs.mvcs.Command;
 	
@@ -25,9 +25,9 @@ package game.startup
 			for (var i:int = 0; i < len; i++) 
 			{
 				cla = list[i];
-				commandMap.mapEvent(StartupEvent.INIT_MODEL_COMMAND,cla,StartupEvent,true);
+				commandMap.mapEvent(InitGameEvent.INIT_MODEL_COMMAND,cla,InitGameEvent,true);
 			}
-			dispatch(new StartupEvent(StartupEvent.INIT_MODEL_COMMAND));
+			dispatch(new InitGameEvent(InitGameEvent.INIT_MODEL_COMMAND));
 		}
 	}
 }

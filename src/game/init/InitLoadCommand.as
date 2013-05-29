@@ -1,10 +1,10 @@
-package game.startup
+package game.init
 {
 	import flash.system.ApplicationDomain;
 	
 	import czc.framework.manager.LoaderManager;
 	
-	import game.startup.event.StartupEvent;
+	import game.init.event.InitGameEvent;
 	
 	import org.robotlegs.mvcs.Command;
 	
@@ -23,7 +23,7 @@ package game.startup
 		
 		private function onAllComplete():void
 		{
-			dispatch(new StartupEvent(StartupEvent.INIT_VIEW_STRUCT));
+			dispatch(new InitGameEvent(InitGameEvent.INIT_VIEW_STRUCT));
 		}
 	}
 }

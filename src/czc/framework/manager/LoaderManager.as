@@ -20,17 +20,17 @@ package czc.framework.manager
 			_loaders = [];
 		}
 		
-		public function load(urls:Array,success:Function,applicationDomain:ApplicationDomain=null,process : Function = null, faile : Function = null):void
+		public function load(urls:Array,success:Function,applicationDomain:ApplicationDomain=null,process : Function = null, faile : Function = null):BulkLoader
 		{
 			var len:int = urls.length;
 			var url:String;
 			var loader:BulkLoader = getLoader();
 			//设置log等级
-//			loader.logLevel = BulkLoader.LOG_VERBOSE;
+			loader.logLevel = BulkLoader.LOG_VERBOSE;
 			//添加事件
 			function onAllItemsLoaded(evt:Event):void
 			{
-				success();
+				success(loader);
 				_loaders.push(loader);
 				loader.removeEventListener(BulkLoader.COMPLETE, onAllItemsLoaded);
 				loader.removeEventListener(BulkProgressEvent.PROGRESS,onProgress);
@@ -59,6 +59,7 @@ package czc.framework.manager
 				loader.add(url,props);
 			}
 			loader.start();
+			return loader;
 		}
 		
 		private function getLoader():BulkLoader

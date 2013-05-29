@@ -6,15 +6,13 @@ package
 	import flash.events.Event;
 	
 	import czc.framework.GameContext;
-	
-	import test.TestTimer;
 
 	/**
 	 * 
 	 * @author ZhiChaoCao
 	 * 
 	 */	
-	public class TestGame extends TestTimer
+	public class TestGame extends Sprite
 	{
 		private var _context:GameContext;
 		
