@@ -6,13 +6,15 @@ package
 	import flash.events.Event;
 	
 	import czc.framework.GameContext;
+	
+	import test.LocalToGlobalTest;
 
 	/**
 	 * 
 	 * @author ZhiChaoCao
 	 * 
 	 */	
-	public class TestGame extends Sprite
+	public class TestGame extends LocalToGlobalTest
 	{
 		private var _context:GameContext;
 		
