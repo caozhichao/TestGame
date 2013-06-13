@@ -8,13 +8,14 @@ package
 	import czc.framework.GameContext;
 	
 	import test.LocalToGlobalTest;
+	import test.Test;
 
 	/**
 	 * 
 	 * @author ZhiChaoCao
 	 * 
 	 */	
-	public class TestGame extends LocalToGlobalTest
+	public class TestGame extends Test
 	{
 		private var _context:GameContext;
 		
