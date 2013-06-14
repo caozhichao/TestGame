@@ -2,6 +2,8 @@ package test
 {
 	import flash.display.Sprite;
 	
+	import czc.framework.utils.StringBuffer;
+	
 	
 	/**
 	 *		
@@ -14,6 +16,29 @@ package test
 		public function Test()
 		{
 			super();
+			trace(A.prototype.constructor);      // [class A]
+			trace(A.prototype.constructor == A); // true
+			var myA:A = new A();
+			trace(myA.constructor == A);         // true
+			A.prototype.a = 10;
+			trace(A.prototype.a);
+			function aaaa():void
+			{
+			}
+			A.prototype.aaaa = aaaa;
+			var myA1:A = new A();
+			trace(myA1["aaa"]);
+			
+			var buffer:StringBuffer = new StringBuffer();
+			buffer.append("a");
+			buffer.append("b");
+			trace(buffer.toString());
 		}
 	}
+}
+
+dynamic  class A
+{
+	
+	
 }

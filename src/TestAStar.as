@@ -8,13 +8,14 @@ package
 	import flash.geom.Point;
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
+	import flash.utils.getTimer;
 	
 	import net.eidiot.map.AStar;
 	
 	import test.map.MapTileModel;
 	import test.map.Tile;
 	
-	[SWF(width = 520, height = 450, frameRate = 12)]
+//	[SWF(width = 520, height = 450, frameRate = 12)]
 	
 	/**
 	 * A* 寻路测试类
@@ -34,8 +35,8 @@ package
 		private var m_AStar : AStar;
 		private var m_mapTileModel : MapTileModel;
 		
-		private var m_mapW : int = 8;
-		private var m_mapH : int = 6;
+		private var m_mapW : int = 66;
+		private var m_mapH : int = 100;
 		
 		private var m_mapX : int = 10;
 		private var m_mapY : int = 40;
@@ -46,8 +47,8 @@ package
 		private var m_outTxt : TextField;
 		
 		private var mapData:Array = [[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,1,1,1,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]];
-		private static const TILE_W:int = 50;
-		private static const TILE_H:int = 50;
+		private static const TILE_W:int = 10;
+		private static const TILE_H:int = 10;
 		//====================================
 		//	Constructor
 		//====================================
@@ -85,9 +86,9 @@ package
 				m_map[i] = new Array();
 				for (var j : int = 0; j < m_mapH; j++)
 				{
-					titleValue = mapData[i][j];
-//					isClog = Math.random() < 0.3;
-					isClog = (titleValue == 1);
+//					titleValue = mapData[i][j];
+					isClog = Math.random() < 0.3;
+//					isClog = (titleValue == 1);
 					tile = new Tile(isClog ? 0x000000 : 0xCCCCCC,TILE_W,TILE_H);
 					tile.addEventListener(MouseEvent.CLICK, clickHandle);
 					addChild(tile);
@@ -139,10 +140,11 @@ package
 		{
 			var findPiont : Point = getPoint(this.mouseX, this.mouseY);
 			var playerPoint : Point = getPoint(this.m_player.x, this.m_player.y);
+			var t:Number = getTimer();
 			this.m_path = this.m_AStar.find(playerPoint.x, playerPoint.y, findPiont.x, findPiont.y);
 			if (this.m_path != null && this.m_path.length > 0)
 			{
-				output("路径已找到，正在移动");
+				output("路径已找到，正在移动" + (getTimer() - t));
 				this.addEventListener(Event.ENTER_FRAME, enterframeHandle);
 			} else
 			{
