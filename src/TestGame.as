@@ -1,27 +1,25 @@
 package
 {
-	import flash.display.Sprite;
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
 	import flash.events.Event;
 	
 	import czc.framework.GameContext;
 	
-	import test.LocalToGlobalTest;
-	import test.Test;
+	import test.LoaderMaxTest;
 
 	/**
 	 * 
 	 * @author ZhiChaoCao
 	 * 
 	 */	
-	public class TestGame extends Test
+	public class TestGame extends LoaderMaxTest
 	{
 		private var _context:GameContext;
 		
 		public function TestGame()
 		{
-			addEventListener(Event.ADDED_TO_STAGE,addedToStage,false,0,true);
+//			addEventListener(Event.ADDED_TO_STAGE,addedToStage,false,0,true);
 		}
 		
 		protected function addedToStage(event:Event):void
