@@ -15,6 +15,7 @@ package czc.framework.manager
 		public static var instance:TimerManager = new TimerManager();
 		private var timer:Timer;
 		private var _frameRate:int;
+		//tick执行的时间间隔
 		private var _frameTime:int;
 		private var _lastTime:Number;
 		private var _t1:Number;
@@ -39,8 +40,10 @@ package czc.framework.manager
 		private function onTimer(evt:TimerEvent):void
 		{
 			var curTime:Number = getTimer();
+			//计算timer经过的时间
 			_t1 += curTime - _lastTime;
 			_lastTime = curTime;
+			//实际处理tick 会有跳帧处理
 			while (_t1 >= _frameTime) {
 				_t1 -= _frameTime;
 				tick();
@@ -52,28 +55,81 @@ package czc.framework.manager
 			var curTime:Number = getTimer();
 			var len:int = _timeQueue.length;
 			var timeVo:TimeVO;
-			for (var i:int = 0; i < len; i++) 
+			var index:int = 0;
+			while(index < len)
 			{
-				timeVo = _timeQueue[i];
+				timeVo = _timeQueue[index];
 				if(curTime - timeVo.startTime >= timeVo.delay * timeVo.index)
 				{
 					timeVo.closure();
 					timeVo.index++;
+					if(timeVo.index > timeVo.count)
+					{// timer执行的次数完成
+						_timeQueue.splice(index,1);
+						index--;
+						//重新计算len
+						len = _timeQueue.length;
+					}
 				}
+				index++;
 			}
 		}
 		
-		public function setTimeout(closure:Function, delay:Number, ... arguments):void
+		/**
+		 *  
+		 * @param closure   执行函数
+		 * @param delay     时间间隔
+		 * @param count     执行的次数  默认是1次
+		 * @param arguments 
+		 * 
+		 */		
+		public function setTimeout(closure:Function, delay:Number, count:int=1,... arguments):void
 		{
-			addTime(closure,delay,1,arguments);
+			addTime(closure,delay,count,arguments);
 		}
 		
+		/**
+		 *  
+		 * @param closure
+		 * @param delay
+		 * @param arguments
+		 * 
+		 */		
 		public function setInterval(closure:Function, delay:Number, ... arguments):void
 		{
 			addTime(closure,delay,Infinity,arguments);
 		}
 		
-		private function addTime(closure:Function, delay:Number, count:int,... arguments):void
+		/**
+		 * 清楚timer 
+		 * @param closure
+		 * 
+		 */		
+		public function clearTimer(closure:Function):void
+		{
+			var index:int = 0;
+			var len:int = _timeQueue.length;
+			var timeVo:TimeVO;
+			while(index < len)
+			{
+				timeVo = _timeQueue[index];
+				if(timeVo.closure == closure)
+				{
+					_timeQueue.splice(index,1);
+					break;
+				}
+				index++;
+			}
+		}
+		/**
+		 * 加入 _timeQueue 队列
+		 * @param closure
+		 * @param delay
+		 * @param count
+		 * @param arguments
+		 * 
+		 */		
+		private function addTime(closure:Function, delay:Number, count:Number,... arguments):void
 		{
 			var timeVO:TimeVO = new TimeVO(closure,delay,count,getTimer(),arguments);
 			_timeQueue.push(timeVO);
@@ -85,10 +141,10 @@ class TimeVO
 	public var closure:Function;
 	public var delay:Number;
 	public var args:Array;
-	public var count:int;
+	public var count:Number;
 	public var startTime:Number;
 	public var index:int = 1;
-	public function TimeVO(closure:Function, delay:Number, count:int,startTime:Number,... arguments)
+	public function TimeVO(closure:Function, delay:Number, count:Number,startTime:Number,... arguments)
 	{
 		this.closure = closure;
 		this.delay = delay;

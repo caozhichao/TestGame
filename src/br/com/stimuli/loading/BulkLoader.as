@@ -249,7 +249,7 @@ package br.com.stimuli.loading {
         public static const DEFAULT_NUM_CONNECTIONS : int = 12;
         /** @private */
         public var _numConnections : int = DEFAULT_NUM_CONNECTIONS;
-        public var maxConnectionsPerHost : int = 2;
+        public var maxConnectionsPerHost : int = 2;//2
         /** @private */
         public var _connections : Object;
         /**

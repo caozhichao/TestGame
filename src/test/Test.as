@@ -1,9 +1,22 @@
 package test
 {
+	import com.adobe.crypto.MD5;
+	
+	import flash.display.Bitmap;
+	import flash.display.BitmapData;
+	import flash.display.Loader;
 	import flash.display.Sprite;
+	import flash.events.Event;
+	import flash.events.MouseEvent;
+	import flash.net.FileReference;
+	import flash.net.URLRequest;
+	import flash.system.ApplicationDomain;
+	import flash.system.LoaderContext;
+	import flash.utils.ByteArray;
+	import flash.utils.CompressionAlgorithm;
+	import flash.utils.Dictionary;
 	
-	import czc.framework.utils.StringBuffer;
-	
+	import pet.game.panels.jobSkill.model.vo.SkillVo;
 	
 	/**
 	 *		
@@ -13,9 +26,86 @@ package test
 	 */
 	public class Test extends Sprite
 	{
+//		private var loader:URLLoader;
+		private static var dic:Dictionary = new Dictionary();
+		private var bd:BitmapData;
+		private var loader:Loader;
+		private var bm:Bitmap;
+		
+		
+		public function updateSkillVo(skillVo:Object):void
+		{
+//			var skillVo:Object;
+		}
+		
 		public function Test()
 		{
 			super();
+			
+			for(var i:int = 0; i < 10; i++)
+			{
+				var str:int;
+				if(i == 0 )
+				{
+					str = 100;
+				}
+				trace(i + "|" + str);
+			}
+//			CompressionAlgorithm.LZMA
+			
+			/*
+			function a(b:int):void
+			{
+//				rest.length
+			}
+			trace(a.length);
+			trace(a.hasOwnProperty("length"));
+			*/
+			
+			/*
+			var md5:String = MD5.hash("loginUI");
+			trace(md5);
+			*/
+			/*
+			var panel:Sprite = this;
+			loader = new Loader();
+			var domain:ApplicationDomain = new ApplicationDomain(ApplicationDomain.currentDomain);
+			var context:LoaderContext = new LoaderContext(false);
+			function onComplete(evt:Event):void
+			{
+				trace("Test.onComplete(evt)");
+				loader.unloadAndStop(true);
+			}
+			loader.contentLoaderInfo.addEventListener(Event.COMPLETE,onComplete);
+			loader.load(new URLRequest("assets/world_map.swf"),new LoaderContext(false,new ApplicationDomain(ApplicationDomain.currentDomain)));
+			function onFrame(evt:Event):void
+			{
+				for (var i:int = 0; i < 100000; i++) 
+				{
+					new Sprite();
+				}
+			}
+			addEventListener(Event.ENTER_FRAME,onFrame);
+			*/
+			/*
+			var label:Label = new Label();
+			label.text = "label";
+			label.x = 100;
+			label.y = 100;
+			addChild(label);
+			*/
+			/*
+//			Security.loadPolicyFile("http://127.0.0.1:8080/crossdomain.xml");
+			loader = new URLLoader();
+			function onComplete(evt:Event):void
+			{
+				trace(loader.data);
+			}
+			loader.addEventListener(Event.COMPLETE,onComplete);
+			var url:URLRequest = new URLRequest("http://127.0.0.1:8080/bin/gameSetting.xml");
+			loader.load(url);
+			*/
+			
 			/*
 			trace(A.prototype.constructor);      // [class A]
 			trace(A.prototype.constructor == A); // true
@@ -47,8 +137,57 @@ package test
 			}
 			*/
 			
-			var a:int = 1;
-			trace(a.toString(2));
+//			var a:int = 1 << 24;
+//			trace(a.toString(16));
+//			var m:MapMaskHelper = new MapMaskHelper();
+			/*
+			var timer:Timer = new Timer(50);
+			timer.addEventListener(TimerEvent.TIMER,onTimer);
+			var index:int = 0;
+			function onTimer(evt:TimerEvent):void
+			{
+				tf.appendText(index + "");
+				index++;
+			}
+			timer.start();
+			var tf:TextField = new TextField;
+//			tf.border = true;
+			tf.autoSize = TextFieldAutoSize.LEFT;
+			addChild(tf);
+			*/
+//			addEventListener(Event.ADDED_TO_STAGE,onAdd);
+			
+			/*
+			var a:Sprite;
+			a ||= new Sprite();
+			a = a || new Sprite();
+			trace(a);
+			*/
+		}
+		
+		protected function onAdd(event:Event):void
+		{
+			stage.addEventListener(MouseEvent.CLICK,onClick);
+		}
+		
+		protected function onClick(event:MouseEvent):void
+		{
+			var fileReference:FileReference = new FileReference();
+			fileReference.browse();
+			function onSelect(evt:Event):void
+			{
+//				fileReference.load();
+				var url:URLRequest = new URLRequest("http://192.168.85.15:8080/test/t.xml");
+				fileReference.upload(url);
+			}
+			function onComplete(evt:Event):void
+			{
+				var bytes:ByteArray = fileReference.data;
+				var str:String = bytes.readMultiByte(bytes.length,"utf-8");
+				trace(str);
+			}
+			fileReference.addEventListener(Event.SELECT,onSelect);
+			fileReference.addEventListener(Event.COMPLETE,onComplete);
 		}
 	}
 }

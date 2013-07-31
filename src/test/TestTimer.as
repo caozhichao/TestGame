@@ -16,8 +16,9 @@ package test
 		public function TestTimer()
 		{
 			super();
-			TimerManager.instance.init(20);
-			TimerManager.instance.setTimeout(test,1000);
+			TimerManager.instance.init(60);
+//			TimerManager.instance.setTimeout(test,1000,2);
+			TimerManager.instance.setInterval(test,10);
 		}
 		
 		private function test():void
