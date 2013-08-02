@@ -1,6 +1,7 @@
 package test
 {
 	import com.adobe.crypto.MD5;
+	import com.bit101.components.Label;
 	
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
@@ -42,6 +43,36 @@ package test
 		{
 			super();
 			
+			var label:Label = new Label();
+			label.text = "d啊";
+			label.x = 100;
+			label.y = 100;
+			addChild(label);
+			
+			/*
+			var a:uint = 0x01 & 0x02;
+			var b:uint = 0x02 & 0x03;
+			var c:uint = 0x01 | 0x02;
+			trace(a,b,c);
+			*/
+			
+			/*
+			进制
+			2     16     10
+			
+			0001 ->0x01 -> 1
+		  & 0010 ->0x02 -> 2 
+		--------
+			0000 
+			*/
+			
+			/*
+			var a:int = 1;
+			trace(a.toString(2));
+			a = a << 1;
+			trace(a.toString(2));
+			*/
+			/*
 			for(var i:int = 0; i < 10; i++)
 			{
 				var str:int;
@@ -51,6 +82,7 @@ package test
 				}
 				trace(i + "|" + str);
 			}
+			*/
 //			CompressionAlgorithm.LZMA
 			
 			/*

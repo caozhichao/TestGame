@@ -72,10 +72,10 @@ package com.bit101.components
 			_height = 18;
 			_tf = new TextField();
 			_tf.height = _height;
-			_tf.embedFonts = Style.embedFonts;
+//			_tf.embedFonts = Style.embedFonts;
 			_tf.selectable = false;
 			_tf.mouseEnabled = false;
-			_tf.defaultTextFormat = new TextFormat(Style.fontName, Style.fontSize, Style.LABEL_TEXT);
+			_tf.defaultTextFormat = new TextFormat(/*Style.fontName*/"创艺繁粗圆", 14/*Style.fontSize*/, Style.LABEL_TEXT);
 			_tf.text = _text;			
 			addChild(_tf);
 			draw();

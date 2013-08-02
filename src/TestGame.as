@@ -1,25 +1,14 @@
 package
 {
 	import com.bit101.components.FPSMeter;
-	import com.bit101.components.Text;
 	
-	import flash.display.Sprite;
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
 	import flash.events.Event;
 	
 	import czc.framework.GameContext;
 	
-	import test.BulkLoaderTest;
-	import test.ByteArrayTest;
-	import test.FZipTest;
-	import test.KeyEventTest;
-	import test.LoaderMaxTest;
-	import test.PNGTest;
-	import test.Test;
-	import test.Test2;
-	import test.TestTimer;
-	import test.aa;
+	import test.PanelTest;
 
 	/**
 	 * 
@@ -27,7 +16,7 @@ package
 	 * 
 	 */	
 	[SWF(width="800",height="600")]
-	public class TestGame extends TestTimer
+	public class TestGame extends PanelTest
 	{
 		private var _context:GameContext;
 		
@@ -43,7 +32,7 @@ package
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			stage.align = StageAlign.TOP_LEFT;
 			stage.frameRate = 60;
-			startGame();
+//			startGame();
 			FPS();
 		}
 		
