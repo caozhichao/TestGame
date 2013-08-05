@@ -6,6 +6,7 @@ package czc.framework.manager
 	import flash.events.Event;
 	
 	import czc.framework.display.IPanel;
+	import czc.framework.utils.ClassUtil;
 
 	/**
 	 * 弹窗管理 
@@ -15,7 +16,8 @@ package czc.framework.manager
 	 * 弹窗必须实现IPanel接口
 	 * 弹窗说明:
 	 * 
-	 * 居中弹窗    存在界面共存   不共存 后面打开的界面替换 前面打开的界面
+	 * 居中弹窗    存在界面共存   不共存 后面打开的界面替换 前面打开的界面(支持2个界面共存)
+	 * 
 	 * 自由弹窗    位置自由显示   PopUpManager 会调用IPanel.resize() 更新弹窗的位置
 	 *        (自由弹窗和其他弹窗都是共存的)
 	 */	
@@ -34,6 +36,10 @@ package czc.framework.manager
 		//界面之间的水平间距
 		private static const PANEL_WIDTH_DISTANCE:int = 10;
 		private var modalMask:Sprite;
+		
+		//共存界面  class
+		private var _coexist:Array = [];
+		
 		public function PopUpManager()
 		{
 			if(instance)
@@ -42,9 +48,10 @@ package czc.framework.manager
 			}
 			_panels = [];
 		}
-		public function init(spr:Sprite):void
+		public function init(spr:Sprite,coexist:Array):void
 		{
 			_container = spr;
+			_coexist = coexist;
 			if(_container.stage)
 			{
 				initEvent();
@@ -95,15 +102,17 @@ package czc.framework.manager
 		/**
 		 * 显示弹窗界面 
 		 * @param panel
-		 * @param isCenter
+		 * @param isCenter true 居中弹窗 false 自由弹窗
 		 * 
 		 */		
 		public function showPanel(panel:IPanel,isCenter:Boolean=true,modal:Boolean=false):void
 		{
 			if(panelExists(panel) == -1)
 			{
+				var panelVo:PanelVo = setCoexist(panel);
 				var index:int = _panels.length;
-				_panels[index] = getPanelVo(panel,index,isCenter,modal);
+				_panels[index] = getPanelVo(panel,isCenter,modal);
+				changePositionOnArray(panelVo);
 				addPanel(panel,modal);
 //				setChanged(); //有明显延迟现象
 				setPosition();
@@ -111,6 +120,99 @@ package czc.framework.manager
 			{   //重复添加则删除
 				removePanel(panel);
 			}
+		}
+		
+		/**
+		 * 调整共存界面的排列位置 
+		 * @param panelVo
+		 * 
+		 */		
+		private function changePositionOnArray(panelVo:PanelVo):void
+		{
+			if(panelVo)
+			{
+				var index:int = _panels.indexOf(panelVo);
+				_panels.splice(index,1);
+				_panels.push(panelVo);
+			}
+		}
+		private function setCoexist(panel:IPanel):PanelVo
+		{
+			//查找当前显示的共存界面
+			var arr:Array = getCurCoexistPanel(panel);
+			if(arr)
+			{
+				var panelVo:PanelVo = arr[0];
+				var isRight:Boolean = arr[1];
+			}
+			//删除不共存的界面
+			var len:int = _panels.length;
+			var tempPanelVo:PanelVo;
+			var panels:Array = [];
+			for (var i:int = 0; i < len; i++) 
+			{
+				tempPanelVo = _panels[i];
+				if(tempPanelVo != panelVo && tempPanelVo.isCenter)
+				{
+					panels.push(tempPanelVo);
+				} 
+			}
+			removePanels(panels);
+			//调整界面的左右位置
+			if(!isRight)
+			{
+				return panelVo;
+			}
+			return null;
+		}
+		
+		private function getCurCoexistPanel(panel:IPanel):Array
+		{
+			var cla:Class = ClassUtil.getClass(panel);
+			var len:int = _coexist.length;
+			var index:int = 0;
+			var arr:Array;
+			var tempCla:Class;
+			var coexistCla:Class;
+			var panelVo:PanelVo;
+			while(index < len)
+			{
+				arr = _coexist[index];
+				for(var i:int = 0; i < 2; i++)
+				{
+					tempCla = arr[i];
+					if(cla == tempCla)
+					{
+						i == 0?coexistCla = arr[1]:coexistCla = arr[0];
+						panelVo = getPanelVoByClass(coexistCla);
+						if(panelVo)
+						{
+							return [panelVo,Boolean(i)];
+						}
+						break;
+					}
+				}
+				index++;
+			}
+			return null;
+		}
+		
+		
+		private function getPanelVoByClass(cla:Class):PanelVo
+		{
+			var index:int = 0;
+			var len:int = _panels.length;
+			var panelVo:PanelVo;
+			while(index < len)
+			{
+				panelVo = _panels[index];
+				if(ClassUtil.getClass(panelVo.panel) == cla)
+				{
+					return panelVo;
+				}
+				index++;
+			}
+			return null;
 		}
 		private function addPanel(panel:IPanel,modal:Boolean):void
 		{
@@ -166,11 +268,10 @@ package czc.framework.manager
 			return -1;
 		}
 		
-		private function getPanelVo(panel:IPanel,index:int,isCenter:Boolean,modal:Boolean):PanelVo
+		private function getPanelVo(panel:IPanel,isCenter:Boolean,modal:Boolean):PanelVo
 		{
 			var panelVo:PanelVo = new PanelVo();
 			panelVo.panel = panel;
-			panelVo.index = index;
 			panelVo.isCenter = isCenter;
 			panelVo.modal = modal;
 			return panelVo;
@@ -288,7 +389,7 @@ package czc.framework.manager
 			{
 				panelVo = panels[index];
 				removePanel(panelVo.panel);
-				len = panels.length;
+				index++;
 			}
 		}
 		
@@ -315,7 +416,5 @@ class PanelVo
 {
 	public var panel:IPanel;
 	public var isCenter:Boolean;
-	//添加该子项的索引位置
-	public var index:int;
 	public var modal:Boolean;
 }

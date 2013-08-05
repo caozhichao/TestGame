@@ -21,17 +21,19 @@ package test
 			super();
 			var layer:Sprite = new Sprite();
 			addChild(layer);
-			PopUpManager.instance.init(layer);
+			PopUpManager.instance.init(layer,[[B,A]]);
 			
 			var p:Sprite = getPanel(0xff0000);
+			var cla:Class = p["constructor"];
 			PopUpManager.instance.showPanel(p as IPanel,true,true);
-			p = getPanel(0x00ff00,100,100);
-			PopUpManager.instance.showPanel(p as IPanel,false);
+			var b:Sprite = new B(0x00ff00,100,100);
+			PopUpManager.instance.showPanel(b as IPanel,true);
+			
 			function onDelete():void
 			{
 //				PopUpManager.instance.removePanel(p);
 //				trace(PopUpManager.instance.hasShowPanel(p));
-				PopUpManager.instance.showPanel(p as IPanel,false);
+				PopUpManager.instance.showPanel(b as IPanel);
 //				PopUpManager.instance.removePanels(PopUpManager.instance.panels);
 			}
 			var button:PushButton = new PushButton(this,0,0,"delete",onDelete);
@@ -59,6 +61,44 @@ import czc.framework.display.IPanel;
 class A extends Sprite implements IPanel
 {
 	public function A(color:uint,w:int,h:int)
+	{
+		this.graphics.beginFill(color);
+		this.graphics.drawRect(0,0,w,h);
+		this.graphics.endFill();
+	}
+	public function resize(stageWidth:int,stageHeight:int):void
+	{
+		this.x = stageWidth - this.width - 10;
+		this.y = stageHeight - this.height - 10;
+	}
+	public function get content():DisplayObject
+	{
+		return this;
+	}
+}
+
+class B extends Sprite implements IPanel
+{
+	public function B(color:uint,w:int,h:int)
+	{
+		this.graphics.beginFill(color);
+		this.graphics.drawRect(0,0,w,h);
+		this.graphics.endFill();
+	}
+	public function resize(stageWidth:int,stageHeight:int):void
+	{
+		this.x = stageWidth - this.width - 10;
+		this.y = stageHeight - this.height - 10;
+	}
+	public function get content():DisplayObject
+	{
+		return this;
+	}
+}
+
+class C extends Sprite implements IPanel
+{
+	public function C(color:uint,w:int,h:int)
 	{
 		this.graphics.beginFill(color);
 		this.graphics.drawRect(0,0,w,h);
