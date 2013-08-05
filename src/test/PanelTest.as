@@ -4,6 +4,7 @@ package test
 	
 	import flash.display.Sprite;
 	
+	import czc.framework.display.IPanel;
 	import czc.framework.manager.PopUpManager;
 	
 	
@@ -23,31 +24,53 @@ package test
 			PopUpManager.instance.init(layer);
 			
 			var p:Sprite = getPanel(0xff0000);
-			PopUpManager.instance.showPanel(p,true,true);
+			PopUpManager.instance.showPanel(p as IPanel,true,true);
 			p = getPanel(0x00ff00,100,100);
-			PopUpManager.instance.showPanel(p,true,true);
-			
-			
-			
-			
-			
+			PopUpManager.instance.showPanel(p as IPanel,false);
 			function onDelete():void
 			{
 //				PopUpManager.instance.removePanel(p);
-//				PopUpManager.instance.removeAllPanels();
 //				trace(PopUpManager.instance.hasShowPanel(p));
-				PopUpManager.instance.showPanel(p);
+				PopUpManager.instance.showPanel(p as IPanel,false);
+//				PopUpManager.instance.removePanels(PopUpManager.instance.panels);
 			}
 			var button:PushButton = new PushButton(this,0,0,"delete",onDelete);
 		}
 		
 		private function getPanel(color:uint,w:int=100,h:int=150):Sprite
 		{
+			/*
 			var panel:Sprite = new Sprite();
 			panel.graphics.beginFill(color);
 			panel.graphics.drawRect(0,0,w,h);
 			panel.graphics.endFill();
 			return panel;
+			*/
+			var a:A = new A(color,w,h);
+			return a;
 		}
+	}
+}
+import flash.display.DisplayObject;
+import flash.display.Sprite;
+
+import czc.framework.display.IPanel;
+
+class A extends Sprite implements IPanel
+{
+	public function A(color:uint,w:int,h:int)
+	{
+		this.graphics.beginFill(color);
+		this.graphics.drawRect(0,0,w,h);
+		this.graphics.endFill();
+	}
+	public function resize(stageWidth:int,stageHeight:int):void
+	{
+		this.x = stageWidth - this.width - 10;
+		this.y = stageHeight - this.height - 10;
+	}
+	public function get content():DisplayObject
+	{
+		return this;
 	}
 }

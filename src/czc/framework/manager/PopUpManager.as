@@ -4,11 +4,20 @@ package czc.framework.manager
 	import flash.display.Sprite;
 	import flash.display.Stage;
 	import flash.events.Event;
+	
+	import czc.framework.display.IPanel;
 
 	/**
 	 * 弹窗管理 
 	 * @author caozhichao
+	 * 弹窗界面分为  
+	 * 居中弹窗(居中显示) 自由弹窗(自由显示)     2大类 
+	 * 弹窗必须实现IPanel接口
+	 * 弹窗说明:
 	 * 
+	 * 居中弹窗    存在界面共存   不共存 后面打开的界面替换 前面打开的界面
+	 * 自由弹窗    位置自由显示   PopUpManager 会调用IPanel.resize() 更新弹窗的位置
+	 *        (自由弹窗和其他弹窗都是共存的)
 	 */	
 	public class PopUpManager
 	{
@@ -29,7 +38,7 @@ package czc.framework.manager
 		{
 			if(instance)
 			{
-				throw new Error("a single");
+				throw new Error("PopUpManager a single");
 			}
 			_panels = [];
 		}
@@ -89,7 +98,7 @@ package czc.framework.manager
 		 * @param isCenter
 		 * 
 		 */		
-		public function showPanel(panel:Sprite,isCenter:Boolean=true,modal:Boolean=false):void
+		public function showPanel(panel:IPanel,isCenter:Boolean=true,modal:Boolean=false):void
 		{
 			if(panelExists(panel) == -1)
 			{
@@ -103,9 +112,9 @@ package czc.framework.manager
 				removePanel(panel);
 			}
 		}
-		private function addPanel(panel:Sprite,modal:Boolean):void
+		private function addPanel(panel:IPanel,modal:Boolean):void
 		{
-			_container.addChild(panel);
+			_container.addChild(panel.content);
 			setModal(modal);
 		}
 		private function setModal(modal:Boolean):void
@@ -140,7 +149,7 @@ package czc.framework.manager
 		 * @return 
 		 * 
 		 */		
-		private function panelExists(panel:Sprite):int
+		private function panelExists(panel:IPanel):int
 		{
 			var index:int = 0;
 			var len:int = _panels.length;
@@ -157,7 +166,7 @@ package czc.framework.manager
 			return -1;
 		}
 		
-		private function getPanelVo(panel:Sprite,index:int,isCenter:Boolean,modal:Boolean):PanelVo
+		private function getPanelVo(panel:IPanel,index:int,isCenter:Boolean,modal:Boolean):PanelVo
 		{
 			var panelVo:PanelVo = new PanelVo();
 			panelVo.panel = panel;
@@ -186,6 +195,9 @@ package czc.framework.manager
 					if(panelVo.isCenter)
 					{ //获取所有需要居中的界面 共存的
 						centerPanels[centerPanels.length] = panelVo;
+					} else 
+					{// 自由弹窗
+						panelVo.panel.resize(STAGE_WIDTH,STAGE_HEIGHT);
 					}
 					index++;
 				}
@@ -205,20 +217,20 @@ package czc.framework.manager
 		 */		
 		private function setCenter(centerPanels:Array):void
 		{
-			var len:int = _panels.length;
+			var len:int = centerPanels.length;
 			var index:int;
 			var totalWidth:int;
 			var maxHeight:int;
 			
 			var panelVo:PanelVo;
-			var panel:Sprite;
+			var panel:IPanel;
 			//计算居中界面的总宽度，最大高度
 			while(index < len)
 			{
-				panelVo = _panels[index];
+				panelVo = centerPanels[index];
 				panel = panelVo.panel;
-				totalWidth += panel.width;
-				maxHeight = panel.height > maxHeight?panel.height:maxHeight;
+				totalWidth += panel.content.width
+				maxHeight = panel.content.height > maxHeight?panel.content.height:maxHeight;
 				index++;
 			}
 			
@@ -231,11 +243,11 @@ package czc.framework.manager
 			var tw:int;
 			while(index < len)
 			{
-				panelVo = _panels[index];
+				panelVo = centerPanels[index];
 				panel = panelVo.panel;
-				panel.x = startX + tw;
-				panel.y = startY;
-				tw += panel.width + PANEL_WIDTH_DISTANCE;
+				panel.content.x = startX + tw;
+				panel.content.y = startY;
+				tw += panel.content.width + PANEL_WIDTH_DISTANCE;
 				index++;
 			}
 		}
@@ -245,13 +257,13 @@ package czc.framework.manager
 		 * @param panel
 		 * 
 		 */		
-		public function removePanel(panel:Sprite):void
+		public function removePanel(panel:IPanel):void
 		{
 			var index:int = panelExists(panel); 
 			if( index > -1)
 			{
 				var panelVo:PanelVo = _panels[index];
-				_container.removeChild(panel);
+				_container.removeChild(panel.content);
 				_panels.splice(index,1);
 				if(panelVo.modal)
 				{
@@ -264,19 +276,19 @@ package czc.framework.manager
 			}
 		}
 		/**
-		 * 删除所有界面 
+		 * 删除多个界面 
 		 * 
 		 */		
-		public function removeAllPanels():void
+		public function removePanels(panels:Array):void
 		{
 			var index:int = 0;
-			var len:int = _panels.length;
+			var len:int = panels.length;
 			var panelVo:PanelVo;
 			while(index < len)
 			{
-				panelVo = _panels[index];
+				panelVo = panels[index];
 				removePanel(panelVo.panel);
-				len = _panels.length;
+				len = panels.length;
 			}
 		}
 		
@@ -286,18 +298,22 @@ package czc.framework.manager
 		 * @return 
 		 * 
 		 */		
-		public function hasShowPanel(panel:Sprite):Boolean
+		public function hasShowPanel(panel:IPanel):Boolean
 		{
 			return panelExists(panel) > -1;
 		}
 		
+		public function get panels():Array
+		{
+			return _panels;
+		}
 	}
 }
-import flash.display.Sprite;
+import czc.framework.display.IPanel;
 
 class PanelVo
 {
-	public var panel:Sprite;
+	public var panel:IPanel;
 	public var isCenter:Boolean;
 	//添加该子项的索引位置
 	public var index:int;
