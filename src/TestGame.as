@@ -8,6 +8,7 @@ package
 	
 	import czc.framework.GameContext;
 	
+	import test.DragTest;
 	import test.PanelTest;
 
 	/**
@@ -16,7 +17,7 @@ package
 	 * 
 	 */	
 	[SWF(width="800",height="600")]
-	public class TestGame extends PanelTest
+	public class TestGame extends DragTest
 	{
 		private var _context:GameContext;
 		
@@ -31,7 +32,7 @@ package
 			stage.stageFocusRect = false;
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			stage.align = StageAlign.TOP_LEFT;
-			stage.frameRate = 60;
+			stage.frameRate = 30;
 //			startGame();
 			FPS();
 		}
