@@ -48,6 +48,8 @@ package czc.framework.utils
 			//默认是中心点
 			scrollPoint.x = windowWidth >> 1;
 			scrollPoint.y = windowHeight >> 1;
+			//窗口发生变化重新设置滚动范围
+			setScrollRange();
 		}
 		/**
 		 * 设置滚动界面尺寸 
