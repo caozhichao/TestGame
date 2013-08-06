@@ -39,7 +39,7 @@ package test
 //				map.addChild(p);
 			}
 			windowScroll = new WindowScroll();
-			windowScroll.setWindowSize(400,300);
+			windowScroll.setWindowSize(800,600);
 			windowScroll.setScrollWindowSize(4000,3000);
 			map = new Sprite();
 			this.addChild(map);
@@ -55,6 +55,15 @@ package test
 			
 			map.addEventListener(MouseEvent.CLICK,onClick);
 			addEventListener(Event.ENTER_FRAME,onFrame);
+			
+			stage.addEventListener(Event.RESIZE,onResieze);
+		}
+		
+		protected function onResieze(event:Event):void
+		{
+			windowScroll.setWindowSize(stage.stageWidth,stage.stageHeight);
+			//窗口大小改变更新位置
+			update();
 		}
 		
 		protected function onFrame(event:Event):void
@@ -63,14 +72,17 @@ package test
 			{
 				p.x += _stepX;
 				p.y += _stepY;
-				var mapPoint:Point = windowScroll.scroll(new Point(p.x,p.y));
-				map.x = mapPoint.x;
-				map.y = mapPoint.y;
-				_playerLayer.x = mapPoint.x;
-				_playerLayer.y = mapPoint.y;
-				
 				_stepCount--;
+				update();
 			}
+		}
+		private function update():void
+		{
+			var mapPoint:Point = windowScroll.scroll(new Point(p.x,p.y));
+			map.x = mapPoint.x;
+			map.y = mapPoint.y;
+			_playerLayer.x = mapPoint.x;
+			_playerLayer.y = mapPoint.y;
 		}
 		
 		protected function onClick(event:MouseEvent):void
