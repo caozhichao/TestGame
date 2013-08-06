@@ -9,6 +9,7 @@ package
 	import czc.framework.GameContext;
 	
 	import test.DragTest;
+	import test.LoaderTest;
 	import test.PanelTest;
 
 	/**
@@ -17,7 +18,7 @@ package
 	 * 
 	 */	
 	[SWF(width="800",height="600")]
-	public class TestGame extends DragTest
+	public class TestGame extends LoaderTest
 	{
 		private var _context:GameContext;
 		
