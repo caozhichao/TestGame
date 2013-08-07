@@ -5,10 +5,11 @@ package
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
 	import flash.events.Event;
+	import flash.profiler.showRedrawRegions;
 	
 	import czc.framework.GameContext;
 	
-	import test.PngCropTest;
+	import test.ReflectionTest;
 
 	/**
 	 * 
@@ -16,12 +17,13 @@ package
 	 * 
 	 */	
 	[SWF(width="800",height="600")]
-	public class TestGame extends PngCropTest
+	public class TestGame extends ReflectionTest
 	{
 		private var _context:GameContext;
 		
 		public function TestGame()
 		{
+			showRedrawRegions(true);
 			addEventListener(Event.ADDED_TO_STAGE,addedToStage,false,0,true);
 		}
 		

@@ -4,7 +4,6 @@ package test
 	import flash.display.BitmapData;
 	import flash.display.Sprite;
 	import flash.geom.Rectangle;
-	import flash.utils.ByteArray;
 	
 	import czc.framework.manager.LoaderMaxManager;
 	import czc.framework.vo.LoadItemVo;
@@ -22,15 +21,18 @@ package test
 		public function PngCropTest()
 		{
 			super();
-			var url:String = "assets/00.png";
+			var url:String = "assets/3.png";
 			LoaderMaxManager.instance.simpleLoader(url,onComplete);
 			function onComplete(item:LoadItemVo):void
 			{
 				var bm:Bitmap = item.data;
+//				addChild(bm);
+				
 				var bmd:BitmapData = bm.bitmapData;
 				var pixels:Vector.<uint> = bmd.getVector(bmd.rect);
 				var w:int = bmd.width;
 				var h:int = bmd.height;
+				
 				
 				cols = w;
 				//首行
