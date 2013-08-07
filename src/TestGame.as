@@ -7,12 +7,8 @@ package
 	import flash.events.Event;
 	
 	import czc.framework.GameContext;
-	import czc.framework.utils.WindowScroll;
 	
-	import test.DragTest;
-	import test.LoaderTest;
-	import test.PanelTest;
-	import test.WindowScrollTest;
+	import test.PngCropTest;
 
 	/**
 	 * 
@@ -20,7 +16,7 @@ package
 	 * 
 	 */	
 	[SWF(width="800",height="600")]
-	public class TestGame extends WindowScrollTest
+	public class TestGame extends PngCropTest
 	{
 		private var _context:GameContext;
 		
