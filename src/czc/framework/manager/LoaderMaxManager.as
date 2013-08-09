@@ -1,9 +1,11 @@
 package czc.framework.manager
 {
 	import com.greensock.events.LoaderEvent;
+	import com.greensock.loading.DataLoader;
 	import com.greensock.loading.ImageLoader;
 	import com.greensock.loading.LoaderMax;
 	import com.greensock.loading.SWFLoader;
+	import com.greensock.loading.XMLLoader;
 	import com.greensock.loading.core.LoaderCore;
 	
 	import flash.system.ApplicationDomain;
@@ -30,7 +32,7 @@ package czc.framework.manager
 			{
 				throw new Error("LoaderMaxManager a single");
 			}
-			LoaderMax.activate([SWFLoader,ImageLoader]);
+			LoaderMax.activate([SWFLoader,ImageLoader,XMLLoader]);
 			LoaderMax.defaultAuditSize = false;
 			_simpleLoader = new LoaderMax({maxConnections:1});
 			
@@ -52,6 +54,9 @@ package czc.framework.manager
 				if(child is ImageLoader)
 				{
 					item.data = (child as ImageLoader).rawContent;
+				} else if (child is DataLoader)
+				{
+					item.data = (child as DataLoader).content;
 				}
 				success(item);
 			}

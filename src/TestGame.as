@@ -9,7 +9,10 @@ package
 	
 	import czc.framework.GameContext;
 	
+	import test.ASWingTest;
 	import test.ReflectionTest;
+	import test.RegExpTest;
+	import test.ScrollTest;
 
 	/**
 	 * 
@@ -17,7 +20,7 @@ package
 	 * 
 	 */	
 	[SWF(width="800",height="600")]
-	public class TestGame extends ReflectionTest
+	public class TestGame extends ScrollTest
 	{
 		private var _context:GameContext;
 		
@@ -33,7 +36,7 @@ package
 			stage.stageFocusRect = false;
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			stage.align = StageAlign.TOP_LEFT;
-			stage.frameRate = 30;
+			stage.frameRate = 60;
 //			startGame();
 			FPS();
 		}

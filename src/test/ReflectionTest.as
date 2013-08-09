@@ -29,6 +29,7 @@ package test
 			{
 				skin = new (item.domain.getDefinition("ui.Test"))();
 				Reflection.reflection(t,skin);
+				t.addChild(skin);
 			}
 		}
 	}
