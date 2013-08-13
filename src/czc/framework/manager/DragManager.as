@@ -23,6 +23,10 @@ package czc.framework.manager
 		private var _dic:Dictionary;
 		private var _downEventDic:Dictionary;
 		private var _stage:Stage;
+		private var _isDrag:Boolean;
+		//当前拖动的对象
+		private var _curDragObj:IDrag;
+		
 		public function DragManager()
 		{
 			if(instance)
@@ -66,10 +70,8 @@ package czc.framework.manager
 			{
 				_stage.addEventListener(MouseEvent.MOUSE_MOVE,onMouseMove);
 				_stage.addEventListener(MouseEvent.MOUSE_UP,onMouseUp);
-				moveDisplayObject = target.moveDisplayObject;
-				_container.addChild(moveDisplayObject);
-				//转换成全局坐标
-				var p:Point = target.content.parent.localToGlobal(new Point(target.content.x,target.content.y));
+				moveDisplayObject = target.dragDisplay;
+				var p:Point = target.dragDisplayPoint;
 				moveDisplayObject.x = p.x;
 				moveDisplayObject.y = p.y;
 				//记录按钮的位置
@@ -81,24 +83,43 @@ package czc.framework.manager
 			{
 				var curMouseX:int = _stage.mouseX;
 				var curMouseY:int = _stage.mouseY;
-				//计算鼠标拖动的位置
-				moveDisplayObject.x += curMouseX - downX;
-				moveDisplayObject.y += curMouseY - downY;
-				downX = curMouseX;
-				downY = curMouseY;
-				target.dragMove();
+				if(!_isDrag && Point.distance(new Point(curMouseX,curMouseY),new Point(downX,downY)) > 3)
+				{
+					_isDrag = true;
+					_curDragObj = target;
+					target.start();
+					_container.addChild(moveDisplayObject);
+				} 
+				if(_isDrag)
+				{
+					//计算鼠标拖动的位置
+					moveDisplayObject.x += curMouseX - downX;
+					moveDisplayObject.y += curMouseY - downY;
+					downX = curMouseX;
+					downY = curMouseY;
+					target.draging();
+				}
 			}
 			
 			function onMouseUp(evt:MouseEvent):void
 			{
 				_stage.removeEventListener(MouseEvent.MOUSE_MOVE,onMouseMove);
 				_stage.removeEventListener(MouseEvent.MOUSE_UP,onMouseUp);
-				_container.removeChild(moveDisplayObject);
-				target.stopDragMove();
+				if(_isDrag)
+				{
+					_container.removeChild(moveDisplayObject);
+					target.stop();
+					_isDrag = false;
+					_curDragObj = null;
+				}
 			}
 			target.content.addEventListener(MouseEvent.MOUSE_DOWN,onMouseDown);
 		}
 		
+		public function get curDragObj():IDrag
+		{
+			return _curDragObj;
+		}
 		public function removeDrag(target:IDrag):void
 		{
 			var onMouseDown:Function = _downEventDic[target];

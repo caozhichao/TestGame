@@ -10,6 +10,7 @@ package
 	import czc.framework.GameContext;
 	
 	import test.ASWingTest;
+	import test.DragTest;
 	import test.ReflectionTest;
 	import test.RegExpTest;
 	import test.ScrollTest;
@@ -20,7 +21,7 @@ package
 	 * 
 	 */	
 	[SWF(width="800",height="600")]
-	public class TestGame extends ScrollTest
+	public class TestGame extends DragTest
 	{
 		private var _context:GameContext;
 		
