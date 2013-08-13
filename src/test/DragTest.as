@@ -25,6 +25,11 @@ package test
 			a.x = 100;
 			a.y = 100;
 			DragManager.instance.addDrag(a);
+			var b:A = new A();
+			b.x = 150;
+			b.y = 100;
+			addChild(b);
+			DragManager.instance.addDrag(b);
 			function fun():void
 			{
 //				DragManager.instance.removeDrag(a);
