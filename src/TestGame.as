@@ -11,6 +11,7 @@ package
 	
 	import test.ASWingTest;
 	import test.DragTest;
+	import test.MCButtonTest;
 	import test.ReflectionTest;
 	import test.RegExpTest;
 	import test.ScrollTest;
@@ -21,7 +22,7 @@ package
 	 * 
 	 */	
 	[SWF(width="800",height="600")]
-	public class TestGame extends DragTest
+	public class TestGame extends MCButtonTest
 	{
 		private var _context:GameContext;
 		
