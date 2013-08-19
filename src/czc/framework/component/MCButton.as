@@ -7,7 +7,7 @@ package czc.framework.component
 	import czc.framework.event.BaseEvent;
 	
 	/**
-	 *		
+	 *	MovieClip Button	
 	 * @author caozhichao
 	 * 创建时间：2013-8-15 上午9:16:48
 	 * 
@@ -27,15 +27,25 @@ package czc.framework.component
 		//是否是简单按钮(和正常按钮一样自动弹起)
 		protected var _isSimpleButton:Boolean;
 		public static const MC_BUTTON_EVENT:String = "MC_BUTTON_EVENT";
-		public function MCButton(_skin:MovieClip=null,isSimpleButton:Boolean=false)
+		public function MCButton(_skin:MovieClip=null,_isSimpleButton:Boolean=false)
 		{
 			skin = _skin;
-			_isSimpleButton = isSimpleButton;
+			isSimpleButton = _isSimpleButton;
 			this.mouseChildren = false;
 			addEventListener(MouseEvent.MOUSE_DOWN,onMouseDown);
 			addEventListener(MouseEvent.MOUSE_UP,onMouseUp);
 			addEventListener(MouseEvent.MOUSE_OVER,onMouseOver);
 			addEventListener(MouseEvent.MOUSE_OUT,onMouseOut);
+		}
+		
+		/**
+		 * 设置为简单按钮 
+		 * @param value
+		 * 
+		 */		
+		public function set isSimpleButton(value:Boolean):void
+		{
+			_isSimpleButton = isSimpleButton;
 		}
 		
 		protected function onMouseOut(event:MouseEvent):void
@@ -89,6 +99,11 @@ package czc.framework.component
 			}
 		}
 		
+		/**
+		 *  dispatch event
+		 * @param value
+		 * 
+		 */		
 		protected function dispatch(value:int):void
 		{
 			dispatchEvent(new BaseEvent(MC_BUTTON_EVENT,value));
