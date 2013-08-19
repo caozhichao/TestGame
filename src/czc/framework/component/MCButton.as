@@ -2,7 +2,6 @@ package czc.framework.component
 {
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
-	import flash.events.Event;
 	import flash.events.MouseEvent;
 	
 	import czc.framework.event.BaseEvent;
@@ -25,10 +24,14 @@ package czc.framework.component
 		public static const FRAME_DOWN:int = 3;
 		//按钮当前帧
 		protected var curFrameIndex:int;
+		//是否是简单按钮(和正常按钮一样自动弹起)
+		protected var _isSimpleButton:Boolean;
 		public static const MC_BUTTON_EVENT:String = "MC_BUTTON_EVENT";
-		public function MCButton(_skin:MovieClip=null)
+		public function MCButton(_skin:MovieClip=null,isSimpleButton:Boolean=false)
 		{
 			skin = _skin;
+			_isSimpleButton = isSimpleButton;
+			this.mouseChildren = false;
 			addEventListener(MouseEvent.MOUSE_DOWN,onMouseDown);
 			addEventListener(MouseEvent.MOUSE_UP,onMouseUp);
 			addEventListener(MouseEvent.MOUSE_OVER,onMouseOver);
@@ -57,7 +60,7 @@ package czc.framework.component
 		
 		private function get hasMouseEvent():Boolean
 		{
-			if(curFrameIndex != FRAME_DOWN)
+			if(_isSimpleButton || curFrameIndex != FRAME_DOWN)
 			{
 				return true;
 			}

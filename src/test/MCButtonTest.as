@@ -2,7 +2,6 @@ package test
 {
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
-	import flash.text.TextField;
 	
 	import czc.framework.component.MCButton;
 	import czc.framework.manager.LoaderMaxManager;
@@ -20,15 +19,16 @@ package test
 		public function MCButtonTest()
 		{
 			super();
-			var url:String;
+			var url:String = "assets/test1.swf";
 			LoaderMaxManager.instance.simpleLoader(url,success);
 		}
 		
 		private function success(item:LoadItemVo):void
 		{
 			var skin:MovieClip = new (item.domain.getDefinition("mc_button") as Class)();
-			var mcButton:MCButton = new MCButton(skin);
+			var mcButton:MCButton = new MCButton(skin,true);
 			addChild(mcButton);
+			trace();
 		}
 	}
 }
