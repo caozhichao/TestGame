@@ -23,7 +23,7 @@ package czc.framework.component
 		//按下状态
 		public static const FRAME_DOWN:int = 3;
 		//按钮当前帧
-		protected var curFrameIndex:int;
+		protected var _curFrameIndex:int;
 		//是否是简单按钮(和正常按钮一样自动弹起)
 		protected var _isSimpleButton:Boolean;
 		public static const MC_BUTTON_EVENT:String = "MC_BUTTON_EVENT";
@@ -45,7 +45,7 @@ package czc.framework.component
 		 */		
 		public function set isSimpleButton(value:Boolean):void
 		{
-			_isSimpleButton = isSimpleButton;
+			_isSimpleButton = value;
 		}
 		
 		protected function onMouseOut(event:MouseEvent):void
@@ -70,7 +70,7 @@ package czc.framework.component
 		
 		private function get hasMouseEvent():Boolean
 		{
-			if(_isSimpleButton || curFrameIndex != FRAME_DOWN)
+			if(_isSimpleButton || _curFrameIndex != FRAME_DOWN)
 			{
 				return true;
 			}
@@ -87,16 +87,29 @@ package czc.framework.component
 			}
 		}
 		
-		public function set frameButtonIndex(value:int):void
+		private function set frameButtonIndex(value:int):void
 		{
 			if(hasMouseEvent)
 			{
 				_skin.gotoAndStop(value);
 				//记录按钮当前帧
-				curFrameIndex = value;
+				_curFrameIndex = value;
 				//触发事件
-				dispatch(curFrameIndex);
+				dispatch(_curFrameIndex);
 			}
+		}
+		
+		/**
+		 * 设置按钮当前状态 
+		 * @param value
+		 * 
+		 */		
+		public function set curFrameIndex(value:int):void
+		{
+			//开放鼠标事件
+			_curFrameIndex = FRAME_UP;
+			//设置当前状态
+			frameButtonIndex = value;
 		}
 		
 		/**
