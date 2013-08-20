@@ -3,8 +3,11 @@ package czc.framework.component
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
+	import flash.text.TextField;
 	
 	import czc.framework.event.BaseEvent;
+	
+	
 	
 	/**
 	 *	MovieClip Button	
@@ -26,6 +29,7 @@ package czc.framework.component
 		protected var _curFrameIndex:int;
 		//是否是简单按钮(和正常按钮一样自动弹起)
 		protected var _isSimpleButton:Boolean;
+		protected var _label:String;
 		public static const MC_BUTTON_EVENT:String = "MC_BUTTON_EVENT";
 		public function MCButton(_skin:MovieClip=null,_isSimpleButton:Boolean=false)
 		{
@@ -87,29 +91,63 @@ package czc.framework.component
 			}
 		}
 		
+		/**
+		 * 设置按钮文字 
+		 * @param value
+		 * 
+		 */		
+		public function set label(value:String):void
+		{
+			_label = value;
+			textFieldLabel = _label;
+		}
+		
+		/**
+		 * 设置当前帧按钮文字 
+		 * @param value
+		 * 
+		 */		
+		private function set textFieldLabel(value:String):void
+		{
+			if(value != null)
+			{
+				var tf:TextField = _skin.getChildByName("_lable") as TextField;
+				tf.htmlText = value;
+			}
+		}
+		
 		private function set frameButtonIndex(value:int):void
 		{
 			if(hasMouseEvent)
 			{
-				_skin.gotoAndStop(value);
-				//记录按钮当前帧
-				_curFrameIndex = value;
-				//触发事件
-				dispatch(_curFrameIndex);
+				setButtonState(value);
 			}
 		}
+		
+		/**
+		 * 设置按状态 
+		 * 
+		 */		
+		private function setButtonState(state:int):void
+		{
+			//记录按钮当前帧
+			_curFrameIndex = state;
+			_skin.gotoAndStop(state);
+			//触发事件
+			dispatch(_curFrameIndex);
+			
+			textFieldLabel = _label;
+		}
+		
 		
 		/**
 		 * 设置按钮当前状态 
 		 * @param value
 		 * 
 		 */		
-		public function set curFrameIndex(value:int):void
+		public function set setCurButtonState(value:int):void
 		{
-			//开放鼠标事件
-			_curFrameIndex = FRAME_UP;
-			//设置当前状态
-			frameButtonIndex = value;
+			setButtonState(value);
 		}
 		
 		/**
@@ -121,5 +159,11 @@ package czc.framework.component
 		{
 			dispatchEvent(new BaseEvent(MC_BUTTON_EVENT,value));
 		}
+		
+		public function get curFrameIndex():int
+		{
+			return _curFrameIndex;
+		}
 	}
 }
+
