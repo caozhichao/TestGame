@@ -32,6 +32,7 @@ package czc.framework.component
 		protected var _isSimpleButton:Boolean;
 		protected var _label:String;
 		protected var _buttonTextFieldName:String;
+		protected var _isAddFrameScript:Boolean;
 		public static const MC_BUTTON_EVENT:String = "MC_BUTTON_EVENT";
 		public function MCButton(_skin:MovieClip=null,_isSimpleButton:Boolean=false)
 		{
@@ -127,7 +128,11 @@ package czc.framework.component
 		{
 			_label = value;
 			//添加帧事件
-			setFrameTextField();
+			if(!_isAddFrameScript)
+			{
+				_isAddFrameScript = true;
+				setFrameTextField();
+			}
 			textFieldLabel = _label;
 		}
 		
