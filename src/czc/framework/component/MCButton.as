@@ -31,13 +31,14 @@ package czc.framework.component
 		//是否是简单按钮(和正常按钮一样自动弹起)
 		protected var _isSimpleButton:Boolean;
 		protected var _label:String;
-		protected var _buttonTextField:Array;
+		protected var _buttonTextFieldName:String;
 		public static const MC_BUTTON_EVENT:String = "MC_BUTTON_EVENT";
 		public function MCButton(_skin:MovieClip=null,_isSimpleButton:Boolean=false)
 		{
 			skin = _skin;
 			isSimpleButton = _isSimpleButton;
 			this.mouseChildren = false;
+			buttonTextFieldName = "_label";
 			addEventListener(MouseEvent.MOUSE_DOWN,onMouseDown);
 			addEventListener(MouseEvent.MOUSE_UP,onMouseUp);
 			addEventListener(MouseEvent.MOUSE_OVER,onMouseOver);
@@ -131,6 +132,17 @@ package czc.framework.component
 		}
 		
 		/**
+		 * 设置按钮文本的实例名称 
+		 * @param value
+		 * 
+		 */		
+		public function set buttonTextFieldName(value:String):void
+		{
+			_buttonTextFieldName = value;
+		}
+		
+		
+		/**
 		 * 设置当前帧按钮文字 
 		 * @param value
 		 * 
@@ -139,7 +151,7 @@ package czc.framework.component
 		{
 			if(value != null)
 			{
-				var tf:TextField = _skin.getChildByName("_label") as TextField;
+				var tf:TextField = _skin.getChildByName(_buttonTextFieldName) as TextField;
 				if(tf)
 				{
 					tf.text = value;
