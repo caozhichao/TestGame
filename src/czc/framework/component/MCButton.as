@@ -95,7 +95,6 @@ package czc.framework.component
 			if(_skin)
 			{
 				addChild(_skin);
-				setFrameTextField();
 				frameButtonIndex = FRAME_UP;
 			}
 		}
@@ -126,6 +125,8 @@ package czc.framework.component
 		public function set label(value:String):void
 		{
 			_label = value;
+			//添加帧事件
+			setFrameTextField();
 			textFieldLabel = _label;
 		}
 		
@@ -165,7 +166,6 @@ package czc.framework.component
 			_skin.gotoAndStop(state);
 			//触发事件
 			dispatch(_curFrameIndex);
-			
 			textFieldLabel = _label;
 		}
 		
