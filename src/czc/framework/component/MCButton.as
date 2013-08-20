@@ -2,6 +2,7 @@ package czc.framework.component
 {
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
+	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.text.TextField;
 	
@@ -30,6 +31,7 @@ package czc.framework.component
 		//是否是简单按钮(和正常按钮一样自动弹起)
 		protected var _isSimpleButton:Boolean;
 		protected var _label:String;
+		protected var _buttonTextField:Array;
 		public static const MC_BUTTON_EVENT:String = "MC_BUTTON_EVENT";
 		public function MCButton(_skin:MovieClip=null,_isSimpleButton:Boolean=false)
 		{
@@ -59,7 +61,13 @@ package czc.framework.component
 		
 		protected function onMouseUp(event:MouseEvent):void
 		{
-			frameButtonIndex = FRAME_UP;
+			if(_isSimpleButton)
+			{
+				frameButtonIndex = FRAME_OVER;
+			} else 
+			{
+				frameButtonIndex = FRAME_UP;
+			}
 		}
 		
 		protected function onMouseOver(event:MouseEvent):void
@@ -87,7 +95,26 @@ package czc.framework.component
 			if(_skin)
 			{
 				addChild(_skin);
+				setFrameTextField();
 				frameButtonIndex = FRAME_UP;
+			}
+		}
+		
+		/**
+		 * 设置帧中的文本 
+		 * 
+		 */		
+		private function setFrameTextField():void
+		{
+			var len:int = _skin.totalFrames;
+			for (var i:int = 0; i < len; i++) 
+			{
+				_skin.addFrameScript(i,frameScript);
+			}
+			
+			function frameScript():void
+			{
+				textFieldLabel = _label;
 			}
 		}
 		
@@ -111,8 +138,11 @@ package czc.framework.component
 		{
 			if(value != null)
 			{
-				var tf:TextField = _skin.getChildByName("_lable") as TextField;
-				tf.htmlText = value;
+				var tf:TextField = _skin.getChildByName("_label") as TextField;
+				if(tf)
+				{
+					tf.text = value;
+				}
 			}
 		}
 		
