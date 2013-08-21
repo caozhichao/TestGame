@@ -11,6 +11,7 @@ package
 	
 	import test.ASWingTest;
 	import test.DragTest;
+	import test.HeapTest;
 	import test.MCButtonTest;
 	import test.ReflectionTest;
 	import test.RegExpTest;
@@ -22,7 +23,7 @@ package
 	 * 
 	 */	
 	[SWF(width="800",height="600")]
-	public class TestGame extends MCButtonTest
+	public class TestGame extends HeapTest
 	{
 		private var _context:GameContext;
 		
