@@ -39,13 +39,12 @@ package czc.framework.arithmetic
 				{
 					_closeList[curX] = [];
 				}
+				//如果不在关闭列表中   继续查找
 				if(!isCloseList(curX,curY))
 				{
 					//查找后的点记录到关闭列表(不再查找的点)
 					_closeList[curX][curY] = [curX,curY];
-					
 					//查找上下左右4个点  如果符合把他们放入待查询列表中
-					
 					//上
 					test(curX,FyMath.rangeInt(curY - 1,0),typeValue);
 					//下
@@ -59,6 +58,13 @@ package czc.framework.arithmetic
 			return _closeList;
 		}
 		
+		/**
+		 * 测试查找到的点 是否符合 
+		 * @param x
+		 * @param y
+		 * @param typeValue
+		 * 
+		 */		
 		private function test(x:int,y:int,typeValue:int):void
 		{
 			if(!isCloseList(x,y) && _mapData[x][y] == typeValue)
@@ -66,7 +72,13 @@ package czc.framework.arithmetic
 				openList.push([x,y]);
 			}
 		}
-		
+		/**
+		 * 检查是否在关闭列表中 
+		 * @param x
+		 * @param y
+		 * @param typeValue
+		 * 
+		 */		
 		private function isCloseList(x:int,y:int):Boolean
 		{
 			return _closeList[x] && _closeList[x][y]; 
