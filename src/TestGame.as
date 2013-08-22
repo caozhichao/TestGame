@@ -16,6 +16,7 @@ package
 	import test.ReflectionTest;
 	import test.RegExpTest;
 	import test.ScrollTest;
+	import test.XMStarTest;
 
 	/**
 	 * 
@@ -23,7 +24,7 @@ package
 	 * 
 	 */	
 	[SWF(width="800",height="600")]
-	public class TestGame extends HeapTest
+	public class TestGame extends XMStarTest
 	{
 		private var _context:GameContext;
 		
