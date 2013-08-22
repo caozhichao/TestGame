@@ -36,7 +36,7 @@ package test
 				for (var j:int = 0; j < cols; j++) 
 				{
 					var type:int = Math.random() * 2;
-					type = 1;
+					type = 1;// 设置格子的类型
 					maps[i][j] = type;
 					tile = new Tile(type ? 0x000000 : 0xCCCCCC,TILE_W,TILE_H);
 					tile.x = i * TILE_W;

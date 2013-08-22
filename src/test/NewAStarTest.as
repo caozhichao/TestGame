@@ -1,4 +1,4 @@
-package
+package test
 {
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
@@ -7,24 +7,19 @@ package
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	import flash.text.TextField;
-	import flash.text.TextFieldAutoSize;
 	import flash.utils.getTimer;
 	
-	import net.eidiot.map.AStar;
-	
-	import test.map.MapTileModel;
+	import czc.framework.astar.AStar;
 	import test.map.Tile;
 	
-//	[SWF(width = 520, height = 450, frameRate = 12)]
 	
 	/**
-	 * A* 寻路测试类
+	 *		
+	 * @author caozhichao
+	 * 创建时间：2013-8-22 下午5:44:38
 	 * 
-	 * @author	eidiot (http://eidiot.net)
-	 * @version	1.0
-	 * @date	070416
-	 */	
-	public class TestAStar extends Sprite
+	 */
+	public class NewAStarTest extends Sprite
 	{
 		//====================================
 		//	Member Variables
@@ -32,8 +27,7 @@ package
 		private var m_player : Tile;
 		private var m_map : Array;
 		
-		private var m_AStar : AStar;
-		private var m_mapTileModel : MapTileModel;
+		private var m_AStar : czc.framework.astar.AStar;
 		
 		private var m_mapW : int = 8; // 66
 		private var m_mapH : int = 6;//100
@@ -52,7 +46,7 @@ package
 		//====================================
 		//	Constructor
 		//====================================
-		public function TestAStar()
+		public function NewAStarTest()
 		{
 			stage.align = StageAlign.TOP_LEFT;
 			stage.scaleMode = StageScaleMode.NO_SCALE;
@@ -61,15 +55,16 @@ package
 			
 			this.m_outTxt = new TextField();
 			addChild(this.m_outTxt);
-			with (this.m_outTxt)
-			{
-				x = y = 10;
-				selectable = false;
-				autoSize = TextFieldAutoSize.LEFT;
-			}
 			
-			this.m_mapTileModel = new MapTileModel();
-			this.m_AStar = new AStar(this.m_mapTileModel);
+//			with (this.m_outTxt)
+//			{
+//				x = y = 10;
+//				selectable = false;
+//				autoSize = TextFieldAutoSize.LEFT;
+//			}
+			
+			this.m_AStar = new AStar();
+			
 			this.reset();
 		}
 		//====================================
@@ -87,7 +82,7 @@ package
 				for (var j : int = 0; j < m_mapH; j++)
 				{
 					titleValue = mapData[i][j];
-//					isClog = Math.random() < 0.3;
+					//					isClog = Math.random() < 0.3;
 					isClog = (titleValue == 1);
 					
 					tile = new Tile(isClog ? 0x000000 : 0xCCCCCC,TILE_W,TILE_H);
@@ -103,8 +98,7 @@ package
 			addChild(m_player);
 			m_player.x = m_mapX;
 			m_player.y = m_mapY;
-			
-			this.m_mapTileModel.map = this.m_map;
+			this.m_AStar.setMaps(m_map,m_mapW,m_mapH);
 			
 			output("单击白色方块测试寻路，双击空白区域重排地图");
 		}
@@ -165,5 +159,6 @@ package
 			this.m_player.x = this.m_mapX + note[0] * TILE_W;
 			this.m_player.y = this.m_mapY + note[1] * TILE_H;
 		}
+		
 	}
 }

@@ -13,6 +13,7 @@ package
 	import test.DragTest;
 	import test.HeapTest;
 	import test.MCButtonTest;
+	import test.NewAStarTest;
 	import test.ReflectionTest;
 	import test.RegExpTest;
 	import test.ScrollTest;
@@ -24,7 +25,7 @@ package
 	 * 
 	 */	
 	[SWF(width="800",height="600")]
-	public class TestGame extends XMStarTest
+	public class TestGame extends NewAStarTest
 	{
 		private var _context:GameContext;
 		
