@@ -24,8 +24,8 @@ package czc.framework.astar
 		private var _openList:Array;
 		//关闭列表
 		private var _closeList:Array;
-		//开放列表的下标
-		private var _openIndex:int;
+		//待查询列表的长度
+		private var _openListLen:int;
 		//待查询列表  二叉堆优化 
 		private var _openListheap:Heap;
 		
@@ -57,11 +57,14 @@ package czc.framework.astar
 		 */		
 		public function find(startX:int,startY:int,endX:int,endY:int):Array
 		{
-			map.reset();
+			var t:Number = getTimer();
+//			map.reset();
+			reset();
+			trace(getTimer() - t);
 			_openListheap.reset();
 			_openList = [];
 			_closeList = [];
-			_openIndex = 0;
+			_openListLen = 0;
 			var node:Node = map.getNode(startX,startY);
 			add2OpenList(node);
 			//当前查询的节点
@@ -73,7 +76,7 @@ package czc.framework.astar
 			var g:int;
 			var f:int;
 			//当待查询列数据长度  > 0
-			while(_openIndex > 0)
+			while(_openListLen > 0)
 			{
 //				_openList.sortOn("f",Array.NUMERIC);
 				curNode = openListShift();
@@ -158,22 +161,19 @@ package czc.framework.astar
 		
 		public function add2OpenList(node:Node):void
 		{
-			var x:int = node.x;
-			var y:int = node.y;
-			_openList[getIndex(x,y)]= node
+			//记录加入(过)开放列表中节点
+			_openList[getIndex(node.x,node.y)]= node;
 			_openListheap.enqueue(node);
-			_openIndex++;
+			_openListLen++;
 		}
 		public function openListShift():Node
 		{
-			_openIndex--;
+			_openListLen--;
 			return _openListheap.dequeue();
 		}
 		public function add2CloseList(node:Node):void
 		{
-			var x:int = node.x;
-			var y:int = node.y;
-			_closeList[getIndex(x,y)]= node
+			_closeList[getIndex(node.x,node.y)]= node
 		}
 		public function isCloseList(x:int,y:int):Boolean
 		{
@@ -213,8 +213,43 @@ package czc.framework.astar
 		{
 			return x * _mapH + y;
 		}
+		
+		/**
+		 * 重置查询过的数据节点 
+		 * 
+		 */		
+		public function reset():void
+		{
+			var node:Node;
+			var len:int;
+			if(_openList)
+			{
+				len = _openList.length;
+			}
+			for (var i:int = 0; i < len; i++) 
+			{
+				node = _openList[i];
+				if(node)
+				{
+					node.g = 0;
+					node.f = 0;
+					node.pNode = null;
+				}
+			}
+		}
 	}
 }
+/**
+ * 地图数据排列
+ * -------------------->
+ * 00 10 20 
+ * 01 11 21 
+ * 02 12 22
+ * 
+ *  
+ * @author caozhichao
+ * 
+ */
 class Map
 {
 	public var mapData:Array;

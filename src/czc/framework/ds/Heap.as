@@ -25,8 +25,11 @@ package czc.framework.ds
 		public function Heap(compare:Function)
 		{
 			_compare = compare;
+			/*
 			_heap = [];
 			_postionIndex = 0;
+			*/
+			reset();
  		}
 		
 		public function reset():void
