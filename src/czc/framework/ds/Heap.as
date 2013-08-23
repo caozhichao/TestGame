@@ -47,6 +47,8 @@ package czc.framework.ds
 		public function enqueue(value:*):void
 		{
 			_heap[_postionIndex] = value;
+			sort(_postionIndex);
+			/*
 			//父节点index
 			var pIndex:int;
 			//子节点index
@@ -68,9 +70,55 @@ package czc.framework.ds
 					break;
 				}
 			}
+			*/
 			_postionIndex++;
 		}
 		
+		/**
+		 * 排序 
+		 * @param childIndex
+		 * 
+		 */		
+		private function sort(childIndex:int):void
+		{
+			//父节点index
+			var pIndex:int;
+			//子节点index
+			var cIndex:int = childIndex;
+			var temp:*;
+			//cIndex>0才有pIndex
+			while(cIndex > 0)
+			{
+				pIndex = (cIndex - 1) >> 1;
+				//如果新插入的数据大于parent的数据，则应不断上移与parent交换位置
+				if(_compare(_heap[cIndex],_heap[pIndex]) > 0)
+				{
+					temp = _heap[pIndex];
+					_heap[pIndex] = _heap[cIndex];
+					_heap[cIndex] = temp;
+					cIndex = pIndex;
+				} else 
+				{
+					break;
+				}
+			}
+		}
+		
+		/**
+		 * 修改数据 
+		 * @param obj
+		 * @param newObj
+		 * @return 
+		 * 
+		 */		
+		public function modify(obj:*,newObj:*):Boolean
+		{
+			var cindex :int = this._heap.indexOf(obj);
+			if(cindex < 0)return false
+			_heap[cindex]= newObj;
+			sort(cindex);
+			return true
+		}
 		/**
 		 * 出队 
 		 * @return 
