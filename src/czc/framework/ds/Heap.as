@@ -163,5 +163,10 @@ package czc.framework.ds
 		{
 			return _heap.toString();
 		}
+		
+		public function get heap():Array
+		{
+			return _heap;
+		}
 	}
 }

@@ -78,8 +78,10 @@ package czc.framework.astar
 			//当待查询列数据长度  > 0
 			while(_openListLen > 0)
 			{
-//				_openList.sortOn("f",Array.NUMERIC);
+				//选取一个f值最小的节点
 				curNode = openListShift();
+				//打印log 查看 优先选取f值最小的
+//				log(_openListheap.heap,curNode);
 				curX = curNode.x;
 				curY = curNode.y;
 				//加入关闭列表
@@ -125,6 +127,20 @@ package czc.framework.astar
 				}
 			}
 			return null;
+		}
+		
+		private function log(arr:Array,curNode:Node):void
+		{
+			var list:Array = [];
+			for each (var node:Node in arr) 
+			{
+				list.push(node);
+			}
+			list.sortOn("f",Array.NUMERIC);
+			if(list[0])
+			{
+				trace(curNode.f,list[0].f,curNode.f <= list[0].f);
+			}
 		}
 		
 		public function get8Point(x:int,y:int):Array
