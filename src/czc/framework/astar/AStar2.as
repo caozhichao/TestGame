@@ -57,10 +57,10 @@ package czc.framework.astar
 		 */		
 		public function find(startX:int,startY:int,endX:int,endY:int):Array
 		{
-			var t:Number = getTimer();
+//			var t:Number = getTimer();
 //			map.reset();
 			reset();
-			trace(getTimer() - t);
+//			trace(getTimer() - t);
 			_openListheap.reset();
 			_openList = [];
 			_closeList = [];
@@ -110,6 +110,8 @@ package czc.framework.astar
 								n.g = g;
 								n.f = f;
 								n.pNode = curNode;
+								//修改f之后，更新二叉堆
+								_openListheap.modify(n,n);
 							}
 						} else 
 						{
