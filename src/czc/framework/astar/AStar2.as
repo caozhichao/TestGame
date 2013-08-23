@@ -226,15 +226,16 @@ package czc.framework.astar
 		 */		
 		public function getPath(node:Node):Array
 		{
-			var arr:Array = [];
+			var path:Array = [];
 			var index:int;
 			while(node.pNode != null)
 			{
 //				arr.unshift([node.x,node.y]);
-				arr.push([node.x,node.y]);
+				path[index] = [node.x,node.y];
 				node = node.pNode;
+				index++;
 			}
-			return arr.reverse();
+			return path.reverse();
 		}
 		/**
 		 * 二维坐标转成一维坐标 
