@@ -11,6 +11,7 @@ package test
 	import flash.utils.getTimer;
 	
 	import czc.framework.astar.AStar;
+	import czc.framework.astar.AStar2;
 	
 	import test.map.Tile;
 	
@@ -29,7 +30,7 @@ package test
 		private var m_player : Tile;
 		private var m_map : Array;
 		
-		private var m_AStar : czc.framework.astar.AStar;
+		private var m_AStar : czc.framework.astar.AStar2;
 		
 		private var m_mapW : int = 66; // 66
 		private var m_mapH : int = 100;//100
@@ -69,7 +70,7 @@ package test
 //				selectable = false;
 //				autoSize = TextFieldAutoSize.LEFT;
 //			}
-			this.m_AStar = new AStar();
+			this.m_AStar = new AStar2();
 			this.reset();
 		}
 		//====================================

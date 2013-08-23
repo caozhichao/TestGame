@@ -29,6 +29,12 @@ package czc.framework.ds
 			_postionIndex = 0;
  		}
 		
+		public function reset():void
+		{
+			_heap = [];
+			_postionIndex = 0;
+		}
+		
 		/**
 		 * 入队
 		 * @param value
