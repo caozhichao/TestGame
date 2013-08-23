@@ -35,8 +35,8 @@ package
 		private var m_AStar : AStar;
 		private var m_mapTileModel : MapTileModel;
 		
-		private var m_mapW : int = 8; // 66
-		private var m_mapH : int = 6;//100
+		private var m_mapW : int = 66; // 66
+		private var m_mapH : int = 100;//100
 		
 		private var m_mapX : int = 10;
 		private var m_mapY : int = 40;
@@ -47,8 +47,8 @@ package
 		private var m_outTxt : TextField;
 		
 		private var mapData:Array = [[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,1,1,1,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]];
-		private static const TILE_W:int = 20;
-		private static const TILE_H:int = 20;
+		private static const TILE_W:int = 10;
+		private static const TILE_H:int = 10;
 		//====================================
 		//	Constructor
 		//====================================
@@ -86,9 +86,9 @@ package
 				m_map[i] = new Array();
 				for (var j : int = 0; j < m_mapH; j++)
 				{
-					titleValue = mapData[i][j];
-//					isClog = Math.random() < 0.3;
-					isClog = (titleValue == 1);
+//					titleValue = mapData[i][j];
+					isClog = Math.random() < 0.3;
+//					isClog = (titleValue == 1);
 					
 					tile = new Tile(isClog ? 0x000000 : 0xCCCCCC,TILE_W,TILE_H);
 					tile.addEventListener(MouseEvent.CLICK, clickHandle);

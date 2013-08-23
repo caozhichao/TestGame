@@ -78,7 +78,7 @@ package czc.framework.ds
 				var pIndex:int = 0;
 				var cIndex:int = 1;
 				var temp:*;
-				while(pIndex < _postionIndex - 1)
+				while(/*pIndex < _postionIndex - 1*/cIndex <= _postionIndex-1)
 				{
 					//比较2个子节点
 					if(_heap[cIndex+1] && this._compare(_heap[cIndex],_heap[cIndex+1]) < 0)

@@ -1,5 +1,9 @@
 package czc.framework.astar
 {
+	import flash.utils.getTimer;
+	
+	import czc.framework.ds.Heap;
+
 	/**
 	 *		
 	 * @author caozhichao
@@ -21,6 +25,8 @@ package czc.framework.astar
 		//开放列表的下标
 		private var _openIndex:int;
 		
+		private var _openListheap:Heap;
+		
 		public function AStar()
 		{
 			
@@ -31,7 +37,14 @@ package czc.framework.astar
 		}
 		public function find(startX:int,startY:int,endX:int,endY:int):Array
 		{
+			var t:Number = getTimer();
 			map.reset();
+			function compare(a:Node,b:Node):int
+			{
+				return b.f - a.f;
+			}
+			_openListheap = new Heap(compare);
+//			trace(getTimer() - t);
 			_openList = [];
 			_closeList = [];
 			_openIndex = 0;
@@ -46,9 +59,10 @@ package czc.framework.astar
 			var g:int;
 			var f:int;
 			//当待查询列数据长度  > 0
+			t = getTimer();
 			while(_openIndex > 0)
 			{
-				_openList.sortOn("f",Array.NUMERIC);
+//				_openList.sortOn("f",Array.NUMERIC);
 				curNode = openListShift();
 				curX = curNode.x;
 				curY = curNode.y;
@@ -57,10 +71,12 @@ package czc.framework.astar
 				//如果终点被放入关闭列表寻路结束，返回路径
 				if (curX == endX && curY == endY)
 				{
+					trace("消耗:" + (getTimer() - t));
 					return getPath(curNode);
 				}
 				//查找当前节点的8个方向的节点
 				point8 = get8Point(curX,curY);
+				
 				for each (var n:Node in point8) 
 				{
 					//计算F和G值      g从起始点的总花费      
@@ -68,7 +84,7 @@ package czc.framework.astar
 					f = g + (Math.abs(endX - n.x) + Math.abs(endY - n.y)) * COST_STRAIGHT;
 					if(!isCloseList(n.x,n.y))
 					{
-						if(isOpenList(n))
+						if(isOpenList(n.x,n.y))
 						{
 							if(g < n.g)
 							{
@@ -86,7 +102,7 @@ package czc.framework.astar
 					}
 				}
 			}
-			return [];
+			return null;
 		}
 		
 		public function get8Point(x:int,y:int):Array
@@ -131,13 +147,23 @@ package czc.framework.astar
 		
 		public function add2OpenList(node:Node):void
 		{
-			_openList[_openIndex] = node;
+//			_openList[_openIndex] = node;
+			var x:int = node.x;
+			var y:int = node.y;
+			if(_openList[x] == null)
+			{
+				_openList[x] = [];
+			}
+			_openList[x][y] = node;
+			
+			_openListheap.enqueue(node);
 			_openIndex++;
 		}
 		public function openListShift():Node
 		{
 			_openIndex--;
-			return _openList.shift();
+//			return _openList.shift();
+			return _openListheap.dequeue();
 		}
 		public function add2CloseList(node:Node):void
 		{
@@ -155,9 +181,10 @@ package czc.framework.astar
 			return _closeList[x] && _closeList[x][y];
 		}
 		
-		public function isOpenList(node:Node):Boolean
+		public function isOpenList(x:int,y:int/* node:Node*/):Boolean
 		{
-			return _openList.indexOf(node) > -1;
+//			return _openList.indexOf(node) > -1;
+			return _openList[x] && _openList[x][y];
 		}
 		
 		public function getPath(node:Node):Array
@@ -222,6 +249,10 @@ class Map
 		return x >= 0 && x < mapW && y >= 0 && y < mapH;
 	}
 	
+	/**
+	 * 重置地图数据 
+	 * 
+	 */	
 	public function reset():void
 	{
 		var node:Node;
@@ -244,7 +275,6 @@ class Node
 	public var y:int;
 	public var f:int;
 	public var g:int;
-//	public var h:int;
 	public var walkable:Boolean = true;
 	public var pNode:Node;
 }

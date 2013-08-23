@@ -7,9 +7,11 @@ package test
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	import flash.text.TextField;
+	import flash.text.TextFieldAutoSize;
 	import flash.utils.getTimer;
 	
 	import czc.framework.astar.AStar;
+	
 	import test.map.Tile;
 	
 	
@@ -29,8 +31,8 @@ package test
 		
 		private var m_AStar : czc.framework.astar.AStar;
 		
-		private var m_mapW : int = 8; // 66
-		private var m_mapH : int = 6;//100
+		private var m_mapW : int = 66; // 66
+		private var m_mapH : int = 100;//100
 		
 		private var m_mapX : int = 10;
 		private var m_mapY : int = 40;
@@ -41,8 +43,9 @@ package test
 		private var m_outTxt : TextField;
 		
 		private var mapData:Array = [[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,1,1,1,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]];
-		private static const TILE_W:int = 20;
-		private static const TILE_H:int = 20;
+		private static const TILE_W:int = 10;
+		private static const TILE_H:int = 10;
+		private var titleArr:Array;
 		//====================================
 		//	Constructor
 		//====================================
@@ -56,15 +59,17 @@ package test
 			this.m_outTxt = new TextField();
 			addChild(this.m_outTxt);
 			
+			this.m_outTxt.x = this.m_outTxt.y = 10;
+			this.m_outTxt.selectable = false;
+			this.m_outTxt.autoSize = TextFieldAutoSize.LEFT;
+			
 //			with (this.m_outTxt)
 //			{
 //				x = y = 10;
 //				selectable = false;
 //				autoSize = TextFieldAutoSize.LEFT;
 //			}
-			
 			this.m_AStar = new AStar();
-			
 			this.reset();
 		}
 		//====================================
@@ -72,6 +77,7 @@ package test
 		//====================================
 		private function reset() : void
 		{
+			titleArr = [];
 			var tile : Tile;
 			var isClog : Boolean;
 			this.m_map = new Array();
@@ -81,9 +87,9 @@ package test
 				m_map[i] = new Array();
 				for (var j : int = 0; j < m_mapH; j++)
 				{
-					titleValue = mapData[i][j];
-					//					isClog = Math.random() < 0.3;
-					isClog = (titleValue == 1);
+//					titleValue = mapData[i][j];
+					isClog = Math.random() < 0.3;
+//					isClog = (titleValue == 1);
 					
 					tile = new Tile(isClog ? 0x000000 : 0xCCCCCC,TILE_W,TILE_H);
 					tile.addEventListener(MouseEvent.CLICK, clickHandle);
@@ -91,6 +97,8 @@ package test
 					tile.x = m_mapX + i * TILE_W;
 					tile.y = m_mapY + j * TILE_H;
 					m_map[i][j] = isClog ? 0 : 1;
+					
+					titleArr.push(tile);
 				}
 			}
 			
@@ -119,14 +127,23 @@ package test
 		//====================================
 		private function resetHandle(event : MouseEvent) : void
 		{
-			while (this.numChildren > 1)
+			/*
+			while (this.numChildren > 0)
 			{
-				var tile : Tile = this.getChildAt(1) as Tile;
-				if (tile.hasEventListener(MouseEvent.CLICK))
+				var tile : Tile = this.getChildAt(0) as Tile;
+				if (tile && tile.hasEventListener(MouseEvent.CLICK))
 				{
 					tile.removeEventListener(MouseEvent.CLICK, clickHandle);
+					this.removeChild(tile);
 				}
-				this.removeChild(tile);
+			}
+			*/
+			var len:int = titleArr.length;
+			var index:int = 0;
+			while(index < len)
+			{
+				this.removeChild(titleArr[index]);
+				index++;
 			}
 			this.reset();
 		}
@@ -139,7 +156,7 @@ package test
 			this.m_path = this.m_AStar.find(playerPoint.x, playerPoint.y, findPiont.x, findPiont.y);
 			if (this.m_path != null && this.m_path.length > 0)
 			{
-				output("路径已找到，正在移动" + (getTimer() - t));
+				output("路径已找到，正在移动|寻路时间" + (getTimer() - t));
 				this.addEventListener(Event.ENTER_FRAME, enterframeHandle);
 			} else
 			{
