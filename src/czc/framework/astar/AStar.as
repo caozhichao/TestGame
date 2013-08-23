@@ -31,6 +31,7 @@ package czc.framework.astar
 		}
 		public function find(startX:int,startY:int,endX:int,endY:int):Array
 		{
+			map.reset();
 			_openList = [];
 			_closeList = [];
 			_openIndex = 0;
@@ -62,7 +63,7 @@ package czc.framework.astar
 				point8 = get8Point(curX,curY);
 				for each (var n:Node in point8) 
 				{
-					//计算F和G值
+					//计算F和G值      g从起始点的总花费      
 					g = curNode.g + ((n.x == curX || n.y == curY) ? COST_STRAIGHT : COST_DIAGONAL);
 					f = g + (Math.abs(endX - n.x) + Math.abs(endY - n.y)) * COST_STRAIGHT;
 					if(!isCloseList(n.x,n.y))
@@ -72,6 +73,7 @@ package czc.framework.astar
 							if(g < n.g)
 							{
 								n.g = g;
+								n.f = f;
 								n.pNode = curNode;
 							}
 						} else 
@@ -139,8 +141,8 @@ package czc.framework.astar
 		}
 		public function add2CloseList(node:Node):void
 		{
-			var x:int;
-			var y:int;
+			var x:int = node.x;
+			var y:int = node.y;
 			if(_closeList[x] == null)
 			{
 				_closeList[x] = [];
@@ -164,9 +166,8 @@ package czc.framework.astar
 			var index:int;
 			while(node.pNode != null)
 			{
-				arr[index] = [node.x,node.y];
+				arr.unshift([node.x,node.y]);
 				node = node.pNode;
-				index++;
 			}
 			return arr;
 		}
@@ -220,6 +221,22 @@ class Map
 	{
 		return x >= 0 && x < mapW && y >= 0 && y < mapH;
 	}
+	
+	public function reset():void
+	{
+		var node:Node;
+		for (var i:int = 0; i < this.mapW; i++) 
+		{
+			for (var j:int = 0; j < this.mapH; j++) 
+			{
+				node = nodeList[i][j];
+				node.g = 0;
+				node.f = 0;
+				node.pNode = null;
+			}
+		}
+	}
+	
 }
 class Node
 {
