@@ -17,6 +17,7 @@ package
 	import test.ReflectionTest;
 	import test.RegExpTest;
 	import test.ScrollTest;
+	import test.Test;
 	import test.XMStarTest;
 
 	/**

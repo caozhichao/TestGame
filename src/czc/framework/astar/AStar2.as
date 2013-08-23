@@ -291,14 +291,14 @@ class Map
 	public var mapData:Array;
 	public var mapW:int;
 	public var mapH:int;
-	public var nodeList:Array;
+	public var nodeList:Vector.<Node>;
 	
 	public function Map(mapData:Array,mapW:int,mapH:int)
 	{
 		this.mapData = mapData;
 		this.mapW = mapW;
 		this.mapH = mapH;
-		this.nodeList = [];
+		this.nodeList = new Vector.<Node>();
 		var node:Node;
 		var index:int;
 		for (var i:int = 0; i < this.mapW; i++) 

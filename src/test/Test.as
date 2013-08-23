@@ -42,13 +42,16 @@ package test
 		public function Test()
 		{
 			super();
+			var vec:Vector.<int> = new Vector.<int>();
+			vec[10] = 12;
 			
+			/*
 			var label:Label = new Label();
 			label.text = "d啊";
 			label.x = 100;
 			label.y = 100;
 			addChild(label);
-			
+			*/
 			/*
 			var a:uint = 0x01 & 0x02;
 			var b:uint = 0x02 & 0x03;
