@@ -35,7 +35,7 @@ package
 		private var m_AStar : AStar;
 		private var m_mapTileModel : MapTileModel;
 		
-		private var m_mapW : int = 66; // 66
+		private var m_mapW : int = 100; // 66
 		private var m_mapH : int = 100;//100
 		
 		private var m_mapX : int = 10;
