@@ -91,8 +91,13 @@ package czc.framework.astar
 				}
 				//查找当前节点的8个方向的节点
 				point8 = get8Point(curX,curY);
-				for each (var n:Node in point8) 
+				var p8Index:int = 0;
+				var p8Len:int = point8.length;
+				var n:Node;
+				while(p8Index < p8Len)
+//				for each (var n:Node in point8) 
 				{
+					n = point8[p8Index];
 					//计算F和G值      g从起始点的总花费      
 					g = curNode.g + ((n.x == curX || n.y == curY) ? COST_STRAIGHT : COST_DIAGONAL);
 					f = g + (Math.abs(endX - n.x) + Math.abs(endY - n.y)) * COST_STRAIGHT;
@@ -114,6 +119,7 @@ package czc.framework.astar
 							add2OpenList(n);
 						}
 					}
+					p8Index++;
 				}
 			}
 			return null;
@@ -158,11 +164,16 @@ package czc.framework.astar
 			}
 			return null;
 		}
-		
+		/**
+		 * 添加到开放列表中 
+		 * @param node
+		 * 
+		 */		
 		public function add2OpenList(node:Node):void
 		{
 			//记录加入(过)开放列表中节点
 			_openList[getIndex(node.x,node.y)]= node;
+			//二叉堆
 			_openListheap.enqueue(node);
 			_openListLen++;
 		}
@@ -171,6 +182,11 @@ package czc.framework.astar
 			_openListLen--;
 			return _openListheap.dequeue();
 		}
+		/**
+		 * 添加到关闭列表中 
+		 * @param node
+		 * 
+		 */		
 		public function add2CloseList(node:Node):void
 		{
 			_closeList[getIndex(node.x,node.y)]= node
@@ -184,7 +200,6 @@ package czc.framework.astar
 		{
 			return 	_openList[getIndex(x,y)];
 		}
-		
 		/**
 		 * 获取路径 
 		 * @param node
@@ -197,10 +212,11 @@ package czc.framework.astar
 			var index:int;
 			while(node.pNode != null)
 			{
-				arr.unshift([node.x,node.y]);
+//				arr.unshift([node.x,node.y]);
+				arr.push([node.x,node.y]);
 				node = node.pNode;
 			}
-			return arr;
+			return arr.reverse();
 		}
 		/**
 		 * 二维坐标转成一维坐标 
@@ -226,15 +242,17 @@ package czc.framework.astar
 			{
 				len = _openList.length;
 			}
-			for (var i:int = 0; i < len; i++) 
+			var index:int = 0;
+			while(index < len)
 			{
-				node = _openList[i];
+				node = _openList[index];
 				if(node)
 				{
 					node.g = 0;
 					node.f = 0;
 					node.pNode = null;
 				}
+				index++;
 			}
 		}
 	}
