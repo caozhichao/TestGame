@@ -26,7 +26,7 @@ package
 	 * 
 	 */	
 	[SWF(width="800",height="600")]
-	public class TestGame extends HeapTest
+	public class TestGame extends NewAStarTest
 	{
 		private var _context:GameContext;
 		

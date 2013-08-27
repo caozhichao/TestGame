@@ -154,22 +154,48 @@ package czc.framework.astar
 			var leftNode:Node = checkNode(x-1,y);
 			//右
 			var rightNode:Node = checkNode(x+1,y);
+			
 			//右上
-			var rightUpNode:Node = checkNode(x+1,y-1);
-			//右下
-			var rightDownNode:Node = checkNode(x+1,y+1);
+//			var rightUpNode:Node/* = checkNode(x+1,y-1)*/;
+//			//右下
+//			var rightDownNode:Node/* = checkNode(x+1,y+1)*/;
 			//左上
-			var leftUpNode:Node = checkNode(x-1,y-1);
+//			var leftUpNode:Node/* = checkNode(x-1,y-1)*/;
 			//左下
-			var leftDownNode:Node = checkNode(x-1,y+1);
+//			var leftDownNode:Node/* = checkNode(x-1,y+1)*/;
 			upNode && arr.push(upNode);
 			downNode && arr.push(downNode);
 			leftNode && arr.push(leftNode);
 			rightNode && arr.push(rightNode);
-			rightUpNode && upNode && rightNode && arr.push(rightUpNode);
-			rightDownNode && downNode && rightNode && arr.push(rightDownNode);
-			leftUpNode && upNode && leftNode && arr.push(leftUpNode);
-			leftDownNode && downNode && leftNode && arr.push(leftDownNode);
+			
+			if(rightNode && upNode)
+			{
+				//右上
+				var rightUpNode:Node;
+				rightUpNode = checkNode(x+1,y-1);
+				rightUpNode && arr.push(rightUpNode);
+			} 
+			if(downNode && rightNode)
+			{
+				//右下
+				var rightDownNode:Node;
+				rightDownNode = checkNode(x+1,y+1);
+				rightDownNode && arr.push(rightDownNode);
+			} 
+			if(upNode && leftNode )
+			{
+				//左上
+				var leftUpNode:Node;
+				leftUpNode = checkNode(x-1,y-1);
+				leftUpNode&& arr.push(leftUpNode);
+			}
+			if(downNode && leftNode)
+			{
+				//左下
+				var leftDownNode:Node;
+				leftDownNode = checkNode(x-1,y+1);
+				leftDownNode&& arr.push(leftDownNode);
+			}
 			return arr;
 		}
 		
