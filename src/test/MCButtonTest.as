@@ -32,10 +32,9 @@ package test
 			addChild(skin);
 			var mcButton:MCButton = new MCButton(skin,true);
 			addChild(mcButton);
-			trace();
 			mcButton.label = "abc";
-			return;
 			
+			return;
 			function a():void
 			{
 				trace("ddd" + (skin.getChildByName("_label") as TextField).text);

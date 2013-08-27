@@ -2,7 +2,6 @@ package czc.framework.component
 {
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
-	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.text.TextField;
 	
@@ -11,7 +10,11 @@ package czc.framework.component
 	
 	
 	/**
-	 *	MovieClip Button	
+	 *	MovieClip Button
+	 * 	mc 一般分为3层
+	 * 图片层
+	 * 文本层
+	 * 代码层 (可控制文本的颜色...)
 	 * @author caozhichao
 	 * 创建时间：2013-8-15 上午9:16:48
 	 * 
@@ -30,16 +33,15 @@ package czc.framework.component
 		protected var _curFrameIndex:int;
 		//是否是简单按钮(和正常按钮一样自动弹起)
 		protected var _isSimpleButton:Boolean;
-		protected var _label:String;
-		protected var _buttonTextFieldName:String;
-		protected var _isAddFrameScript:Boolean;
+		//按钮文本
+		protected var _label:TextField;
 		public static const MC_BUTTON_EVENT:String = "MC_BUTTON_EVENT";
 		public function MCButton(_skin:MovieClip=null,_isSimpleButton:Boolean=false)
 		{
 			skin = _skin;
 			isSimpleButton = _isSimpleButton;
 			this.mouseChildren = false;
-			buttonTextFieldName = "_label";
+			_label = _skin.getChildByName("_label") as TextField;
 			addEventListener(MouseEvent.MOUSE_DOWN,onMouseDown);
 			addEventListener(MouseEvent.MOUSE_UP,onMouseUp);
 			addEventListener(MouseEvent.MOUSE_OVER,onMouseOver);
@@ -102,66 +104,13 @@ package czc.framework.component
 		}
 		
 		/**
-		 * 设置帧中的文本 
-		 * 
-		 */		
-		private function setFrameTextField():void
-		{
-			var len:int = _skin.totalFrames;
-			for (var i:int = 0; i < len; i++) 
-			{
-				_skin.addFrameScript(i,frameScript);
-			}
-			
-			function frameScript():void
-			{
-				textFieldLabel = _label;
-			}
-		}
-		
-		/**
 		 * 设置按钮文字 
 		 * @param value
 		 * 
 		 */		
 		public function set label(value:String):void
 		{
-			_label = value;
-			//添加帧事件
-			if(!_isAddFrameScript)
-			{
-				_isAddFrameScript = true;
-				setFrameTextField();
-			}
-			textFieldLabel = _label;
-		}
-		
-		/**
-		 * 设置按钮文本的实例名称 
-		 * @param value
-		 * 
-		 */		
-		public function set buttonTextFieldName(value:String):void
-		{
-			_buttonTextFieldName = value;
-		}
-		
-		
-		/**
-		 * 设置当前帧按钮文字 
-		 * @param value
-		 * 
-		 */		
-		private function set textFieldLabel(value:String):void
-		{
-			if(value != null)
-			{
-				var tf:TextField = _skin.getChildByName(_buttonTextFieldName) as TextField;
-				if(tf)
-				{
-					tf.text = value;
-				}
-			}
+			_label.text = value;
 		}
 		
 		private function set frameButtonIndex(value:int):void
@@ -183,7 +132,6 @@ package czc.framework.component
 			_skin.gotoAndStop(state);
 			//触发事件
 			dispatch(_curFrameIndex);
-			textFieldLabel = _label;
 		}
 		
 		

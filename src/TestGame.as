@@ -26,7 +26,7 @@ package
 	 * 
 	 */	
 	[SWF(width="800",height="600")]
-	public class TestGame extends NewAStarTest
+	public class TestGame extends MCButtonTest
 	{
 		private var _context:GameContext;
 		

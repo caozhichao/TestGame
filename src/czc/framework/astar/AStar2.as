@@ -233,7 +233,7 @@ package czc.framework.astar
 		 */		
 		public function add2CloseList(node:Node):void
 		{
-			_closeList[getIndex(node.x,node.y)]= node
+			_closeList[getIndex(node.x,node.y)]= node;
 		}
 		public function isCloseList(x:int,y:int):Boolean
 		{
@@ -372,6 +372,7 @@ class Map
 	 * 重置地图数据 
 	 * 
 	 */	
+	/*
 	public function reset():void
 	{
 		var node:Node;
@@ -384,7 +385,7 @@ class Map
 			node.pNode = null;
 		}
 	}
-	
+	*/
 }
 class Node
 {
