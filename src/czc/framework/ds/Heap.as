@@ -25,10 +25,6 @@ package czc.framework.ds
 		public function Heap(compare:Function)
 		{
 			_compare = compare;
-			/*
-			_heap = [];
-			_postionIndex = 0;
-			*/
 			reset();
  		}
 		
@@ -48,29 +44,6 @@ package czc.framework.ds
 		{
 			_heap[_postionIndex] = value;
 			sort(_postionIndex);
-			/*
-			//父节点index
-			var pIndex:int;
-			//子节点index
-			var cIndex:int = _postionIndex;
-			var temp:*;
-			//cIndex>0才有pIndex
-			while(cIndex > 0)
-			{
-				pIndex = (cIndex - 1) >> 1;
-				//如果新插入的数据大于parent的数据，则应不断上移与parent交换位置
-				if(_compare(_heap[cIndex],_heap[pIndex]) > 0)
-				{
-					temp = _heap[pIndex];
-					_heap[pIndex] = _heap[cIndex];
-					_heap[cIndex] = temp;
-					cIndex = pIndex;
-				} else 
-				{
-					break;
-				}
-			}
-			*/
 			_postionIndex++;
 		}
 		
@@ -135,7 +108,7 @@ package czc.framework.ds
 				var pIndex:int = 0;
 				var cIndex:int = 1;
 				var temp:*;
-				while(/*pIndex < _postionIndex - 1*/cIndex <= _postionIndex-1)
+				while(cIndex <= _postionIndex-1)
 				{
 					//比较2个子节点
 					if(_heap[cIndex+1] && this._compare(_heap[cIndex],_heap[cIndex+1]) < 0)
