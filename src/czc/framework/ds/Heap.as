@@ -58,23 +58,23 @@ package czc.framework.ds
 			var pIndex:int;
 			//子节点index
 			var cIndex:int = childIndex;
-			var temp:*;
+			var temp:* = _heap[cIndex];
 			//cIndex>0才有pIndex
 			while(cIndex > 0)
 			{
 				pIndex = (cIndex - 1) >> 1;
 				//如果新插入的数据大于parent的数据，则应不断上移与parent交换位置
-				if(_compare(_heap[cIndex],_heap[pIndex]) > 0)
+				if(_compare(temp,_heap[pIndex]) > 0)
 				{
-					temp = _heap[pIndex];
-					_heap[pIndex] = _heap[cIndex];
-					_heap[cIndex] = temp;
+					_heap[cIndex] = _heap[pIndex]; 
+					//更改子节点的位置
 					cIndex = pIndex;
 				} else 
 				{
 					break;
 				}
 			}
+			_heap[cIndex] = temp;
 		}
 		
 		/**
@@ -107,7 +107,7 @@ package czc.framework.ds
 				_heap[0] = lastElement;
 				var pIndex:int = 0;
 				var cIndex:int = 1;
-				var temp:*;
+				var temp:* = _heap[pIndex];
 				while(cIndex <= _postionIndex-1)
 				{
 					//比较2个子节点
@@ -115,11 +115,9 @@ package czc.framework.ds
 					{
 						cIndex++;
 					}
-					if(this._compare(_heap[pIndex],this._heap[cIndex])<0)
+					if(this._compare(temp,this._heap[cIndex])<0)
 					{
-						temp = _heap[pIndex];
 						_heap[pIndex] = _heap[cIndex];
-						_heap[cIndex] = temp;
 						pIndex = cIndex;
 						//计算子节点的位置
 						cIndex = (cIndex << 1) + 1;
@@ -128,6 +126,7 @@ package czc.framework.ds
 						break
 					}
 				}
+				_heap[pIndex] = temp;
 			}
 			return element;
 		}

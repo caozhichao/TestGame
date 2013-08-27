@@ -24,26 +24,29 @@ package test
 			heap.enqueue(2);
 			heap.enqueue(6); 
 			heap.enqueue(5);  
-//			heap.enqueue(8);  
-//			heap.enqueue(7);  
-//			heap.enqueue(4); 
-//			heap.enqueue(1);  
-//			heap.enqueue(3);  
-//			heap.enqueue(9);
+			heap.enqueue(8);  
+			heap.enqueue(7);  
+			heap.enqueue(4); 
+			heap.enqueue(1);  
+			heap.enqueue(3);  
+			heap.enqueue(9);
 			trace(heap.toString());
-//			heap.dequeue();
-			heap.modify(2,9);
-			trace(heap.toString());
-//			heap.enqueue(9);
-			trace(heap.toString());
-//			heap.dequeue(); 
-//			heap.dequeue();  
-//			heap.dequeue();  
-//			heap.dequeue();  
-//			heap.dequeue(); 
-//			heap.dequeue();  
-//			heap.dequeue();  
-//			heap.dequeue();
+////			heap.dequeue();
+//			heap.modify(2,9);
+//			trace(heap.toString());
+////			heap.enqueue(9);
+//			trace(heap.toString());
+			
+			heap.dequeue(); 
+			heap.dequeue();  
+			heap.dequeue();  
+			heap.dequeue();  
+			heap.dequeue(); 
+			heap.dequeue();  
+			heap.dequeue();  
+			heap.dequeue();
+			heap.dequeue();
+			
 		}
 	}
 }
