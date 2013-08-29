@@ -10,7 +10,11 @@ package czc.framework.component
 	
 	
 	/**
-	 *	MovieClip Button
+	 *MovieClip Button
+	 *作为2种按钮使用
+	 * 1.简单按钮模拟SimpleButton 第4帧为不可点击状态 
+	 * 2.多个按钮关联使用 停留在按下状态，按下状态是不可点击的
+	 * 
 	 * 	mc 一般分为3层
 	 * 图片层
 	 * 文本层
@@ -29,6 +33,8 @@ package czc.framework.component
 		public static const FRAME_OVER:int =2;
 		//按下状态
 		public static const FRAME_DOWN:int = 3;
+		//不能点击状态帧
+		public static const FRAME_CAN_NOT_CLICK:int = 4;
 		//按钮当前帧
 		protected var _curFrameIndex:int;
 		//是否是简单按钮(和正常按钮一样自动弹起)
@@ -68,9 +74,6 @@ package czc.framework.component
 			if(_isSimpleButton)
 			{
 				frameButtonIndex = FRAME_OVER;
-			} else 
-			{
-				frameButtonIndex = FRAME_UP;
 			}
 		}
 		
@@ -86,7 +89,10 @@ package czc.framework.component
 		
 		private function get hasMouseEvent():Boolean
 		{
-			if(_isSimpleButton || _curFrameIndex != FRAME_DOWN)
+			if(_isSimpleButton && _curFrameIndex != FRAME_CAN_NOT_CLICK)
+			{
+				return true;
+			} else if(!_isSimpleButton && _curFrameIndex != FRAME_DOWN)
 			{
 				return true;
 			}

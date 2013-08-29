@@ -3,6 +3,7 @@ package test
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.events.MouseEvent;
 	import flash.text.TextField;
 	import flash.utils.setTimeout;
 	
@@ -33,6 +34,12 @@ package test
 			var mcButton:MCButton = new MCButton(skin,true);
 			addChild(mcButton);
 			mcButton.label = "abc";
+			function onClick(evt:MouseEvent):void
+			{
+				mcButton.setCurButtonState = MCButton.FRAME_CAN_NOT_CLICK;
+			}
+			mcButton.addEventListener(MouseEvent.CLICK,onClick);
+			
 			
 			return;
 			function a():void
