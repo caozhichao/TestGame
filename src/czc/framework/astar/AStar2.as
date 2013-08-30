@@ -62,9 +62,7 @@ package czc.framework.astar
 		public function find(startX:int,startY:int,endX:int,endY:int):Array
 		{
 			reset();
-			var t:Number = getTimer();
 			_openListheap.reset();
-			trace(getTimer() - t);
 			_openList = [];
 			_closeList = [];
 			_openNodes = new Vector.<Node>();
@@ -78,9 +76,13 @@ package czc.framework.astar
 			var curY:int;
 			//8个方向的点
 			var point8:Array;
+			var p8Index:int;
+			var p8Len:int;
+			var n:Node;
 			var g:int;
 			var f:int;
 			//当待查询列数据长度  > 0
+			var t:Number = getTimer();
 			while(_openListLen > 0)
 			{
 				//选取一个f值最小的节点
@@ -94,20 +96,22 @@ package czc.framework.astar
 				//如果终点被放入关闭列表寻路结束，返回路径
 				if (curX == endX && curY == endY)
 				{
+					trace(getTimer() - t);
 					return getPath(curNode);
 				}
 				//查找当前节点的8个方向的节点
 				point8 = get8Point(curX,curY);
-				var p8Index:int = 0;
-				var p8Len:int = point8.length;
-				var n:Node;
+				p8Index = 0;
+				p8Len = point8.length;
+				
 				while(p8Index < p8Len)
 //				for each (var n:Node in point8) 
 				{
 					n = point8[p8Index];
 					//计算F和G值      g从起始点的总花费      
 					g = curNode.g + ((n.x == curX || n.y == curY) ? COST_STRAIGHT : COST_DIAGONAL);
-					f = g + (Math.abs(endX - n.x) + Math.abs(endY - n.y)) * COST_STRAIGHT;
+//					f = g + (Math.abs(endX - n.x) + Math.abs(endY - n.y)) * COST_STRAIGHT;
+					f = g + (abs(endX - n.x) + abs(endY - n.y)) * COST_STRAIGHT;
 					if(!isCloseList(n.x,n.y))
 					{
 						if(isOpenList(n.x,n.y))
@@ -132,6 +136,11 @@ package czc.framework.astar
 				}
 			}
 			return null;
+		}
+		
+		private function abs(value:int):uint
+		{
+			return value >= 0 ? value : value * -1;
 		}
 		
 		private function log(arr:Array,curNode:Node):void
