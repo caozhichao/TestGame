@@ -22,6 +22,10 @@ package czc.framework.astar
 		private var map:Map;
 		//开放列表
 		private var _openList:Array;
+		
+		//添加到开放列表的节点
+		private var _openNodes:Vector.<Node>;
+		private var _openNodeIndex:int;
 		//关闭列表
 		private var _closeList:Array;
 		//待查询列表的长度
@@ -57,13 +61,14 @@ package czc.framework.astar
 		 */		
 		public function find(startX:int,startY:int,endX:int,endY:int):Array
 		{
-//			var t:Number = getTimer();
-//			map.reset();
 			reset();
-//			trace(getTimer() - t);
+			var t:Number = getTimer();
 			_openListheap.reset();
+			trace(getTimer() - t);
 			_openList = [];
 			_closeList = [];
+			_openNodes = new Vector.<Node>();
+			_openNodeIndex = 0;
 			_openListLen = 0;
 			var node:Node = map.getNode(startX,startY);
 			add2OpenList(node);
@@ -216,7 +221,11 @@ package czc.framework.astar
 		public function add2OpenList(node:Node):void
 		{
 			//记录加入(过)开放列表中节点
-			_openList[getIndex(node.x,node.y)]= node;
+			_openList[getIndex(node.x,node.y)]= true;
+			
+			_openNodes[_openNodeIndex] = node;
+			_openNodeIndex++;
+			
 			//二叉堆
 			_openListheap.enqueue(node);
 			_openListLen++;
@@ -233,7 +242,7 @@ package czc.framework.astar
 		 */		
 		public function add2CloseList(node:Node):void
 		{
-			_closeList[getIndex(node.x,node.y)]= node;
+			_closeList[getIndex(node.x,node.y)]= true;
 		}
 		public function isCloseList(x:int,y:int):Boolean
 		{
@@ -283,20 +292,14 @@ package czc.framework.astar
 		{
 			var node:Node;
 			var len:int;
-			if(_openList)
-			{
-				len = _openList.length;
-			}
+//			trace("_openNodes len:" + _openNodeIndex);
 			var index:int = 0;
-			while(index < len)
+			while(index < _openNodeIndex)
 			{
-				node = _openList[index];
-				if(node)
-				{
-					node.g = 0;
-					node.f = 0;
-					node.pNode = null;
-				}
+				node = _openNodes[index];
+				node.g = 0;
+				node.f = 0;
+				node.pNode = null;
 				index++;
 			}
 		}
@@ -360,7 +363,8 @@ class Map
 	 */	
 	private function exists(x:int,y:int):Boolean
 	{
-		return x >= 0 && x < mapW && y >= 0 && y < mapH;
+//		return x >= 0 && x < mapW && y >= 0 && y < mapH;
+		return !(x < 0 || x >= mapW || y < 0 || y >= mapH); 
 	}
 	
 	private function getIndex(x:int,y:int):int

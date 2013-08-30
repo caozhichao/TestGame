@@ -140,5 +140,21 @@ package czc.framework.ds
 		{
 			return _heap;
 		}
+		
+		public function toTree():void
+		{
+			var pIndex:int = 0;
+			var cIndex:int = 1;
+			if(_postionIndex > 0)
+			{
+				trace("     " + _heap[pIndex]);
+			}
+			while(cIndex < _postionIndex - 1)
+			{
+				trace("//");
+				
+				trace(" \\");
+			}	
+		}
 	}
 }

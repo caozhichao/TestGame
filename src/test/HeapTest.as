@@ -30,7 +30,9 @@ package test
 			heap.enqueue(1);  
 			heap.enqueue(3);  
 			heap.enqueue(9);
-			trace(heap.toString());
+//			trace(heap.toString());
+			trace(heap.toTree());
+			return;
 ////			heap.dequeue();
 //			heap.modify(2,9);
 //			trace(heap.toString());
