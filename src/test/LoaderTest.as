@@ -3,6 +3,9 @@ package test
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.system.ApplicationDomain;
+	import flash.system.LoaderContext;
+	
+	import br.com.stimuli.loading.BulkLoader;
 	
 	import czc.framework.manager.LoaderMaxManager;
 	import czc.framework.manager.TimerManager;
@@ -27,8 +30,21 @@ package test
 				}
 			}
 			TimerManager.instance.setInterval(onFrame,50);
-			
 			var url:String = "assets/test1.swf";
+			var loader:BulkLoader = new BulkLoader("test");
+			loader.logLevel = BulkLoader.LOG_INFO;
+			var context:LoaderContext = new LoaderContext(false,new ApplicationDomain());
+			loader.add(url,{"context":context});
+			loader.addEventListener(BulkLoader.COMPLETE,onAllComplete);
+			function onAllComplete(evt:Event):void
+			{
+				loader.removeAll();
+				context = null;
+			}
+			loader.start();
+			
+			
+			/*
 			LoaderMaxManager.instance.simpleLoader(url,success);
 			function success(item:LoadItemVo):void
 			{
@@ -37,6 +53,7 @@ package test
 				LoaderMaxManager.instance.unloadAndStop(url);
 				trace("sssssssss");
 			}
+			*/
 		}
 	}
 }

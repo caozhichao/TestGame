@@ -12,6 +12,7 @@ package
 	import test.ASWingTest;
 	import test.DragTest;
 	import test.HeapTest;
+	import test.LoaderTest;
 	import test.MCButtonTest;
 	import test.NewAStarTest;
 	import test.ReflectionTest;
@@ -26,7 +27,7 @@ package
 	 * 
 	 */	
 	[SWF(width="800",height="600")]
-	public class TestGame extends NewAStarTest
+	public class TestGame extends LoaderTest
 	{
 		private var _context:GameContext;
 		
