@@ -12,6 +12,7 @@ package test
 	
 	import czc.framework.astar.AStar;
 	import czc.framework.astar.AStar2;
+	import czc.framework.astar.Map;
 	
 	import test.map.Tile;
 	
@@ -32,8 +33,8 @@ package test
 		
 		private var m_AStar : czc.framework.astar.AStar2;
 		
-		private var m_mapW : int = 100; // 66
-		private var m_mapH : int = 100;//100
+		private var m_mapW : int = 40; // 66 
+		private var m_mapH : int = 28;//100
 		
 		private var m_mapX : int = 10;
 		private var m_mapY : int = 40;
@@ -83,6 +84,30 @@ package test
 			var isClog : Boolean;
 			this.m_map = new Array();
 			var titleValue:int;
+			
+			/*
+			var hlen:uint = Map.aBigMap[0].length;
+			var vlen:uint = Map.aBigMap.length;
+			for( i= 0;i<vlen;i++){
+				aNodeMap[i] = new Array();
+				for(j = 0;j<hlen;j++){
+					type = int(Map.aBigMap[i][j]);
+					var tile:Tile = Tile.buildTile(type);
+					tile.Type = type;
+					tile.wIndex = j;
+					tile.hIndex = i;
+					tile.x = j * Tile.W;
+					tile.y = i * Tile.H;
+					scene.addChild(tile);
+					if(type == Tile.GROUND)
+						scene.setChildIndex(tile,0);						
+					aNodeMap[i][j] = tile.bBlock?1:0;
+				}
+			}
+			*/
+			
+			
+			var type:int;
 			for (var i : int = 0; i < m_mapW; i++)
 			{
 				m_map[i] = new Array();
@@ -91,12 +116,23 @@ package test
 //					titleValue = mapData[i][j];
 					isClog = Math.random() < 0.3;
 //					isClog = (titleValue == 1);
+					/*
+					type = Map.aBigMap[j][i];
+					if(type == 4 || type == 0)
+					{
+						isClog = 0;
+					} else 
+					{
+						isClog = 1;
+					}
+					*/
 					
 					tile = new Tile(isClog ? 0x000000 : 0xCCCCCC,TILE_W,TILE_H);
 					tile.addEventListener(MouseEvent.CLICK, clickHandle);
 					addChild(tile);
 					tile.x = m_mapX + i * TILE_W;
 					tile.y = m_mapY + j * TILE_H;
+					
 					m_map[i][j] = isClog ? 0 : 1;
 					
 					titleArr.push(tile);
@@ -105,8 +141,8 @@ package test
 			
 			m_player = new Tile(0xFF0000,TILE_W,TILE_H);
 			addChild(m_player);
-			m_player.x = m_mapX;
-			m_player.y = m_mapY;
+			m_player.x = m_mapX * 2;
+			m_player.y = m_mapY * 2;
 			this.m_AStar.setMaps(m_map,m_mapW,m_mapH);
 			
 			output("单击白色方块测试寻路，双击空白区域重排地图");

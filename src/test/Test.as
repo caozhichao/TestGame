@@ -42,9 +42,10 @@ package test
 		public function Test()
 		{
 			super();
-			var vec:Vector.<int> = new Vector.<int>();
-			vec[10] = 12;
-			
+			for (var i:int = 0; i < 20; i++) 
+			{
+				trace( 40 + Math.random() * 20);
+			}
 			/*
 			var label:Label = new Label();
 			label.text = "d啊";
