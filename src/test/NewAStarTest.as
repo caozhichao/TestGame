@@ -14,6 +14,7 @@ package test
 	import czc.framework.astar.AStar2;
 	import czc.framework.astar.AStar3;
 	import czc.framework.astar.AStar4;
+	import czc.framework.astar.AStar5;
 	import czc.framework.vo.Map;
 	
 	import test.map.Tile;
@@ -33,7 +34,7 @@ package test
 		private var m_player : Tile;
 		private var m_map : Array;
 		
-		private var m_AStar : czc.framework.astar.AStar4;
+		private var m_AStar : czc.framework.astar.AStar5;
 		
 		private var m_mapW : int = 40; // 66 40 
 		private var m_mapH : int = 28;//100   28
@@ -73,7 +74,7 @@ package test
 //				selectable = false;
 //				autoSize = TextFieldAutoSize.LEFT;
 //			}
-			this.m_AStar = new AStar4();
+			this.m_AStar = new AStar5();
 			this.reset();
 		}
 		//====================================
