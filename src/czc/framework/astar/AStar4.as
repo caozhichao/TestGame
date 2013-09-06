@@ -1,7 +1,6 @@
 package czc.framework.astar
 {
 	import flash.utils.getTimer;
-	
 	import czc.framework.ds.Heap;
 
 	/**
@@ -18,8 +17,6 @@ package czc.framework.astar
 		private const COST_STRAIGHT : int = 10;
 		//斜向移动一格的路径评分
 		private const COST_DIAGONAL : int = 14;
-		//当前A*地图
-//		private var map:Map;
 		//开放列表
 		private var _openList:Array;
 		
@@ -36,7 +33,7 @@ package czc.framework.astar
 		private var _mapW:int;
 		//地图行数
 		private var _mapH:int;
-		
+		//地图节点 all
 		public var nodeList:Vector.<Node>;
 		
 		public function AStar4()
@@ -51,8 +48,6 @@ package czc.framework.astar
 		{
 			_mapW = mapW;
 			_mapH = mapH;
-//			map = new Map(mapData,mapW,mapH);
-			
 			this.nodeList = new Vector.<Node>();
 			var node:Node;
 			var index:int;
@@ -79,26 +74,11 @@ package czc.framework.astar
 		 */		
 		public function getNode(x:int,y:int):Node
 		{
-//			if(exists(x,y))
 			if(!(x < 0 || x == _mapW || y < 0 || y == _mapH))
 			{
-//				return nodeList[getIndex(x,y)];
 				return nodeList[x * _mapH + y];
 			}
 			return null;
-		}
-		
-		/**
-		 * 节点是否存在 
-		 * @param x
-		 * @param y
-		 * @return 
-		 * 
-		 */	
-		private function exists(x:int,y:int):Boolean
-		{
-			//		return x >= 0 && x < mapW && y >= 0 && y < mapH;
-			return !(x < 0 || x == _mapW || y < 0 || y == _mapH); 
 		}
 		
 		/**
@@ -161,8 +141,6 @@ package czc.framework.astar
 //					n = point8[p8Index];
 					//计算F和G值      g从起始点的总花费      
 					g = curNode.g + ((n.x == curX || n.y == curY) ? COST_STRAIGHT : COST_DIAGONAL);
-//					f = g + (Math.abs(endX - n.x) + Math.abs(endY - n.y)) * COST_STRAIGHT;
-//					f = g + (abs(endX - n.x) + abs(endY - n.y)) * COST_STRAIGHT;
 					var tx:int = endX - n.x;
 					var ty:int = endY - n.y;
 					f = g + ((tx >= 0 ? tx : tx * -1) + (ty >= 0 ? ty : ty * -1)) * COST_STRAIGHT;
@@ -224,14 +202,6 @@ package czc.framework.astar
 			//右
 			var rightNode:Node = checkNode(x+1,y);
 			
-			//右上
-//			var rightUpNode:Node/* = checkNode(x+1,y-1)*/;
-//			//右下
-//			var rightDownNode:Node/* = checkNode(x+1,y+1)*/;
-			//左上
-//			var leftUpNode:Node/* = checkNode(x-1,y-1)*/;
-			//左下
-//			var leftDownNode:Node/* = checkNode(x-1,y+1)*/;
 			upNode && arr.push(upNode);
 			downNode && arr.push(downNode);
 			leftNode && arr.push(leftNode);
@@ -285,7 +255,6 @@ package czc.framework.astar
 		public function add2OpenList(node:Node):void
 		{
 			//记录加入(过)开放列表中节点
-//			_openList[getIndex(node.x,node.y)]= true;
 			_openList[node.x * _mapH + node.y] = true;
 			
 			_openNodes[_openNodeIndex] = node;
@@ -307,18 +276,15 @@ package czc.framework.astar
 		 */		
 		public function add2CloseList(node:Node):void
 		{
-//			_closeList[getIndex(node.x,node.y)]= true;
 			_closeList[node.x * _mapH + node.y] = true;
 		}
 		public function isCloseList(x:int,y:int):Boolean
 		{
-//			return _closeList[getIndex(x,y)];
 			return _closeList[x * _mapH + y];
 		}
 		
 		public function isOpenList(x:int,y:int):Boolean
 		{
-//			return 	_openList[getIndex(x,y)];
 			return _openList[x * _mapH + y];
 		}
 		/**
@@ -333,24 +299,11 @@ package czc.framework.astar
 			var index:int;
 			while(node.pNode != null)
 			{
-//				arr.unshift([node.x,node.y]);
 				path[index] = [node.x,node.y];
 				node = node.pNode;
 				index++;
 			}
 			return path.reverse();
-		}
-		/**
-		 * 二维坐标转成一维坐标 
-		 * @param x
-		 * @param y
-		 * @return 
-		 * 
-		 */
-		[Inline]
-		final private function getIndex(x:int,y:int):int
-		{
-			return x * _mapH + y;
 		}
 		
 		/**
@@ -385,61 +338,6 @@ package czc.framework.astar
  * @author caozhichao
  * 
  */
-//class Map
-//{
-//	public var mapData:Array;
-//	public var mapW:int;
-//	public var mapH:int;
-//	public var nodeList:Vector.<Node>;
-//	
-//	public function Map(mapData:Array,mapW:int,mapH:int)
-//	{
-//		this.mapData = mapData;
-//		this.mapW = mapW;
-//		this.mapH = mapH;
-//		this.nodeList = new Vector.<Node>();
-//		var node:Node;
-//		var index:int;
-//		for (var i:int = 0; i < this.mapW; i++) 
-//		{
-//			for (var j:int = 0; j < this.mapH; j++) 
-//			{
-//				node = new Node();
-//				node.x = i;
-//				node.y = j;
-//				node.walkable = this.mapData[i][j];
-//				nodeList[index] = node;
-//				index++;
-//			}
-//		}
-//	}
-//	
-//	public function getNode(x:int,y:int):Node
-//	{
-//		if(exists(x,y))
-//		{
-//			return nodeList[getIndex(x,y)];
-//		}
-//		return null;
-//	}
-//	
-//	/**
-//	 * 节点是否存在 
-//	 * @param x
-//	 * @param y
-//	 * @return 
-//	 * 
-//	 */	
-//	private function exists(x:int,y:int):Boolean
-//	{
-//		return !(x < 0 || x >= mapW || y < 0 || y >= mapH); 
-//	}
-//	
-//	private function getIndex(x:int,y:int):int
-//	{
-//		return x * mapH + y;
-//	}
-//}
 class Node
 {
 	public var x:int;
