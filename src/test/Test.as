@@ -16,6 +16,7 @@ package test
 	import flash.utils.ByteArray;
 	import flash.utils.CompressionAlgorithm;
 	import flash.utils.Dictionary;
+	import flash.utils.getTimer;
 	
 	import pet.game.panels.jobSkill.model.vo.SkillVo;
 	
@@ -33,19 +34,25 @@ package test
 		private var loader:Loader;
 		private var bm:Bitmap;
 		
-		
-		public function updateSkillVo(skillVo:Object):void
+//		[Inline]
+		final private function getValue(i:int):int
 		{
-//			var skillVo:Object;
+			return i + 1;
 		}
 		
 		public function Test()
 		{
 			super();
-			for (var i:int = 0; i < 20; i++) 
+			var len:int = 4000000;
+			var value:int;
+			var t:Number = getTimer();
+			for (var i:int = 0; i < len; i++) 
 			{
-				trace( 40 + Math.random() * 20);
+//				value = i + 1;
+				value = getValue(i);
 			}
+			trace(getTimer() - t);
+			
 			/*
 			var label:Label = new Label();
 			label.text = "d啊";
