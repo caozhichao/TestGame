@@ -1,4 +1,4 @@
-﻿package czc.framework.astar{
+﻿package czc.framework.vo{
 	public class Map{
 		
 		static public var aSampleMap:Array = [

@@ -12,7 +12,8 @@ package test
 	
 	import czc.framework.astar.AStar;
 	import czc.framework.astar.AStar2;
-	import czc.framework.astar.Map;
+	import czc.framework.astar.AStar3;
+	import czc.framework.vo.Map;
 	
 	import test.map.Tile;
 	
@@ -31,10 +32,10 @@ package test
 		private var m_player : Tile;
 		private var m_map : Array;
 		
-		private var m_AStar : czc.framework.astar.AStar2;
+		private var m_AStar : czc.framework.astar.AStar3;
 		
-		private var m_mapW : int = 40; // 66 
-		private var m_mapH : int = 28;//100
+		private var m_mapW : int = 100; // 66 40 
+		private var m_mapH : int = 100;//100   28
 		
 		private var m_mapX : int = 10;
 		private var m_mapY : int = 40;
@@ -71,7 +72,7 @@ package test
 //				selectable = false;
 //				autoSize = TextFieldAutoSize.LEFT;
 //			}
-			this.m_AStar = new AStar2();
+			this.m_AStar = new AStar3();
 			this.reset();
 		}
 		//====================================
@@ -116,16 +117,14 @@ package test
 //					titleValue = mapData[i][j];
 					isClog = Math.random() < 0.3;
 //					isClog = (titleValue == 1);
-					/*
-					type = Map.aBigMap[j][i];
-					if(type == 4 || type == 0)
-					{
-						isClog = 0;
-					} else 
-					{
-						isClog = 1;
-					}
-					*/
+//					type = Map.aBigMap[j][i];
+//					if(type == 4 || type == 0)
+//					{
+//						isClog = 0;
+//					} else 
+//					{
+//						isClog = 1;
+//					}
 					
 					tile = new Tile(isClog ? 0x000000 : 0xCCCCCC,TILE_W,TILE_H);
 					tile.addEventListener(MouseEvent.CLICK, clickHandle);
