@@ -53,9 +53,14 @@ package test
 			loader.logLevel = BulkLoader.LOG_INFO;
 			var context:LoaderContext = new LoaderContext(false,new ApplicationDomain());
 			//add url
-			loader.add("assets/test1.swf",{"context":context});
-			loader.add("assets/test1.swf",{"context":context});
-			loader.add("assets/test1.swf",{"context":context});
+			loader.add("http://shengxy.static.xyimg.net/v5/static/fight/role/r_23000_all.swf",{"context":context});
+			loader.add("http://shengxy.static.xyimg.net/v5/static/fight/role/r_3_all.swf?v=b8f4d47",{"context":context});
+			loader.add("http://shengxy.static.xyimg.net/v5/static/fight/bg/bg7.swf?v=34d2f3e",{"context":context});
+			
+			loader.add("http://shengxy.static.xyimg.net/v5/hashed/e1e3322d1f15e2761a83434756525f3e.swf",{"context":context});
+			loader.add("http://shengxy.static.xyimg.net/v5/hashed/b1d9c5f6d13ac0a2fa66d854cfe00898.swf",{"context":context});
+			
+			
 			
 			loader.addEventListener(BulkLoader.COMPLETE,onAllComplete);
 			loader.addEventListener(BulkLoader.PROGRESS,onItemComplete);
