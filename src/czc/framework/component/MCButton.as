@@ -47,6 +47,7 @@ package czc.framework.component
 			skin = _skin;
 			isSimpleButton = _isSimpleButton;
 			this.mouseChildren = false;
+			this.buttonMode = true;
 			_label = _skin.getChildByName("_label") as TextField;
 			addEventListener(MouseEvent.MOUSE_DOWN,onMouseDown);
 			addEventListener(MouseEvent.MOUSE_UP,onMouseUp);
