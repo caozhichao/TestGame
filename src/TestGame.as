@@ -8,11 +8,14 @@ package
 	import flash.profiler.showRedrawRegions;
 	
 	import czc.framework.GameContext;
+	import czc.framework.component.MCBitmap;
 	
 	import test.ASWingTest;
 	import test.DragTest;
 	import test.HeapTest;
+	import test.HtmlSwfTest;
 	import test.LoaderTest;
+	import test.MCBitmapTest;
 	import test.MCButtonTest;
 	import test.NewAStarTest;
 	import test.ReflectionTest;
@@ -27,7 +30,7 @@ package
 	 * 
 	 */	
 	[SWF(width="800",height="600")]
-	public class TestGame extends LoaderTest
+	public class TestGame extends MCBitmapTest
 	{
 		private var _context:GameContext;
 		
