@@ -38,13 +38,14 @@ package test
 			loader.start();
 			function onComplete(evt:Event):void
 			{
-				var cla:Class = getDefinitionByName("aa") as Class;
+				var cla:Class = getDefinitionByName("dd") as Class;
 				var skin:MovieClip;
-				for (var i:int = 0; i < 100; i++) 
+				for (var i:int = 0; i < 2; i++) 
 				{
 //					/*
 					skin = new cla() as MovieClip;
 					var mc:MCBitmap = new MCBitmap(skin,true);
+					
 					mc.x = 50 + Math.random() * 750;
 					mc.y = 50 + Math.random() * 550;
 					addChild(mc);
