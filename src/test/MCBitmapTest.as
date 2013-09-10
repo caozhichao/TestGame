@@ -38,9 +38,9 @@ package test
 			loader.start();
 			function onComplete(evt:Event):void
 			{
-				var cla:Class = getDefinitionByName("aa") as Class;
+				var cla:Class = getDefinitionByName("bb") as Class;
 				var skin:MovieClip;
-				for (var i:int = 0; i < 1; i++) 
+				for (var i:int = 0; i < 100; i++) 
 				{
 //					/*
 					skin = new cla() as MovieClip;

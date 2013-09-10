@@ -8,6 +8,8 @@ package czc.framework.component
 	import flash.events.Event;
 	import flash.geom.Matrix;
 	import flash.geom.Rectangle;
+	import flash.utils.Dictionary;
+	import flash.utils.getQualifiedClassName;
 	
 	import czc.framework.manager.TimerManager;
 	
@@ -30,6 +32,10 @@ package czc.framework.component
 		private var totalFrames:int;
 		private var _frameRate:int;
 		
+		private var _className:String;
+		//缓存 key:getQualifiedClassName(value) 
+		private static var _cacheList:Dictionary = new Dictionary();
+		
 		public function MCBitmap(value:MovieClip,isCacheBitmap:Boolean,isAddPlay:Boolean=true,frameRate:int=20)
 		{
 			super();
@@ -46,7 +52,6 @@ package czc.framework.component
 			{
 				addEventListener(Event.ADDED_TO_STAGE,onAdd,false,0,true);
 			}
-			
 		}
 		
 		protected function onAdd(event:Event):void
@@ -68,20 +73,21 @@ package czc.framework.component
 		
 		private function render():void
 		{
+			var index:int = frameIndex % totalFrames;
 			if(_isCache)
 			{
-				var cache:BMDCache = _list[frameIndex % totalFrames];
+				var cache:BMDCache = _list[index];
 				_bmp.x = cache.x;
 				_bmp.y = cache.y;
 				_bmp.bitmapData = cache.bmd;
 			} else 
 			{
-				_skin.gotoAndStop(frameIndex % totalFrames);
+				_skin.gotoAndStop(index);
 			}
 			frameIndex++;
 		}
 		
-		public function stop():void
+		public function stop(isRemoveDispose:Boolean=false):void
 		{	
 			if(_isCache)
 			{
@@ -90,7 +96,23 @@ package czc.framework.component
 			{
 				removeChild(_skin);
 			}
+			if(isRemoveDispose)
+			{
+				dispose();
+			}
 			TimerManager.instance.clearTimer(render);	
+		}
+		
+		private function dispose():void
+		{
+			if(_isCache)
+			{
+				delete _cacheList[_className];
+				_list = null;
+			} else 
+			{
+				_skin = null;
+			}
 		}
 		
 		public function set skin(value:MovieClip):void
@@ -101,7 +123,13 @@ package czc.framework.component
 				totalFrames = _skin.totalFrames;
 				if(_isCache)
 				{
-					_list = draw(_skin);
+					_className = getQualifiedClassName(value);
+					if(_cacheList[_className] == null)
+					{
+						//缓存
+						_cacheList[_className] = draw(_skin);
+					}
+					_list = _cacheList[_className];
 					totalFrames = _list.length;
 				}
 			}
