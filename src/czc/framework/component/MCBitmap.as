@@ -152,7 +152,7 @@ package czc.framework.component
 				cache = new BMDCache();
 				mc.gotoAndStop(i);
 				rec = mc.getBounds(mc);
-				bmd = new BitmapData(rec.width + rec.x, rec.height, true, 0);
+				bmd = new BitmapData(rec.width, rec.height, true, 0);
 				matrix.tx = -rec.x;
 				matrix.ty = -rec.y;
 				bmd.draw(mc,matrix);
