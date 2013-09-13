@@ -18,8 +18,6 @@ package test
 	import flash.utils.Dictionary;
 	import flash.utils.getTimer;
 	
-	import pet.game.panels.jobSkill.model.vo.SkillVo;
-	
 	/**
 	 *		
 	 * @author caozhichao
@@ -206,7 +204,26 @@ package test
 			a = a || new Sprite();
 			trace(a);
 			*/
+			
+			var str:Sprite = new Sprite();
+			trace(getMemoryName(str));
 		}
+		
+		public function getMemoryName(obj:Object):String
+		{
+			var memoryHash:String;
+			try
+			{
+				　　Test(obj);
+			}
+			catch(e:Error)
+			{
+				//获取内存地址哈希值
+				　　memoryHash =String(e).replace(/.*([@|\$].*?) 转换为 .*$/gi,'$1');
+			}
+			return memoryHash;
+		}
+		
 		
 		protected function onAdd(event:Event):void
 		{

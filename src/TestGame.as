@@ -7,6 +7,8 @@ package
 	import flash.events.Event;
 	import flash.profiler.showRedrawRegions;
 	
+	import adobe.utils.MMExecute;
+	
 	import czc.framework.GameContext;
 	import czc.framework.component.MCBitmap;
 	
@@ -30,14 +32,14 @@ package
 	 * 
 	 */	
 	[SWF(width="800",height="600")]
-	public class TestGame extends MCBitmapTest
+	public class TestGame extends Test
 	{
 		private var _context:GameContext;
 		
 		public function TestGame()
 		{
 			showRedrawRegions(true);
-			addEventListener(Event.ADDED_TO_STAGE,addedToStage,false,0,true);
+//			addEventListener(Event.ADDED_TO_STAGE,addedToStage,false,0,true);
 		}
 		
 		protected function addedToStage(event:Event):void
