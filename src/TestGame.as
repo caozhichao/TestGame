@@ -7,24 +7,9 @@ package
 	import flash.events.Event;
 	import flash.profiler.showRedrawRegions;
 	
-	import adobe.utils.MMExecute;
-	
 	import czc.framework.GameContext;
-	import czc.framework.component.MCBitmap;
 	
-	import test.ASWingTest;
-	import test.DragTest;
-	import test.HeapTest;
-	import test.HtmlSwfTest;
-	import test.LoaderTest;
-	import test.MCBitmapTest;
-	import test.MCButtonTest;
-	import test.NewAStarTest;
-	import test.ReflectionTest;
-	import test.RegExpTest;
-	import test.ScrollTest;
 	import test.Test;
-	import test.XMStarTest;
 
 	/**
 	 * 
@@ -39,7 +24,7 @@ package
 		public function TestGame()
 		{
 			showRedrawRegions(true);
-//			addEventListener(Event.ADDED_TO_STAGE,addedToStage,false,0,true);
+			addEventListener(Event.ADDED_TO_STAGE,addedToStage,false,0,true);
 		}
 		
 		protected function addedToStage(event:Event):void
@@ -49,7 +34,7 @@ package
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			stage.align = StageAlign.TOP_LEFT;
 			stage.frameRate = 60;
-//			startGame();
+			startGame();
 			FPS();
 		}
 		

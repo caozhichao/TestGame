@@ -36,7 +36,7 @@ package czc.framework.commnd
 		{
 			instanceInjector(ViewStruct);
 			instanceInjector(LoaderManager);
-			instanceInjector(PopUpManager);
+//			instanceInjector(PopUpManager);
 		}
 	}
 }
