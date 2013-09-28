@@ -201,13 +201,16 @@ package test
 			var playerPoint : Point = getPoint(this.m_player.x, this.m_player.y);
 			var t:Number = getTimer();
 			this.m_path = this.m_AStar.find(playerPoint.x, playerPoint.y, findPiont.x, findPiont.y);
-			var path:Array = CopyUtil.copy(this.m_path,Array);
-			path.unshift([playerPoint.x,playerPoint.y]);
-			drawPathLine(path);
 			if (this.m_path != null && this.m_path.length > 0)
 			{
 				output("路径已找到，正在移动|寻路时间" + (getTimer() - t));
 				this.addEventListener(Event.ENTER_FRAME, enterframeHandle);
+				
+				
+				
+				var path:Array = CopyUtil.copy(this.m_path,Array);
+				path.unshift([playerPoint.x,playerPoint.y]);
+				drawPathLine(path);
 			} else
 			{
 				output("无法到达");
@@ -234,11 +237,13 @@ package test
 		 */		
 		private function drawPathLine(path:Array):void
 		{
+			var t:Number = getTimer();
 			path = optimizePath(path);
+			trace("合并路径点耗时:",getTimer() - t);
 			
 			pathLineLayer.graphics.clear();
 			pathLineLayer.graphics.lineStyle(1,0xff0000);
-			pathLineLayer.graphics.beginFill(0x00ff00);
+			pathLineLayer.graphics.beginFill(0xff0000);
 			var preNode:Array;
 			var curNode:Array;
 			var p1:Array;
