@@ -15,6 +15,7 @@ package test
 	import czc.framework.astar.AStar3;
 	import czc.framework.astar.AStar4;
 	import czc.framework.astar.AStar5;
+	import czc.framework.utils.CopyUtil;
 	import czc.framework.vo.Map;
 	
 	import test.map.Tile;
@@ -51,6 +52,11 @@ package test
 		private static const TILE_W:int = 10;
 		private static const TILE_H:int = 10;
 		private var titleArr:Array;
+		
+		//路径线层
+		private var pathLineLayer:Sprite;
+		
+		
 		//====================================
 		//	Constructor
 		//====================================
@@ -76,6 +82,8 @@ package test
 //			}
 			this.m_AStar = new AStar5();
 			this.reset();
+			pathLineLayer = new Sprite();
+			stage.addChild(pathLineLayer);
 		}
 		//====================================
 		//	Private Methods
@@ -193,6 +201,9 @@ package test
 			var playerPoint : Point = getPoint(this.m_player.x, this.m_player.y);
 			var t:Number = getTimer();
 			this.m_path = this.m_AStar.find(playerPoint.x, playerPoint.y, findPiont.x, findPiont.y);
+			var path:Array = CopyUtil.copy(this.m_path,Array);
+			path.unshift([playerPoint.x,playerPoint.y]);
+			drawPathLine(path);
 			if (this.m_path != null && this.m_path.length > 0)
 			{
 				output("路径已找到，正在移动|寻路时间" + (getTimer() - t));
@@ -214,6 +225,111 @@ package test
 			var note : Array = this.m_path.shift() as Array;
 			this.m_player.x = this.m_mapX + note[0] * TILE_W;
 			this.m_player.y = this.m_mapY + note[1] * TILE_H;
+		}
+		
+		/**
+		 * 绘制路径线路 
+		 * @param path
+		 * 
+		 */		
+		private function drawPathLine(path:Array):void
+		{
+			path = optimizePath(path);
+			
+			pathLineLayer.graphics.clear();
+			pathLineLayer.graphics.lineStyle(1,0xff0000);
+			pathLineLayer.graphics.beginFill(0x00ff00);
+			var preNode:Array;
+			var curNode:Array;
+			var p1:Array;
+			var p2:Array;
+			while(Boolean(curNode = path.shift()))
+			{
+				if(preNode != null)
+				{
+					p1 = getNodePoint(preNode);
+					p2 = getNodePoint(curNode);
+					pathLineLayer.graphics.drawCircle(p1[0],p1[1],2);
+					pathLineLayer.graphics.drawCircle(p2[0],p2[1],2);
+					pathLineLayer.graphics.moveTo(p1[0],p1[1]);
+					pathLineLayer.graphics.lineTo(p2[0],p2[1]);
+				} 
+				preNode = curNode;	
+			}
+			pathLineLayer.graphics.endFill();
+		}
+		
+		private function getNodePoint(node:Array):Array
+		{
+			var px:int = this.m_mapX + node[0] * TILE_W + TILE_W / 2;
+			var py:int = this.m_mapY + node[1] * TILE_H + TILE_H / 2;
+			return [px,py];
+		}
+		
+		private function optimizePath(path:Array):Array
+		{
+			var newPath:Array = [];
+			var preNode:Array;
+			var curNode:Array;
+			var curDir:int = -1;
+			while(Boolean(curNode = path.shift()))
+			{
+				if(preNode != null)
+				{
+					var dir:int = getDir(preNode,curNode);
+					if(curDir != dir)
+					{
+						newPath.push(preNode);
+						curDir = dir;
+					}
+				} 
+				preNode = curNode;
+			}
+			newPath.push(preNode);
+			return newPath;
+		}
+		
+		/**
+		 * 优化路径点的个数 
+		 * @param p1
+		 * @param p2
+		 * @return 
+		 * 
+		 */		
+		private function getDir(p1:Array,p2:Array):int
+		{
+			var dir:int = -1;
+			var p1x:int = p1[0];
+			var p1y:int = p1[1];
+			var p2x:int = p2[0];
+			var p2y:int = p2[1];
+			
+			if(p1x == p2x && p2y > p1y)
+			{
+				dir = 0;
+			} else if(p2x < p1x && p2y > p1y)
+			{
+				dir = 1;
+			} else if(p2x < p1x && p2y == p1y)
+			{
+				dir = 2;
+			} else if(p2x < p1x && p2y < p1y)
+			{
+				dir = 3;
+			} else if(p2x == p1x && p2y < p1y)
+			{
+				dir = 4;
+			} else if(p2x > p1x && p2y < p1y)
+			{
+				dir = 5
+			} else if(p2x > p1x && p2y == p1y)
+			{
+				dir = 6;
+			} else if(p2x > p1x && p2y > p1y)
+			{
+				dir = 7;
+			}
+			return dir;
 		}
 		
 	}

@@ -30,8 +30,11 @@ package
 		
 		protected function onComplete(event:Event):void
 		{
-			var cla:Class = domain.getDefinition("TestGame") as Class;
-			var main:Sprite = new cla();
+			//重要说明
+			// 加载到Main.swf 后 会自动实例化Main 实例在  loader.content 中，不需要在创建，否则有存在类不可访问的情况
+			var main:Sprite = loader.content as Sprite;
+//			var cla:Class = domain.getDefinition("TestGame") as Class;
+//			var main:Sprite = new cla();
 			this.addChildAt(main, 0);
 		}
 	}

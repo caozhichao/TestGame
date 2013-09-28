@@ -9,6 +9,7 @@ package
 	
 	import czc.framework.GameContext;
 	
+	import test.NewAStarTest;
 	import test.Test;
 
 	/**
@@ -17,14 +18,14 @@ package
 	 * 
 	 */	
 	[SWF(width="800",height="600")]
-	public class TestGame extends Test
+	public class TestGame extends NewAStarTest
 	{
 		private var _context:GameContext;
 		
 		public function TestGame()
 		{
 			showRedrawRegions(true);
-			addEventListener(Event.ADDED_TO_STAGE,addedToStage,false,0,true);
+//			addEventListener(Event.ADDED_TO_STAGE,addedToStage,false,0,true);
 		}
 		
 		protected function addedToStage(event:Event):void
