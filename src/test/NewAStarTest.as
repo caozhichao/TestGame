@@ -15,6 +15,7 @@ package test
 	import czc.framework.astar.AStar3;
 	import czc.framework.astar.AStar4;
 	import czc.framework.astar.AStar5;
+	import czc.framework.astar.AStar6;
 	import czc.framework.utils.CopyUtil;
 	import czc.framework.vo.Map;
 	
@@ -35,7 +36,7 @@ package test
 		private var m_player : Tile;
 		private var m_map : Array;
 		
-		private var m_AStar : czc.framework.astar.AStar5;
+		private var m_AStar : czc.framework.astar.AStar6;
 		
 		private var m_mapW : int = 40; // 66 40 
 		private var m_mapH : int = 28;//100   28
@@ -80,9 +81,10 @@ package test
 //				selectable = false;
 //				autoSize = TextFieldAutoSize.LEFT;
 //			}
-			this.m_AStar = new AStar5();
+			this.m_AStar = new AStar6();
 			this.reset();
 			pathLineLayer = new Sprite();
+			pathLineLayer.mouseEnabled = false;
 			stage.addChild(pathLineLayer);
 		}
 		//====================================
