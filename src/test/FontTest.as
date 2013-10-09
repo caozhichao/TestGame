@@ -1,9 +1,11 @@
 package test
 {
 	import flash.display.Sprite;
-	import flash.net.registerClassAlias;
+	import flash.text.AntiAliasType;
 	import flash.text.Font;
+	import flash.text.GridFitType;
 	import flash.text.TextField;
+	import flash.text.TextFieldType;
 	import flash.text.TextFormat;
 	
 	
@@ -15,10 +17,10 @@ package test
 	 */
 	public class FontTest extends Sprite
 	{
-		[Embed(source="../assets/font.swf", symbol="MyFont")]
+//		[Embed(source="../assets/font.swf", symbol="MyFont")]
 //		[Embed(source="../assets/pf_ronda_seven.swf", symbol="PF Ronda Seven")]
+		[Embed(source="../assets/font1.swf",symbol="MyFont1")]
 		protected var MyFont:Class;
-		
 		private var _tf:TextField;
 		
 		public function FontTest()
@@ -39,11 +41,17 @@ package test
 			_tf.embedFonts = true;
 			_tf.selectable = false;
 			_tf.mouseEnabled = false;
-			_tf.defaultTextFormat = new TextFormat("CTCuYuanSF", 14/*Style.fontSize*/, 0x666666);
-			
-			_tf.text = "啊a1";
+			_tf.type = TextFieldType.DYNAMIC;
+//			_tf.thickness = 400;
+			_tf.antiAliasType = AntiAliasType.ADVANCED;
+//			_tf.gridFitType = GridFitType.PIXEL;
+			var format:TextFormat = new TextFormat("Microsoft YaHei"/*"CTCuYuanSF"*/, 12/*Style.fontSize*/);
+			format.color = 0xff0000;
+			format.size = 12;
+//			format.bold = true;
+			_tf.defaultTextFormat = format;
+			_tf.text = "啊不的";
 			addChild(_tf);
-			
 		}
 	}
 }

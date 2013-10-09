@@ -267,6 +267,8 @@ package org.robotlegs.base
 		 */		
 		protected override function onViewAdded(e:Event):void
 		{
+			trace(e.target + "|" + e.eventPhase);
+			
 			if (mediatorsMarkedForRemoval[e.target])
 			{
 				delete mediatorsMarkedForRemoval[e.target];

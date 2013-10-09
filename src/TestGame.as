@@ -1,6 +1,7 @@
 package
 {
 	import com.bit101.components.FPSMeter;
+	import com.demonsters.debugger.MonsterDebugger;
 	
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
@@ -9,8 +10,13 @@ package
 	
 	import czc.framework.GameContext;
 	
+	import test.EmbedTest;
+	import test.FontTest;
 	import test.NewAStarTest;
+	import test.RobotlegsTest;
+	import test.ScrollTest;
 	import test.Test;
+	import test.WindowScrollTest;
 
 	/**
 	 * 
@@ -18,16 +24,15 @@ package
 	 * 
 	 */	
 	[SWF(width="800",height="600")]
-	public class TestGame extends NewAStarTest
+	public class TestGame extends WindowScrollTest
 	{
 		private var _context:GameContext;
 		
 		public function TestGame()
 		{
 			showRedrawRegions(true);
-//			addEventListener(Event.ADDED_TO_STAGE,addedToStage,false,0,true);
+			addEventListener(Event.ADDED_TO_STAGE,addedToStage,false,0,true);
 		}
-		
 		protected function addedToStage(event:Event):void
 		{
 			removeEventListener(Event.ADDED_TO_STAGE,addedToStage);
@@ -37,6 +42,8 @@ package
 			stage.frameRate = 60;
 			startGame();
 			FPS();
+			MonsterDebugger.initialize(this);
+			MonsterDebugger.trace(this, "Hello World!");
 		}
 		
 		private function FPS():void
