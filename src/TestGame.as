@@ -8,6 +8,8 @@ package
 	import flash.events.Event;
 	import flash.profiler.showRedrawRegions;
 	
+	import child.zp.zp;
+	
 	import czc.framework.GameContext;
 	
 	import test.EmbedTest;
@@ -28,7 +30,7 @@ package
 	 * 
 	 */	
 	[SWF(width="800",height="600")]
-	public class TestGame extends TestTimer
+	public class TestGame extends zp
 	{
 		private var _context:GameContext;
 		
