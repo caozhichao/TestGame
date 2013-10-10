@@ -6,6 +6,7 @@ package test
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.Loader;
+	import flash.display.Shape;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
@@ -41,6 +42,15 @@ package test
 		public function Test()
 		{
 			super();
+			
+			var sp : Shape = new Shape();
+			sp.graphics.beginFill(0);
+			sp.graphics.drawRect(0, 0, 800, 600);
+			sp.graphics.endFill();
+			addChild(sp);
+			sp.alpha = 0.3;
+			
+			/*
 			var len:int = 4000000;
 			var value:int;
 			var t:Number = getTimer();
@@ -50,7 +60,7 @@ package test
 				value = getValue(i);
 			}
 			trace(getTimer() - t);
-			
+			*/
 			/*
 			var label:Label = new Label();
 			label.text = "d啊";

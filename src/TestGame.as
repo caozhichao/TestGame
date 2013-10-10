@@ -12,10 +12,13 @@ package
 	
 	import test.EmbedTest;
 	import test.FontTest;
+	import test.KeyboardEventTest;
 	import test.NewAStarTest;
 	import test.RobotlegsTest;
 	import test.ScrollTest;
 	import test.Test;
+	import test.Test2;
+	import test.TweenLiteTest;
 	import test.WindowScrollTest;
 
 	/**
@@ -24,7 +27,7 @@ package
 	 * 
 	 */	
 	[SWF(width="800",height="600")]
-	public class TestGame extends WindowScrollTest
+	public class TestGame extends KeyboardEventTest
 	{
 		private var _context:GameContext;
 		
