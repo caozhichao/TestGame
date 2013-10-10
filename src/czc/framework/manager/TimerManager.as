@@ -136,7 +136,6 @@ package czc.framework.manager
 		 */		
 		public function changeDelay(fun:Function,delay:int):void
 		{
-			var timeVO:TimeVO = getTimeVO(fun);
 			clearTimer(fun);
 			addTime(fun,delay,Infinity);
 		}
