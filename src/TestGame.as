@@ -18,6 +18,7 @@ package
 	import test.ScrollTest;
 	import test.Test;
 	import test.Test2;
+	import test.TestTimer;
 	import test.TweenLiteTest;
 	import test.WindowScrollTest;
 
@@ -27,7 +28,7 @@ package
 	 * 
 	 */	
 	[SWF(width="800",height="600")]
-	public class TestGame extends KeyboardEventTest
+	public class TestGame extends TestTimer
 	{
 		private var _context:GameContext;
 		

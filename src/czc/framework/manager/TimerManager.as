@@ -107,20 +107,40 @@ package czc.framework.manager
 		 */		
 		public function clearTimer(closure:Function):void
 		{
+			var timeVO:TimeVO = getTimeVO(closure);
+			var index:int = _timeQueue.indexOf(timeVO);
+			_timeQueue.splice(index,1);
+		}
+		private function getTimeVO(fun:Function):TimeVO
+		{
 			var index:int = 0;
 			var len:int = _timeQueue.length;
 			var timeVo:TimeVO;
 			while(index < len)
 			{
 				timeVo = _timeQueue[index];
-				if(timeVo.closure == closure)
+				if(timeVo.closure == fun)
 				{
-					_timeQueue.splice(index,1);
-					break;
+					return timeVo;
 				}
 				index++;
 			}
+			return null;
 		}
+		
+		/**
+		 * 更改时钟执行时间间隔 
+		 * @param fun
+		 * @param delay
+		 * 
+		 */		
+		public function changeDelay(fun:Function,delay:int):void
+		{
+			var timeVO:TimeVO = getTimeVO(fun);
+			clearTimer(fun);
+			addTime(fun,delay,Infinity);
+		}
+		
 		/**
 		 * 加入 _timeQueue 队列
 		 * @param closure
@@ -131,8 +151,14 @@ package czc.framework.manager
 		 */		
 		private function addTime(closure:Function, delay:Number, count:Number,... arguments):void
 		{
-			var timeVO:TimeVO = new TimeVO(closure,delay,count,getTimer(),arguments);
-			_timeQueue.push(timeVO);
+			if(getTimeVO(closure) == null)
+			{
+				var timeVO:TimeVO = new TimeVO(closure,delay,count,getTimer(),arguments);
+				_timeQueue.push(timeVO);
+			} else 
+			{
+				throw Error(closure + "已经存在!");
+			}
 		}
 	}
 }

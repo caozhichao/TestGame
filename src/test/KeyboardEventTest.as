@@ -89,6 +89,9 @@ package test
 				case 74:
 					char = "J";
 					break;
+				case 75:
+					char = "K"
+					break;
 			}
 			return char;
 		}
