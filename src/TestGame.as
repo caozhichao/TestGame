@@ -12,6 +12,7 @@ package
 	
 	import czc.framework.GameContext;
 	
+	import test.BitmapTest;
 	import test.EmbedTest;
 	import test.FontTest;
 	import test.KeyboardEventTest;
@@ -30,14 +31,14 @@ package
 	 * 
 	 */	
 	[SWF(width="800",height="600")]
-	public class TestGame extends zp
+	public class TestGame extends BitmapTest
 	{
 		private var _context:GameContext;
 		
 		public function TestGame()
 		{
 			showRedrawRegions(true);
-			addEventListener(Event.ADDED_TO_STAGE,addedToStage,false,0,true);
+//			addEventListener(Event.ADDED_TO_STAGE,addedToStage,false,0,true);
 		}
 		protected function addedToStage(event:Event):void
 		{
