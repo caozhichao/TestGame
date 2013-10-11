@@ -14,6 +14,7 @@ package
 	
 	import test.BitmapTest;
 	import test.BitmapTest2;
+	import test.BitmapTest3;
 	import test.EmbedTest;
 	import test.FontTest;
 	import test.KeyboardEventTest;
@@ -32,7 +33,7 @@ package
 	 * 
 	 */	
 	[SWF(width="800",height="600")]
-	public class TestGame extends BitmapTest2
+	public class TestGame extends BitmapTest3
 	{
 		private var _context:GameContext;
 		
