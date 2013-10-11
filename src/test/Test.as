@@ -42,13 +42,20 @@ package test
 		public function Test()
 		{
 			super();
+			var a:uint = 10 * 2.5;
+			var c:uint = 0x00ff0000;
+			a = a << 24;
+			c = c | a;
+			trace(c.toString(16));
 			
+			/*
 			var sp : Shape = new Shape();
 			sp.graphics.beginFill(0);
 			sp.graphics.drawRect(0, 0, 800, 600);
 			sp.graphics.endFill();
 			addChild(sp);
 			sp.alpha = 0.3;
+			*/
 			
 			/*
 			var len:int = 4000000;
