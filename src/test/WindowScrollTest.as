@@ -7,8 +7,11 @@ package test
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
+	import flash.utils.Timer;
+	import flash.utils.getTimer;
 	
 	import czc.framework.manager.LoaderMaxManager;
+	import czc.framework.manager.TimerManager;
 	import czc.framework.utils.WindowScroll;
 	import czc.framework.vo.LoadItemVo;
 	
@@ -24,7 +27,7 @@ package test
 		private var windowScroll:WindowScroll;
 		private var map:Sprite;
 		private var p:Sprite;
-		private var _speed:int = 5;
+		private var _speed:Number = 3.5;
 		private var _stepCount:int;
 		private var _stepX:int;
 		private var _stepY:int;
@@ -79,6 +82,9 @@ package test
 			addEventListener(Event.ENTER_FRAME,onFrame);
 			
 			stage.addEventListener(Event.RESIZE,onResieze);
+			
+//			TimerManager.instance.init(60);
+//			TimerManager.instance.setInterval(onFrame,20);
 		}
 		
 		protected function onResieze(event:Event):void
@@ -117,7 +123,7 @@ package test
 		private function update():void
 		{
 			var mapPoint:Point = windowScroll.scroll(new Point(p.x,p.y));
-			trace(mapPoint);
+//			trace(mapPoint);
 //			map.x = mapPoint.x;
 //			map.y = mapPoint.y;
 			_playerLayer.x = mapPoint.x;
@@ -130,6 +136,7 @@ package test
 			{
 				if(mapPoint.x != _curMapPoint.x || mapPoint.y != _curMapPoint.y)
 				{
+//					trace(mapPoint.x - _curMapPoint.x);
 					_curMapPoint.x = mapPoint.x;
 					_curMapPoint.y = mapPoint.y;
 					drawMap(_curMapPoint);
@@ -143,7 +150,10 @@ package test
 		 */		
 		private function drawMap(startPoint:Point):void
 		{
+			trace(startPoint.x,startPoint.y);
+			_curMapBMD.lock();
 			_curMapBMD.copyPixels(_mapBMD,new Rectangle(Math.abs(startPoint.x),Math.abs(startPoint.y),_screenW,_screenH),new Point());
+			_curMapBMD.unlock();
 		}
 		
 		protected function onClick(event:MouseEvent):void

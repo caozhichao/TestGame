@@ -20,6 +20,7 @@ package
 	import test.KeyboardEventTest;
 	import test.NewAStarTest;
 	import test.RobotlegsTest;
+	import test.ScreenEffect;
 	import test.ScrollTest;
 	import test.Test;
 	import test.Test2;
@@ -33,7 +34,7 @@ package
 	 * 
 	 */	
 	[SWF(width="800",height="600")]
-	public class TestGame extends BitmapTest3
+	public class TestGame extends WindowScrollTest
 	{
 		private var _context:GameContext;
 		
@@ -48,7 +49,7 @@ package
 			stage.stageFocusRect = false;
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			stage.align = StageAlign.TOP_LEFT;
-			stage.frameRate = 60;
+			stage.frameRate = 30;
 			startGame();
 			FPS();
 			MonsterDebugger.initialize(this);
