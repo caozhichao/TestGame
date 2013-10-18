@@ -27,7 +27,7 @@ package test
 		private var windowScroll:WindowScroll;
 		private var map:Sprite;
 		private var p:Sprite;
-		private var _speed:Number = 3.5;
+		private var _speed:Number = 2;
 		private var _stepCount:int;
 		private var _stepX:int;
 		private var _stepY:int;
@@ -79,16 +79,18 @@ package test
 //			map.addEventListener(MouseEvent.CLICK,onClick);
 			stage.addEventListener(MouseEvent.CLICK,onClick);
 			
-			addEventListener(Event.ENTER_FRAME,onFrame);
+//			addEventListener(Event.ENTER_FRAME,onFrame);
 			
 			stage.addEventListener(Event.RESIZE,onResieze);
 			
-//			TimerManager.instance.init(60);
-//			TimerManager.instance.setInterval(onFrame,20);
+			TimerManager.instance.init(60);
+			TimerManager.instance.setInterval(onFrame,20);
+			
 		}
 		
 		protected function onResieze(event:Event):void
 		{
+			_curMapPoint = null;
 			setWindowSize();
 			//窗口大小改变更新位置
 			update();
@@ -110,7 +112,7 @@ package test
 		}
 		
 		
-		protected function onFrame(event:Event):void
+		protected function onFrame(/*event:Event*/):void
 		{
 			if(_stepCount > 0)
 			{
@@ -136,7 +138,6 @@ package test
 			{
 				if(mapPoint.x != _curMapPoint.x || mapPoint.y != _curMapPoint.y)
 				{
-//					trace(mapPoint.x - _curMapPoint.x);
 					_curMapPoint.x = mapPoint.x;
 					_curMapPoint.y = mapPoint.y;
 					drawMap(_curMapPoint);
@@ -150,7 +151,6 @@ package test
 		 */		
 		private function drawMap(startPoint:Point):void
 		{
-			trace(startPoint.x,startPoint.y);
 			_curMapBMD.lock();
 			_curMapBMD.copyPixels(_mapBMD,new Rectangle(Math.abs(startPoint.x),Math.abs(startPoint.y),_screenW,_screenH),new Point());
 			_curMapBMD.unlock();

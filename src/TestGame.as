@@ -49,7 +49,8 @@ package
 			stage.stageFocusRect = false;
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			stage.align = StageAlign.TOP_LEFT;
-			stage.frameRate = 30;
+			return;
+			stage.frameRate = 60;
 			startGame();
 			FPS();
 			MonsterDebugger.initialize(this);
