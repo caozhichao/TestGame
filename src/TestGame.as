@@ -12,6 +12,7 @@ package
 	
 	import czc.framework.GameContext;
 	
+	import test.BitmapMoveTest;
 	import test.BitmapTest;
 	import test.BitmapTest2;
 	import test.BitmapTest3;
@@ -27,6 +28,7 @@ package
 	import test.TestTimer;
 	import test.TweenLiteTest;
 	import test.WindowScrollTest;
+	import test.WindowScrollTest2;
 
 	/**
 	 * 
@@ -34,7 +36,7 @@ package
 	 * 
 	 */	
 	[SWF(width="800",height="600")]
-	public class TestGame extends WindowScrollTest
+	public class TestGame extends BitmapMoveTest
 	{
 		private var _context:GameContext;
 		
@@ -49,7 +51,6 @@ package
 			stage.stageFocusRect = false;
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			stage.align = StageAlign.TOP_LEFT;
-			return;
 			stage.frameRate = 60;
 			startGame();
 			FPS();
