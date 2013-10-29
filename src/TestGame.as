@@ -12,6 +12,8 @@ package
 	
 	import czc.framework.GameContext;
 	
+	import test.BMPScrollTest;
+	import test.BMPTest4;
 	import test.BitmapMoveTest;
 	import test.BitmapTest;
 	import test.BitmapTest2;
@@ -19,7 +21,9 @@ package
 	import test.EmbedTest;
 	import test.FontTest;
 	import test.KeyboardEventTest;
+	import test.MapMaskHelperTest;
 	import test.NewAStarTest;
+	import test.PaletteMapTest;
 	import test.RobotlegsTest;
 	import test.ScreenEffect;
 	import test.ScrollTest;
@@ -35,8 +39,8 @@ package
 	 * @author ZhiChaoCao
 	 * 
 	 */	
-	[SWF(width="800",height="600")]
-	public class TestGame extends BitmapMoveTest
+	[SWF(width="1000",height="1000")]
+	public class TestGame extends MapMaskHelperTest
 	{
 		private var _context:GameContext;
 		
