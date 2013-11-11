@@ -1,46 +1,24 @@
 package
 {
 	import com.bit101.components.FPSMeter;
-	import com.demonsters.debugger.MonsterDebugger;
 	
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
 	import flash.events.Event;
 	import flash.profiler.showRedrawRegions;
 	
-	import child.zp.zp;
-	
 	import czc.framework.GameContext;
 	
-	import test.BMPScrollTest;
-	import test.BMPTest4;
-	import test.BitmapMoveTest;
-	import test.BitmapTest;
-	import test.BitmapTest2;
-	import test.BitmapTest3;
-	import test.EmbedTest;
-	import test.FontTest;
-	import test.KeyboardEventTest;
-	import test.MapMaskHelperTest;
-	import test.NewAStarTest;
-	import test.PaletteMapTest;
-	import test.RobotlegsTest;
-	import test.ScreenEffect;
-	import test.ScrollTest;
-	import test.Test;
-	import test.Test2;
-	import test.TestTimer;
-	import test.TweenLiteTest;
-	import test.WindowScrollTest;
-	import test.WindowScrollTest2;
+	import test.BMDTest;
+	import test.flare3d.Flare3dTest;
 
 	/**
 	 * 
 	 * @author ZhiChaoCao
 	 * 
 	 */	
-	[SWF(width="1000",height="1000")]
-	public class TestGame extends MapMaskHelperTest
+	[SWF(width="800",height="600")]
+	public class TestGame extends BMDTest
 	{
 		private var _context:GameContext;
 		
@@ -58,8 +36,8 @@ package
 			stage.frameRate = 60;
 			startGame();
 			FPS();
-			MonsterDebugger.initialize(this);
-			MonsterDebugger.trace(this, "Hello World!");
+//			MonsterDebugger.initialize(this);
+//			MonsterDebugger.trace(this, "Hello World!");
 		}
 		
 		private function FPS():void
