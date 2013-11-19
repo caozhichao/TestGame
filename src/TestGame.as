@@ -10,6 +10,7 @@ package
 	import czc.framework.GameContext;
 	
 	import test.BMDTest;
+	import test.ErlangTest;
 	import test.flare3d.Flare3dTest;
 
 	/**
@@ -18,7 +19,7 @@ package
 	 * 
 	 */	
 	[SWF(width="800",height="600")]
-	public class TestGame extends BMDTest
+	public class TestGame extends ErlangTest
 	{
 		private var _context:GameContext;
 		
