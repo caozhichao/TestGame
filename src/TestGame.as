@@ -11,6 +11,7 @@ package
 	
 	import test.BMDTest;
 	import test.ErlangTest;
+	import test.PInPolygonTest;
 	import test.away3d.Test3D;
 	import test.flare3d.Flare3dTest;
 	import test.starlingtest.Demo_Web;
@@ -21,8 +22,8 @@ package
 	 * @author ZhiChaoCao
 	 * 
 	 */	
-	[SWF(width="800",height="600",frameRate="60",backgroundColor="0x0")]
-	public class TestGame extends Test3D
+	[SWF(width="800",height="600",frameRate="60",backgroundColor="0xffffff")]
+	public class TestGame extends PInPolygonTest
 	{
 		private var _context:GameContext;
 		
