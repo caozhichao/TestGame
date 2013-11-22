@@ -9,7 +9,12 @@ package test.away3d
 	import away3d.debug.Trident;
 	import away3d.entities.Mesh;
 	import away3d.materials.ColorMaterial;
+	import away3d.primitives.CapsuleGeometry;
+	import away3d.primitives.ConeGeometry;
 	import away3d.primitives.CubeGeometry;
+	import away3d.primitives.CylinderGeometry;
+	import away3d.primitives.PlaneGeometry;
+	import away3d.primitives.WireframeCube;
 	import away3d.primitives.WireframeSphere;
 	
 	
@@ -27,13 +32,15 @@ package test.away3d
 		private var cubeMesh:Mesh;
 
 		private var camera:Camera3D;
+
+		private var wCube:WireframeCube;
 		
 		public function Test3D()
 		{
 			super();
 			
 			_view3d = new View3D();
-			_view3d.backgroundColor = 0xffffff;
+			_view3d.backgroundColor = 0x0;
 //			_view3d.width = 400;
 //			_view3d.height = 300;
 			
@@ -44,9 +51,21 @@ package test.away3d
 //			_view3d.scene.addChild(_ball);
 			*/
 			var cube:CubeGeometry = new CubeGeometry(50,50,50);
+			var plane:PlaneGeometry = new PlaneGeometry(100,100);
+			var cone:ConeGeometry = new ConeGeometry();
+			var capsule:CapsuleGeometry = new CapsuleGeometry();
+			var cylinder:CylinderGeometry = new CylinderGeometry();
 			var cubeMaterial:ColorMaterial = new ColorMaterial(0xFF0000);
-			cubeMesh = new Mesh(cube, cubeMaterial);
-			_view3d.scene.addChild(cubeMesh);
+//			cubeMesh = new Mesh(cube);
+//			cubeMesh = new Mesh(plane,cubeMaterial);
+//			cubeMesh = new Mesh(cone);
+//			cubeMesh = new Mesh(capsule);
+//			cubeMesh = new Mesh(cylinder);
+//			_view3d.scene.addChild(cubeMesh);
+			
+			wCube = new WireframeCube(100,100,50,0xffffff,1);
+			_view3d.scene.addChild(wCube);
+			
 //			_view3d.camera.z = 10;
 //			_view3d.camera.x
 			camera = _view3d.camera;
@@ -54,19 +73,27 @@ package test.away3d
 //			trace("camera:",camera.x,camera.y,camera.z);
 			_view3d.scene.addChild(new Trident());
 			
-			camera.position = new Vector3D(0,0,-500);
-			_view3d.camera.lookAt(new Vector3D(0, 0, 0));
+//			camera.position = new Vector3D(0,0,-500);
+//			_view3d.camera.lookAt(new Vector3D(0, 0, 0));
 			addEventListener(Event.ENTER_FRAME, onenterframe);
 			
 			//3d -> 2d 坐标
+			/*
 			var flash2d:Vector3D = _view3d.project(cubeMesh.position);
 			trace(flash2d.x,flash2d.y,flash2d.z);
+			*/
 			//2d -> 3d 
-			var away3dPosition:Vector3D = _view3d.unproject(400,300,500);
+			var away3dPosition:Vector3D = _view3d.unproject(100,100,300);
+			wCube.x = away3dPosition.x;
+			wCube.y = away3dPosition.y;
+			wCube.z = away3dPosition.z;
+			
+			/*
 			trace(away3dPosition.x,away3dPosition.y,away3dPosition.z);
 			cubeMesh.x = away3dPosition.x;
 			cubeMesh.y = away3dPosition.y;
 			cubeMesh.z = away3dPosition.z;
+			*/
 			
 			/*
 			_view3d.camera.position = new Vector3D(100, 100, -100);
@@ -82,10 +109,12 @@ package test.away3d
 //			_ball.rotationY++;
 //			_ball.rotationZ++;
 //			cubeMesh.z -= 1;
-			cubeMesh.rotationX++;
+//			cubeMesh.rotationX++;
 //			cubeMesh.rotationY++;
 //			camera.z += 10;
 //			trace(camera.z);
+//			wCube.rotationX++;
+//			wCube.rotationY++;
 			
 			_view3d.render();
 		}

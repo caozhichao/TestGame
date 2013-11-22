@@ -9,7 +9,7 @@ package czc.framework.utils
 	 * 使用正数坐标点
 	 * @author caozhichao
 	 * 创建时间：2013-11-22 上午10:09:29
-	 * 
+	 * http://wenku.baidu.com/link?url=runtt_15O8_I2p2juLuhxjDrvHgVKfehg5fYMbc_bY80tPRME_nwxE-pdN5BReO-xEwUbzmlWawDLaMlosaBf8_smSfHKJ5UsrKIybgjSd7
 	 */
 	public class PInPolygon
 	{
