@@ -15,6 +15,7 @@ package test.away3d
 	import away3d.primitives.CylinderGeometry;
 	import away3d.primitives.PlaneGeometry;
 	import away3d.primitives.WireframeCube;
+	import away3d.primitives.WireframePlane;
 	import away3d.primitives.WireframeSphere;
 	
 	
@@ -22,6 +23,8 @@ package test.away3d
 	 *		
 	 * @author caozhichao
 	 * 创建时间：2013-11-21 下午2:15:02
+	 * 
+	 *  away3d 的坐标系和pv3d的坐标系一样  X轴 向右  y轴向上  z轴向里  为 正半轴   原点 在舞台中心
 	 * 
 	 */
 	public class Test3D extends Sprite
@@ -34,6 +37,8 @@ package test.away3d
 		private var camera:Camera3D;
 
 		private var wCube:WireframeCube;
+
+		private var mesh:Mesh;
 		
 		public function Test3D()
 		{
@@ -63,9 +68,20 @@ package test.away3d
 //			cubeMesh = new Mesh(cylinder);
 //			_view3d.scene.addChild(cubeMesh);
 			
-			wCube = new WireframeCube(100,100,50,0xffffff,1);
-			_view3d.scene.addChild(wCube);
+//			wCube = new WireframeCube(100,100,50,0xffffff,1);
+//			_view3d.scene.addChild(wCube);
 			
+//			var wPlane:WireframePlane = new WireframePlane(100,100);
+//			_view3d.scene.addChild(wPlane);
+			plane.doubleSided = true;
+			plane.segmentsW = plane.segmentsH = 5;
+			
+			mesh = new Mesh(plane);
+			
+			trace(mesh.subMeshes.length);
+			//显示边框
+			mesh.showBounds = true;
+			_view3d.scene.addChild(mesh);
 //			_view3d.camera.z = 10;
 //			_view3d.camera.x
 			camera = _view3d.camera;
@@ -73,8 +89,8 @@ package test.away3d
 //			trace("camera:",camera.x,camera.y,camera.z);
 			_view3d.scene.addChild(new Trident());
 			
-//			camera.position = new Vector3D(0,0,-500);
-//			_view3d.camera.lookAt(new Vector3D(0, 0, 0));
+			camera.position = new Vector3D(0,0,-500);
+			_view3d.camera.lookAt(new Vector3D(0, 0, 0));
 			addEventListener(Event.ENTER_FRAME, onenterframe);
 			
 			//3d -> 2d 坐标
@@ -84,10 +100,11 @@ package test.away3d
 			*/
 			//2d -> 3d 
 			var away3dPosition:Vector3D = _view3d.unproject(100,100,300);
+			/*
 			wCube.x = away3dPosition.x;
 			wCube.y = away3dPosition.y;
 			wCube.z = away3dPosition.z;
-			
+			*/
 			/*
 			trace(away3dPosition.x,away3dPosition.y,away3dPosition.z);
 			cubeMesh.x = away3dPosition.x;
@@ -115,6 +132,10 @@ package test.away3d
 //			trace(camera.z);
 //			wCube.rotationX++;
 //			wCube.rotationY++;
+			
+			mesh.rotationX++;
+//			trace(mesh.rotationX);
+			
 			
 			_view3d.render();
 		}

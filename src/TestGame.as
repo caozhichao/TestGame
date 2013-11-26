@@ -12,7 +12,11 @@ package
 	import test.BMDTest;
 	import test.ErlangTest;
 	import test.PInPolygonTest;
+	import test.away3d.Basic_Load3DS;
+	import test.away3d.Basic_SkyBox;
+	import test.away3d.Basic_SpriteSheetAnimation;
 	import test.away3d.Basic_Stereo;
+	import test.away3d.Basic_UVAnimation;
 	import test.away3d.Basic_View;
 	import test.away3d.Test3D;
 	import test.flare3d.Flare3dTest;
@@ -25,7 +29,7 @@ package
 	 * 
 	 */	
 	[SWF(width="800",height="600",frameRate="60",backgroundColor="0x0")]
-	public class TestGame extends Basic_Stereo
+	public class TestGame extends Test3D
 	{
 		private var _context:GameContext;
 		
