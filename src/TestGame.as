@@ -3,6 +3,7 @@ package
 	import com.bit101.components.FPSMeter;
 	
 	import flash.display.StageAlign;
+	import flash.display.StageDisplayState;
 	import flash.display.StageScaleMode;
 	import flash.events.Event;
 	import flash.profiler.showRedrawRegions;
@@ -36,10 +37,27 @@ package
 		public function TestGame()
 		{
 //			showRedrawRegions(true);
-//			addEventListener(Event.ADDED_TO_STAGE,addedToStage,false,0,true);
+			addEventListener(Event.ADDED_TO_STAGE,addedToStage,false,0,true);
 		}
 		protected function addedToStage(event:Event):void
 		{
+			if(stage)
+			{
+				if(stage.displayState==StageDisplayState.NORMAL)
+				{
+					if(StageDisplayState.FULL_SCREEN_INTERACTIVE){
+						stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE
+					}else{
+						stage.displayState = StageDisplayState.FULL_SCREEN;
+					}
+				}
+				else
+				{
+					stage.displayState = StageDisplayState.NORMAL;
+				}
+			}
+			
+			return;
 			removeEventListener(Event.ADDED_TO_STAGE,addedToStage);
 			stage.stageFocusRect = false;
 			stage.scaleMode = StageScaleMode.NO_SCALE;
