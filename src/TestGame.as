@@ -38,7 +38,26 @@ package
 		{
 //			showRedrawRegions(true);
 			addEventListener(Event.ADDED_TO_STAGE,addedToStage,false,0,true);
+			setId = 10;
+			
 		}
+		private var id:uint;
+		
+		public  function set setId(n:uint):void{
+			
+			id=n;
+			
+		}
+		
+		public function get getId():uint{
+			
+			return id;
+			
+		}
+		
+
+		
+		
 		protected function addedToStage(event:Event):void
 		{
 			if(stage)
