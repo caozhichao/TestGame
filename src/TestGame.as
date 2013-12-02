@@ -29,17 +29,17 @@ package
 	 * @author ZhiChaoCao
 	 * 
 	 */	
-	[SWF(width="800",height="600",frameRate="60",backgroundColor="0x0")]
-	public class TestGame extends Test3D
+//	[SWF(width="800",height="600",frameRate="60",backgroundColor="0x0")]
+	[SWF(width="800", height="600", frameRate="60", backgroundColor="#222222")]
+	public class TestGame extends Demo_Web
 	{
 		private var _context:GameContext;
 		
 		public function TestGame()
 		{
 //			showRedrawRegions(true);
-			addEventListener(Event.ADDED_TO_STAGE,addedToStage,false,0,true);
-			setId = 10;
-			
+//			addEventListener(Event.ADDED_TO_STAGE,addedToStage,false,0,true);
+//			setId = 10;
 		}
 		private var id:uint;
 		

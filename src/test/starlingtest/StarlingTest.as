@@ -1,6 +1,8 @@
 package test.starlingtest
 {
 	import flash.display.Sprite;
+	import flash.display3D.Context3DRenderMode;
+	import flash.events.Event;
 	
 	import starling.core.Starling;
 	
@@ -18,9 +20,26 @@ package test.starlingtest
 		public function StarlingTest()
 		{
 			super();
-			_starling = new Starling(StarlingGame,stage);
+			if(stage)
+			{
+				init();
+			} else 
+			{
+				addEventListener(Event.ADDED_TO_STAGE,onStage,false,0,true);
+			}
+		}
+		
+		protected function onStage(event:Event):void
+		{
+			removeEventListener(Event.ADDED_TO_STAGE,onStage);
+			init();
+		}
+		
+		private function init():void
+		{
+			_starling = new Starling(StarlingGame2,stage,null,null,Context3DRenderMode.AUTO);
 			_starling.showStats = true;
-			_starling.start();
+			_starling.start();			
 		}
 	}
 }
