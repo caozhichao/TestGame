@@ -1,6 +1,8 @@
 package test.starlingtest
 {
 	import flash.display.Sprite;
+	import flash.display.StageAlign;
+	import flash.display.StageScaleMode;
 	import flash.display3D.Context3DRenderMode;
 	import flash.events.Event;
 	
@@ -32,12 +34,15 @@ package test.starlingtest
 		protected function onStage(event:Event):void
 		{
 			removeEventListener(Event.ADDED_TO_STAGE,onStage);
+			stage.align = StageAlign.TOP_LEFT;
+			stage.scaleMode = StageScaleMode.NO_SCALE;
 			init();
 		}
 		
 		private function init():void
 		{
-			_starling = new Starling(StarlingGame2,stage,null,null,Context3DRenderMode.AUTO);
+//			Starling.handleLostContext = true;
+			_starling = new Starling(StarlingRenderTest,stage,null,null,Context3DRenderMode.AUTO);
 			_starling.showStats = true;
 			_starling.start();			
 		}

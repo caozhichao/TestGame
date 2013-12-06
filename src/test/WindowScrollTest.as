@@ -27,7 +27,7 @@ package test
 		private var windowScroll:WindowScroll;
 		private var map:Sprite;
 		private var p:Sprite;
-		private var _speed:Number = 2;
+		private var _speed:Number = 7;
 		private var _stepCount:int;
 		private var _stepX:int;
 		private var _stepY:int;
@@ -83,8 +83,8 @@ package test
 			
 			stage.addEventListener(Event.RESIZE,onResieze);
 			
-			TimerManager.instance.init(60);
-			TimerManager.instance.setInterval(onFrame,20);
+			TimerManager.instance.init(30);
+			TimerManager.instance.setInterval(onFrame,33);
 			
 		}
 		

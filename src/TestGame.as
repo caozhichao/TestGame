@@ -8,11 +8,16 @@ package
 	import flash.events.Event;
 	import flash.profiler.showRedrawRegions;
 	
+	import away3d.loaders.parsers.MD5MeshParser;
+	
 	import czc.framework.GameContext;
 	
 	import test.BMDTest;
 	import test.ErlangTest;
+	import test.MD5Test;
 	import test.PInPolygonTest;
+	import test.WindowScrollTest;
+	import test.WindowScrollTest2;
 	import test.away3d.Basic_Load3DS;
 	import test.away3d.Basic_SkyBox;
 	import test.away3d.Basic_SpriteSheetAnimation;
@@ -22,6 +27,7 @@ package
 	import test.away3d.Test3D;
 	import test.flare3d.Flare3dTest;
 	import test.starlingtest.Demo_Web;
+	import test.starlingtest.StarlingGame2;
 	import test.starlingtest.StarlingTest;
 
 	/**
@@ -31,7 +37,7 @@ package
 	 */	
 //	[SWF(width="800",height="600",frameRate="60",backgroundColor="0x0")]
 	[SWF(width="800", height="600", frameRate="60", backgroundColor="#222222")]
-	public class TestGame extends Demo_Web
+	public class TestGame extends StarlingTest
 	{
 		private var _context:GameContext;
 		
@@ -60,6 +66,7 @@ package
 		
 		protected function addedToStage(event:Event):void
 		{
+			/*
 			if(stage)
 			{
 				if(stage.displayState==StageDisplayState.NORMAL)
@@ -77,11 +84,12 @@ package
 			}
 			
 			return;
+			*/
 			removeEventListener(Event.ADDED_TO_STAGE,addedToStage);
 			stage.stageFocusRect = false;
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			stage.align = StageAlign.TOP_LEFT;
-			stage.frameRate = 60;
+//			stage.frameRate = 60;
 			startGame();
 			FPS();
 			

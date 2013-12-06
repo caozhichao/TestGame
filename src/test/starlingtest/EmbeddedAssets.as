@@ -38,5 +38,17 @@ package test.starlingtest
         
         [Embed(source="../../assets/audio/wing_flap.mp3")]
         public static const wing_flap:Class;
+		
+		//test
+		[Embed(source="../../assets/component.xml", mimeType="application/octet-stream")]
+		public static const component_xml:Class;
+		[Embed(source="../../assets/component.png")]
+		public static const component:Class;
+		
+		[Embed(source="../../assets/map_1_1.xml",mimeType="application/octet-stream")]
+		public static const map_1_1_xml:Class;
+		[Embed(source="../../assets/map_1_1.png")]
+		public static const map_1_1:Class;
+		
     }
 }
