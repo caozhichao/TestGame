@@ -19,10 +19,10 @@ package test
 		{
 			super();
 			var points:Array =[new Point(10,10),new Point(100,10),new Point(100,50),new Point(150,50),new Point(150,100),new Point(10,100)];
-			var p:Point = new Point(200,80);
+			var p:Point = new Point(150,80);
 			draw(points,p);
 			var t:Number = getTimer();
-			for(var i:int = 0; i < 1; i++)
+			for(var i:int = 0; i < 1000; i++)
 			{
 				var value:Boolean = PInPolygon.pInPolygon(points,p);
 				trace("点是否在多边形里面:" + value);

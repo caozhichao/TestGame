@@ -16,6 +16,7 @@ package
 	import test.ErlangTest;
 	import test.MD5Test;
 	import test.PInPolygonTest;
+	import test.PInPolygonTest2;
 	import test.WindowScrollTest;
 	import test.WindowScrollTest2;
 	import test.away3d.Basic_Load3DS;

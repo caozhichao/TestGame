@@ -15,6 +15,11 @@ package test.starlingtest
 	import starling.textures.Texture;
 	import starling.utils.AssetManager;
 	
+	import test.starlingtest.gem.GemAssets;
+	import test.starlingtest.gem.GemItem;
+	
+	import world.items.items.Gem1_1;
+	
 	
 	/**
 	 *		
@@ -33,38 +38,68 @@ package test.starlingtest
 		private var _speed:Number = 5;
 		private var image:Image;
 		
+		private static const ROWS:int = 10;
+		private static const COLS:int = 8;
+		
+		private var assets:AssetManager;
+		
 		public function StarlingGame2()
 		{
 			super();
 			addEventListener(Event.ADDED_TO_STAGE,onStage);
 		}
 		
+		
+		private function createGemList():void
+		{
+			var item:GemItem;
+			for (var i:int = 0; i < ROWS; i++) 
+			{
+				for (var j:int = 0; j < COLS; j++) 
+				{
+					texture = assets.getTexture(["Gem1","Gem2","Gem3","Gem4","Gem5","Gem6"][int(Math.random() * 6)]);
+					item = new GemItem(texture);
+					item.x = j * 42;
+					item.y = i * 42;
+					addChild(item);
+				}
+			}
+		}
+		
 		private function onStage(evt:Event):void
 		{
 			removeEventListener(Event.ADDED_TO_STAGE,onStage);
-			var assets:AssetManager = new AssetManager();
+			assets = new AssetManager();
 			assets.verbose = Capabilities.isDebugger;
-			assets.enqueue(EmbeddedAssets);
+//			assets.enqueue(EmbeddedAssets);
+			assets.enqueue(GemAssets);
 			function progress(value:Number):void
 			{
 				trace(value);
 				if(value == 1)
 				{
-					test();
+//					test();
+					createGemList();
 				}
 			}
 			assets.loadQueue(progress);
 			
 			function test():void
 			{
+				texture = assets.getTexture("Gem1");
+//				image = new Image(texture);
+//				addChild(image);
+				var item:GemItem = new GemItem(texture);
+				addChild(item);
+				/*
 				texture = assets.getTexture("res_2_mc0000");
 				image = new Image(texture);
 //				addChild(image);
-				
 				var frames:Vector.<Texture> = assets.getTextures("res_2");
 				var mMovie:MovieClip = new MovieClip(frames, 30);
 				addChild(mMovie);
 				Starling.juggler.add(mMovie);
+				*/
 			}
 			/*
 			var texture:Texture = Texture.fromEmbeddedAsset(Person);
