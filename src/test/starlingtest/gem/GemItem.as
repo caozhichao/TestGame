@@ -19,8 +19,8 @@ package test.starlingtest.gem
 		{
 			_container = new Sprite();
 			_image = new Image(value);
-			_image.x = -_image.width >> 1;
-			_image.y = -_image.height >> 1;
+			_image.pivotX = _image.width >> 1;
+			_image.pivotY = _image.height >> 1;
 			_container.addChild(_image);
 			_container.scaleX = _container.scaleY = 0.25;
 			_container.x = _container.width >> 1;

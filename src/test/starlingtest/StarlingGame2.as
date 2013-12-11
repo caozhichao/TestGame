@@ -66,9 +66,25 @@ package test.starlingtest
 			}
 		}
 		
+		private function test2():void
+		{
+			function onTouch(evt:TouchEvent):void
+			{
+				var touch:Touch = evt.getTouch(stage);
+				if(touch)
+				{
+					var pos:Point = touch.getLocation(stage);
+					trace(pos,touch.phase);
+				}
+			}
+			stage.addEventListener(TouchEvent.TOUCH,onTouch);
+		}
+		
 		private function onStage(evt:Event):void
 		{
 			removeEventListener(Event.ADDED_TO_STAGE,onStage);
+//			test2();
+//			return;
 			assets = new AssetManager();
 			assets.verbose = Capabilities.isDebugger;
 //			assets.enqueue(EmbeddedAssets);

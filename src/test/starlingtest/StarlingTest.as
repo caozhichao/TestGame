@@ -42,8 +42,8 @@ package test.starlingtest
 		private function init():void
 		{
 //			Starling.handleLostContext = true;
-			_starling = new Starling(StarlingGame2,stage,null,null,Context3DRenderMode.SOFTWARE);
-//			_starling.showStats = true;
+			_starling = new Starling(StarlingGame2,stage,null,null,Context3DRenderMode.AUTO);
+			_starling.showStats = true;
 			_starling.start();			
 		}
 	}
