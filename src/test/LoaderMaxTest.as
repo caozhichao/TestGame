@@ -47,7 +47,8 @@ package test
 			button.addEventListener(MouseEvent.CLICK,onClick);
 			function onClick(evt:MouseEvent):void
 			{
-				addEventListener(Event.ENTER_FRAME,onFrame);
+//				addEventListener(Event.ENTER_FRAME,onFrame);
+				load();
 			}
 			load();
 		}
@@ -62,9 +63,10 @@ package test
 //			loader.append(child);
 			var domain:ApplicationDomain = new ApplicationDomain(ApplicationDomain.currentDomain);
 			var context:LoaderContext = new LoaderContext(false, domain);
+			loader.prepend(new SWFLoader("assets/world_map.swf", {/*name: obj.id, */context: context/*,noCache:false, */,onComplete: onComplete}));
 //			loader.prepend(new SWFLoader("assets/world_map.swf", {/*name: obj.id, */context: context/*,noCache:false, */,onComplete: onComplete}));
-			var child:LoaderCore = LoaderMax.parse("assets/1.png",{context:context/*,onComplete: onComplete*/});
-			loader.append(child);
+//			var child:LoaderCore = LoaderMax.parse("assets/1.png",{context:context/*,onComplete: onComplete*/});
+//			loader.append(child);
 			loader.load();
 			//闭包资源无法卸载????
 			function completeHandler(evt:LoaderEvent):void
@@ -78,19 +80,19 @@ package test
 		{
 			return function completeHandler(evt:LoaderEvent):void
 			{
-				var imageLoader:ImageLoader = loader.getLoader("assets/1.png");
-				var bm:Bitmap /*= loader.getContent("assets/map1.jpg")*/;
-				bm = imageLoader.rawContent;
-				var byts:ByteArray = bm.bitmapData.getPixels(bm.bitmapData.rect);
-				/*
-				byts.compress(CompressionAlgorithm.LZMA);
-				
-				var lbyts:ByteArray = LZMA.decode(byts);
-				lbyts.position = 0;
-				*/
-				
-				var l:Loader = new Loader();
-				l.loadBytes(byts);
+//				var imageLoader:ImageLoader = loader.getLoader("assets/1.png");
+//				var bm:Bitmap /*= loader.getContent("assets/map1.jpg")*/;
+//				bm = imageLoader.rawContent;
+//				var byts:ByteArray = bm.bitmapData.getPixels(bm.bitmapData.rect);
+//				/*
+//				byts.compress(CompressionAlgorithm.LZMA);
+//				
+//				var lbyts:ByteArray = LZMA.decode(byts);
+//				lbyts.position = 0;
+//				*/
+//				
+//				var l:Loader = new Loader();
+//				l.loadBytes(byts);
 //				addChild(l);
 				trace("LoaderMaxTest.completeHandler(evt)");
 //				loader.empty(true,true);

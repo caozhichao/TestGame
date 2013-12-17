@@ -14,6 +14,7 @@ package
 	
 	import test.BMDTest;
 	import test.ErlangTest;
+	import test.LoaderMaxTest;
 	import test.MD5Test;
 	import test.PInPolygonTest;
 	import test.PInPolygonTest2;
@@ -38,7 +39,7 @@ package
 	 */	
 //	[SWF(width="800",height="600",frameRate="60",backgroundColor="0x0")]
 	[SWF(width="800", height="600", frameRate="60", backgroundColor="#222222")]
-	public class TestGame extends StarlingTest
+	public class TestGame extends LoaderMaxTest
 	{
 		private var _context:GameContext;
 		
