@@ -38,8 +38,8 @@ package
 	 * 
 	 */	
 //	[SWF(width="800",height="600",frameRate="60",backgroundColor="0x0")]
-	[SWF(width="800", height="600", frameRate="60", backgroundColor="#222222")]
-	public class TestGame extends LoaderMaxTest
+	[SWF(width="800", height="600", frameRate="24", backgroundColor="#222222")]
+	public class TestGame extends WindowScrollTest2
 	{
 		private var _context:GameContext;
 		

@@ -29,7 +29,7 @@ package test
 		private var windowScroll:WindowScroll;
 		private var map:Sprite;
 		private var p:Sprite;
-		private var _speed:Number = 7;
+		private var _speed:Number = 5;
 		private var _stepCount:int;
 		private var _stepX:int;
 		private var _stepY:int;
@@ -126,8 +126,10 @@ package test
 		private function update():void
 		{
 			var mapPoint:Point = windowScroll.scroll(new Point(p.x,p.y));
+//			trace(mapPoint.x,mapPoint.y);
 //			map.x = mapPoint.x;
 //			map.y = mapPoint.y;
+			
 			TweenLite.to(map,0.2,{x:mapPoint.x,y:mapPoint.y});
 			
 			_playerLayer.x = mapPoint.x;
@@ -142,6 +144,11 @@ package test
 			_stepCount = ds / _speed;
 			_stepX = _speed * Math.cos(angle);
 			_stepY = _speed * Math.sin(angle);
+			
+			if(_stepCount > 0)
+			{
+				stage.frameRate = 60;
+			}
 		}
 	}
 }
