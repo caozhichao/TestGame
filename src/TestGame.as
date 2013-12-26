@@ -18,6 +18,8 @@ package
 	import test.MD5Test;
 	import test.PInPolygonTest;
 	import test.PInPolygonTest2;
+	import test.ScrollRectTest;
+	import test.ScrollTest;
 	import test.WindowScrollTest;
 	import test.WindowScrollTest2;
 	import test.away3d.Basic_Load3DS;
@@ -39,7 +41,7 @@ package
 	 */	
 //	[SWF(width="800",height="600",frameRate="60",backgroundColor="0x0")]
 	[SWF(width="800", height="600", frameRate="24", backgroundColor="#222222")]
-	public class TestGame extends WindowScrollTest2
+	public class TestGame extends ScrollRectTest
 	{
 		private var _context:GameContext;
 		
