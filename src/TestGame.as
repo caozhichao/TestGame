@@ -12,6 +12,8 @@ package
 	
 	import czc.framework.GameContext;
 	
+	import flare.Flare3D;
+	
 	import test.BMDTest;
 	import test.ErlangTest;
 	import test.LoaderMaxTest;
@@ -20,6 +22,7 @@ package
 	import test.PInPolygonTest2;
 	import test.ScrollRectTest;
 	import test.ScrollTest;
+	import test.Test;
 	import test.WindowScrollTest;
 	import test.WindowScrollTest2;
 	import test.away3d.Basic_Load3DS;
@@ -30,6 +33,7 @@ package
 	import test.away3d.Basic_View;
 	import test.away3d.Test3D;
 	import test.flare3d.Flare3dTest;
+	import test.stage3d.Stage3dTest;
 	import test.starlingtest.Demo_Web;
 	import test.starlingtest.StarlingGame2;
 	import test.starlingtest.StarlingTest;
@@ -40,8 +44,8 @@ package
 	 * 
 	 */	
 //	[SWF(width="800",height="600",frameRate="60",backgroundColor="0x0")]
-	[SWF(width="800", height="600", frameRate="24", backgroundColor="#222222")]
-	public class TestGame extends ScrollRectTest
+	[SWF(width="800", height="600", frameRate="24", backgroundColor="0xffffff")]
+	public class TestGame extends Stage3dTest
 	{
 		private var _context:GameContext;
 		

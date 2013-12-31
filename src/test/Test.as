@@ -11,6 +11,7 @@ package test
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.net.FileReference;
+	import flash.net.Socket;
 	import flash.net.URLRequest;
 	import flash.system.ApplicationDomain;
 	import flash.system.LoaderContext;
@@ -42,11 +43,27 @@ package test
 		public function Test()
 		{
 			super();
+			
+			var bytes:ByteArray = new ByteArray();
+			var a:Number = 1.0;
+			bytes.writeDouble(a);
+//			bytes.writeInt(a);
+			trace(bytes.length);
+			bytes.position = 0;
+			
+			trace(a.toString(2));
+			
+			while(bytes.bytesAvailable > 0)
+			{
+				trace(bytes.readByte());
+			}
+			/*
 			var a:uint = 10 * 2.5;
 			var c:uint = 0x00ff0000;
 			a = a << 24;
 			c = c | a;
 			trace(c.toString(16));
+			*/
 			
 			/*
 			var sp : Shape = new Shape();
@@ -222,8 +239,10 @@ package test
 			trace(a);
 			*/
 			
+			/*
 			var str:Sprite = new Sprite();
 			trace(getMemoryName(str));
+			*/
 		}
 		
 		public function getMemoryName(obj:Object):String

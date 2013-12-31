@@ -19,7 +19,7 @@ package test.flare3d
 		{
 			super();
 			scene = new Scene3D( this);
-			scene.camera.setPosition( 10, 20, -30);
+			scene.camera.setPosition( 0, 0, -100);
 			scene.camera.lookAt( 0, 0, 0);
 			scene.addChild( new Cube() );
 		}
